@@ -1,0 +1,44 @@
+=====================================
+H5edit version 1.3.1 released on 2014-11-14.
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    - None
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    Ported to Mac OS X Mavericks system.
+
+Bug Fixes since H5edit v1.3.0
+=============================
+
+    Configuration
+    -------------
+    - None
+
+    Tools
+    -----
+    - None
+
+    Tests
+    -----
+    - None
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+Mac OS X Lion 10.7.5, Mountain Lion 10.8.5 and Mavericks 10.9.5.
+SunOS 5.11
+
+Known Problems
+* h5edit does not return non-zero exit code when there is syntax error.
+  (AKC - 2013/08/08 - JPSS-72).

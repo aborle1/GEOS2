@@ -1,0 +1,68 @@
+{
+  "build" : {
+    "tools" : {
+      "CC"       : "mpicc",
+      "CPP"      : "mpicc -E",
+      "CPPFLAGS" : "-I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include -DgFortran  -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/zlib    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/szlib    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/jpeg    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/hdf5    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/hdf    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/uuid    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/netcdf    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/udunits2  ",
+      "CFLAGS"   : "-fPIC  ",
+      "LDFLAGS"  : "-L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib ",
+      "LIBS"     : " -lm -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lnetcdf -ljpeg -lmfhdf -ldf -lhdf5_hl -lhdf5 -ldl -lm -lmfhdf -ldf -lsz -ljpeg -lcurl -lssl -lcrypto -lssl -lcrypto -lz -lm -ldl -lm -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lcurl -lssl -lcrypto -lssl -lcrypto -lz -lm	 -lexpat -lmfhdf -ldf -lsz -ljpeg  -ldl -lm",
+      "FC"       : "mpifort",
+      "F77"      : "mpifort",
+      "FCFLAGS"  : "",
+      "LD"       : "/usr/bin/ld",
+      "NM"       : "/usr/bin/nm -B",
+      "AR"       : "ar",
+      "AS"       : "@AS@",
+      "DLLTOOL"  : "false",
+      "OBJDUMP"  : "objdump",
+      "STRIP"    : "strip",
+      "RANLIB"   : "ranlib",
+      "INSTALL"  : "/usr/bin/install -c"
+    },
+    "platform" : {
+      "USER_NAME"   : "aborle1",
+      "HOST_NAME"   : "p8umbc1",
+      "SYSTEM_TYPE" : "/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu"
+    },
+    "libraries" : {
+      "threads"    : {
+        "lib"      : "",
+        "include"  : ""
+      },
+      "mpi"        : {
+        "libs"     : "",
+        "cflags"   : "",
+        "fclibs"   : "",
+        "fcflags"  : ""
+      },
+      "szlib"    : {
+        "lib"      : " -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lsz",
+        "include"  : " -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include"
+      },
+      "netcdf"   : {
+        "lib"      : " -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lnetcdf",
+        "include"  : " -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include"
+      },
+      "grib_api" : {
+        "lib"      : "",
+        "include"  : ""
+      },
+      "jasper" : {
+        "lib"      : ""
+      }
+    }
+  },
+  "features" : {
+    "enable_cdi_lib" : false,
+    "grib"           : "no",
+    "cgribex"        : "yes",
+    "service"        : "yes",
+    "extra"          : "yes",
+    "ieg"            : "yes",
+    "enable_mpi"    : false,
+    "parallel_nc4"  : 0,
+    "enable_python" : false,
+    "enable_ruby"   : false
+  }
+}

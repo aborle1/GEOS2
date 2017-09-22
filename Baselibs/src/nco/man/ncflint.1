@@ -1,0 +1,248 @@
+.\" $Header$ -*-nroff-*-
+.\" Purpose: ROFF man page for ncflint
+.\" Usage:
+.\" nroff -man ~/nco/man/ncflint.1
+.TH NCFLINT 1
+.SH NAME
+ncflint \- netCDF File Interpolator
+.SH SYNTAX
+ncflint [\-3] [\-4] [\-6] [\-7] [\-A] [\-\-bfr
+.IR sz_byt ] [\-C] [\-c] [\-\-cnk_byt
+.IR sz_byt ] [\-\-cnk_dmn 
+.IR nm,sz_lmn ]
+[\-\-cnk_map 
+.IR map ]
+[\-\-cnk_min
+.IR sz_byt ]
+[\-\-cnk_plc 
+.IR plc ]
+[\-\-cnk_scl 
+.IR sz_lmn ] [\-D 
+.IR dbg_lvl ]
+[\-d 
+.IR dim ,[
+.IR min ][,[
+.IR max ]]]
+[\-F] [\-\-fix_rec_crd] [\-G
+.IR gpe_dsc ]
+[\-g  
+.IR grp [,...]]
+[\-\-glb
+.IR att_name=
+.IR att_val ]]
+[\-h] [\-\-hdf] [\-\-hdr_pad
+.IR sz_byt ]
+[\-i
+.IR var, val3 ] [\-L 
+.IR dfl_lvl ] [\-l 
+.IR path ]
+[\-\-msa] [\-\-no_tmp_fl] [\-O] [\-p 
+.IR path ]
+[\-\-ppc 
+.IR var1 [,
+.IR var2 [,...]]=
+.IR prc ]]
+[\-R] [\-r] [\-\-ram_all] [\-t
+.IR thr_nbr ]
+[\--unn] [\-v 
+.IR var [,...]]
+[\-w 
+.IR wgt[,
+.IR wgt2 ]]
+[\-X 
+.IR box ] 
+[\-x] 
+.I file1 file2 file3
+.SH DESCRIPTION
+.PP
+.B ncflint
+creates an output file that is a linear combination of the
+input files.  This linear combination can be a weighted average, a
+normalized weighted average, or an interpolation of the input files.
+Coordinate variables are not acted upon in any case, they are simply
+copied from
+.I file_1.
+ There are two conceptually distinct methods of using 
+.B ncflint.
+The first method is to specify the weight each input file is to have in the
+output file.  In this method, the value 
+.IR val3 
+of a variable in the
+output file 
+.IR file_3 
+is determined from its values 
+.IR val1 
+and 
+.IR val2 
+in the two input files according to
+.IR wgt1*val1 + wgt2*val2
+
+Here at least 
+.IR wgt1,
+and, optionally, 
+.IR wgt2, 
+are specified on the command line with the 
+.BR \-w 
+(or 
+.BR \-\-weight
+or 
+.BR \-\-wgt_var
+) switch.  If only 
+.IR wgt1 
+is specified then 
+.IR wgt2 
+is automatically computed as 
+.IR wgt2 = 1 \- wgt1.  
+Note that weights larger than 1 are allowed.  Thus it is
+possible to specify 
+.IR wgt1 = 2 
+and 
+.IR wgt2 = \-3.  
+One can use this functionality to multiply all the values in a given file by a constant.
+.PP
+The second method of using 
+.B ncflint
+is to specify the interpolation option with 
+.BR \-i
+(or with the 
+.BR \-\-ntp
+or 
+.BR \-\-interpolate
+long options). This is really the inverse of the first method in the following sense.
+When the user specifies the weights directly, 
+.B ncflint
+has no work to do besides multiplying the input values by their respective weights and
+adding the results together to produce the output values.  This assumes
+it is the weights that are known a priori.  In another class of cases
+it is the "arrival value" (i.e., 
+.IR val3
+) of a particular variable 
+.IR var
+that is known a priori.  In this case, the implied weights can always
+be inferred by examining the values of 
+.IR var 
+in the input files.  This
+results in one equation in two unknowns, 
+.IR wgt1 
+and 
+.IR wgt2:
+.IR val3 = wgt1*val1 + wgt2*val2.
+.PP
+Unique determination of the weights requires imposing the
+additional constraint of normalization on the weights: 
+.IR wgt1 + wgt2 = 1.
+Thus, to use the interpolation option, the user specifies 
+.IR var 
+and 
+.IR val3
+with the 
+.BR \-i 
+option.  
+.B ncflint
+will compute 
+.IR wgt1 
+and 
+.IR wgt2, 
+and use
+these weights on all variables to generate the output file.  Although
+.IR var 
+may have any number of dimensions in the input files, it must
+represent a single, scalar value.  Thus any dimensions associated with
+.IR var 
+must be "degenerate", i.e., of size one.
+.PP
+ If neither 
+.BR \-i
+nor
+.BR \-w
+is specified on the command line, 
+.B ncflint
+defaults to weighting each input file equally in the output file.  This
+is equivalent to specifying 
+.IR \-w 
+0.5 or
+.IR \-w 
+0.5,0.5.  
+Attempting to
+specify both
+.BR \-i 
+and 
+.BR \-w
+methods in the same command is an error.
+.PP
+.B ncflint
+is programmed not to interpolate variables of type
+.BR NC_CHAR
+and 
+.BR NC_BYTE.  
+This behavior is hardcoded.
+
+.\" NB: Append man_end.txt here
+.\" $Header$ -*-nroff-*-
+.\" Purpose: Trailer file for common ending to NCO man pages
+.\" Usage: 
+.\" Append this file to end of NCO man pages immediately after marker
+.\" that says "Append man_end.txt here"
+.SH AUTHOR
+.B NCO
+manual pages written by Charlie Zender and originally formatted by Brian Mays.
+
+.SH "REPORTING BUGS"
+Report bugs to <http://sf.net/bugs/?group_id=3331>.
+
+.SH COPYRIGHT
+Copyright \(co 1995-2016 Charlie Zender
+.br
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+.SH "SEE ALSO"
+The full documentation for
+.B NCO
+is maintained as a Texinfo manual called the 
+.B NCO User's Guide.
+Because 
+.B NCO
+is mathematical in nature, the documentation includes TeX-intensive
+portions not viewable on character-based displays. 
+Hence the only complete and authoritative versions of the 
+.B NCO User's Guide 
+are the PDF (recommended), DVI, and Postscript versions at
+<http://nco.sf.net/nco.pdf>, <http://nco.sf.net/nco.dvi>,
+and <http://nco.sf.net/nco.ps>, respectively.
+HTML and XML versions
+are available at <http://nco.sf.net/nco.html> and
+<http://nco.sf.net/nco.xml>, respectively.
+
+If the
+.B info
+and
+.B NCO
+programs are properly installed at your site, the command
+.IP
+.B info nco
+.PP
+should give you access to the complete manual, except for the
+TeX-intensive portions.
+
+.BR ncap (1), 
+.BR ncap2 (1), 
+.BR ncatted (1), 
+.BR ncbo (1), 
+.BR ncclimo (1), 
+.BR nces (1), 
+.BR ncecat (1), 
+.BR ncflint (1), 
+.BR ncks (1), 
+.BR nco (1), 
+.BR ncpdq (1), 
+.BR ncra (1), 
+.BR ncrcat (1), 
+.BR ncremap (1), 
+.BR ncrename (1), 
+.BR ncwa (1) 
+
+.SH HOMEPAGE
+The 
+.B NCO
+homepage at <http://nco.sf.net> contains more information.

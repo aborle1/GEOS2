@@ -1,0 +1,208 @@
+resource_unpack.lo: resource_unpack.c /usr/include/stdc-predef.h config.h \
+ cdi.h /usr/include/stdio.h /usr/include/features.h \
+ /usr/include/powerpc64le-linux-gnu/sys/cdefs.h \
+ /usr/include/powerpc64le-linux-gnu/bits/wordsize.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h \
+ /usr/include/powerpc64le-linux-gnu/bits/types.h \
+ /usr/include/powerpc64le-linux-gnu/bits/typesizes.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdio_lim.h \
+ /usr/include/powerpc64le-linux-gnu/bits/sys_errlist.h \
+ /usr/include/powerpc64le-linux-gnu/sys/types.h /usr/include/time.h \
+ /usr/include/endian.h /usr/include/powerpc64le-linux-gnu/bits/endian.h \
+ /usr/include/powerpc64le-linux-gnu/bits/byteswap.h \
+ /usr/include/powerpc64le-linux-gnu/bits/byteswap-16.h \
+ /usr/include/powerpc64le-linux-gnu/sys/select.h \
+ /usr/include/powerpc64le-linux-gnu/bits/select.h \
+ /usr/include/powerpc64le-linux-gnu/bits/sigset.h \
+ /usr/include/powerpc64le-linux-gnu/bits/time.h \
+ /usr/include/powerpc64le-linux-gnu/sys/sysmacros.h \
+ /usr/include/powerpc64le-linux-gnu/bits/pthreadtypes.h dmemory.h grid.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdbool.h institution.h \
+ model.h cdi_int.h /usr/include/assert.h /usr/include/string.h \
+ /usr/include/xlocale.h /usr/include/errno.h \
+ /usr/include/powerpc64le-linux-gnu/bits/errno.h \
+ /usr/include/linux/errno.h \
+ /usr/include/powerpc64le-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/math.h \
+ /usr/include/powerpc64le-linux-gnu/bits/math-vector.h \
+ /usr/include/powerpc64le-linux-gnu/bits/libm-simd-decl-stubs.h \
+ /usr/include/powerpc64le-linux-gnu/bits/huge_val.h \
+ /usr/include/powerpc64le-linux-gnu/bits/huge_valf.h \
+ /usr/include/powerpc64le-linux-gnu/bits/huge_vall.h \
+ /usr/include/powerpc64le-linux-gnu/bits/inf.h \
+ /usr/include/powerpc64le-linux-gnu/bits/nan.h \
+ /usr/include/powerpc64le-linux-gnu/bits/mathdef.h \
+ /usr/include/powerpc64le-linux-gnu/bits/mathcalls.h error.h \
+ /usr/include/stdlib.h \
+ /usr/include/powerpc64le-linux-gnu/bits/waitflags.h \
+ /usr/include/powerpc64le-linux-gnu/bits/waitstatus.h \
+ /usr/include/alloca.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h basetime.h \
+ timebase.h /usr/include/inttypes.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdint.h \
+ /usr/include/stdint.h /usr/include/powerpc64le-linux-gnu/bits/wchar.h \
+ taxis.h resource_handle.h cdi_limits.h service.h extra.h ieg.h vlist.h \
+ namespace.h serialize.h cdi_cksum.h resource_unpack.h zaxis.h
+
+/usr/include/stdc-predef.h:
+
+config.h:
+
+cdi.h:
+
+/usr/include/stdio.h:
+
+/usr/include/features.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/cdefs.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/wordsize.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/types.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/typesizes.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/sys_errlist.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/endian.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/endian.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/byteswap.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/byteswap-16.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/select.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/select.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/sigset.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/time.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/sysmacros.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/pthreadtypes.h:
+
+dmemory.h:
+
+grid.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdbool.h:
+
+institution.h:
+
+model.h:
+
+cdi_int.h:
+
+/usr/include/assert.h:
+
+/usr/include/string.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/errno.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/powerpc64le-linux-gnu/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/math.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/math-vector.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/huge_val.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/huge_valf.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/huge_vall.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/inf.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/nan.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/mathdef.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/mathcalls.h:
+
+error.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/waitflags.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/waitstatus.h:
+
+/usr/include/alloca.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h:
+
+basetime.h:
+
+timebase.h:
+
+/usr/include/inttypes.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/wchar.h:
+
+taxis.h:
+
+resource_handle.h:
+
+cdi_limits.h:
+
+service.h:
+
+extra.h:
+
+ieg.h:
+
+vlist.h:
+
+namespace.h:
+
+serialize.h:
+
+cdi_cksum.h:
+
+resource_unpack.h:
+
+zaxis.h:

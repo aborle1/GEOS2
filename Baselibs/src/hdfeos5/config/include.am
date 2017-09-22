@@ -1,0 +1,8 @@
+## config/include.am
+##
+## This file is included in the beginning of each Makefile.am.  It contains
+## shared definitions.
+
+LIBHDFEOS5=$(top_builddir)/src/libhe5_hdfeos.la
+LIBGCTP=$(top_builddir)/gctp/src/libGctp.la
+

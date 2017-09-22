@@ -1,0 +1,79 @@
+sz_api.lo: sz_api.c /usr/include/stdc-predef.h /usr/include/stdio.h \
+ /usr/include/features.h /usr/include/powerpc64le-linux-gnu/sys/cdefs.h \
+ /usr/include/powerpc64le-linux-gnu/bits/wordsize.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h \
+ /usr/include/powerpc64le-linux-gnu/bits/types.h \
+ /usr/include/powerpc64le-linux-gnu/bits/typesizes.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdio_lim.h \
+ /usr/include/powerpc64le-linux-gnu/bits/sys_errlist.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdio.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdio2.h /usr/include/stdlib.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdlib-bsearch.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdlib.h /usr/include/string.h \
+ /usr/include/powerpc64le-linux-gnu/bits/string.h \
+ /usr/include/powerpc64le-linux-gnu/bits/string2.h \
+ /usr/include/powerpc64le-linux-gnu/bits/string3.h szlib.h ricehdf.h \
+ szip_adpt.h
+
+/usr/include/stdc-predef.h:
+
+/usr/include/stdio.h:
+
+/usr/include/features.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/cdefs.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/wordsize.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/types.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/typesizes.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdio_lim.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/sys_errlist.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdio.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdio2.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdlib-bsearch.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdlib.h:
+
+/usr/include/string.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/string.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/string2.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/string3.h:
+
+szlib.h:
+
+ricehdf.h:
+
+szip_adpt.h:

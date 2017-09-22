@@ -1,0 +1,124 @@
+// $Header$ -*-C++-*-
+
+// Purpose: Linear and non-linear data regressions
+
+/* Usage:
+   Debug:
+   ncap2 -v -O -D 1 -S ${HOME}/nco/data/rgr.nco ${HOME}/nco/data/in.nc ~/foo_rgr.nc
+   Production:
+   ncap2 -v -O -S ${HOME}/nco/data/rgr.nco ${HOME}/nco/data/in.nc ~/foo_rgr.nc
+   /bin/mv ~/foo_rgr.nc ~/rgr_vsb.nc
+   /bin/mv ~/foo_rgr.nc ~/rgr_nir.nc
+   ncap2 -O -s 'measurement=1.515;prediction=fst+slp*measurement;' ~/rgr_vsb.nc ~/rgr_vsb.nc # 20071207b
+   ncap2 -O -s 'xpt_nbr=5;defdim("xpt",xpt_nbr);measurement[xpt]={1.516,1.40,1.513,1.536,1.526};prediction=fst+slp*measurement;' ~/rgr_vsb.nc ~/rgr_vsb.nc # 20071206e (profund porte echantillon)
+   ncap2 -O -s 'xpt_nbr=6;defdim("xpt",xpt_nbr);measurement[xpt]={1.455,1.449,1.528,1.495,1.548,1.438};prediction=fst+slp*measurement;' ~/rgr_vsb.nc ~/rgr_vsb.nc # 20071206d (peu profund porte echantillon)
+   ncap2 -O -s 'measurement=1.545;prediction=fst+slp*measurement;' ~/rgr_vsb.nc ~/rgr_vsb.nc # 20071206c2
+   ncap2 -O -s 'measurement=8.36;prediction=fst+slp*measurement;' ~/rgr_vsb.nc ~/rgr_vsb.nc # 
+   ncap2 -O -s 'measurement=2.95;prediction=fst+slp*measurement;' ~/rgr_nir.nc ~/rgr_nir.nc
+   ncks -C -H -F -v slp,fst,crr_cff ~/rgr_vsb.nc
+   ncks -C -H -F -v slp,fst,crr_cff,measurement,prediction ~/rgr_vsb.nc */
+
+/* Helpful discussion at:
+   http://mathworld.wolfram.com/LeastSquaresFitting.html */
+
+/* Ancillary simulations:
+ncap2 -v -D 1 -O \
+-s 'abc_nbr=5' \
+-s 'defdim("sgn",abc_nbr)' \
+-s 'sgn_mV[sgn]={4.52,8.90,15.66,22.41,37.86}' \
+-s 'rfl[sgn]={9.43,25.68,46.67,65.23,98.5}' \
+-s 'abc=sgn_mV;ord=rfl'
+~/foo.nc ~/foo_rgr.nc # Normalize mass fractions
+ncks -C -F -v slp,fst ~/foo_rgr.nc # Answers
+ncks -C -F -s "%8.3e, " -v slp,fst ~/foo_rgr.nc # Answers formatted */
+
+pi=3.1415926535897932384626433832795029L; // (3.1415926535897932384626433832795029L) [frc] 3
+pi@long_name="Pi";
+pi@units="fraction";
+mss_val=1.0e36; // [frc] Missing value
+
+rgr_lnr=1s; // [flg] Linear fit
+rgr_qdr=0s; // [flg] Quadratic fit
+
+chn_vsb=1s; // [flg] Visible channel
+chn_nir=0s; // [flg] NIR channel
+
+// Choose PSD
+rgr_typ=rgr_lnr; // [enm] Regression type
+
+// Choose channel
+chn_typ=chn_vsb; // [enm] Channel
+//chn_typ=chn_nir; // [enm] Channel
+
+if(rgr_typ==rgr_lnr){
+  abc_nbr=6; // [nbr] Number of abscissae
+  defdim("sgn_mV",abc_nbr); // [nbr] Measurement dimension
+  if(chn_typ==chn_vsb){
+    // Visible Channel 635 nm
+    print("Regressing VSB 635 nm channel calibration measurements...\n");
+    rfl_pct[sgn_mV]={0.28,10.875,30.885,52.12,70.12,98.7}; // [pct] Reflectance
+   // Signal in mV
+   // sgn_mV[sgn_mV]={0.449,1.002,2.664,4.783,6.878,11.257};global@caseid="20071207a: pre-dirty snow";
+    sgn_mV[sgn_mV]={0.455,0.996,2.653,4.785,mss_val,mss_val};global@caseid="20071206f: post-dirty snow";
+   // sgn_mV[sgn_mV]={0.412,0.955,2.563,4.655,6.675,10.875};global@caseid="20071206a: pre-dirty snow";
+   // sgn_mV[sgn_mV]={0.067,0.086,0.140,0.205,0.266,0.388};global@caseid="20071004a: chambre froid -15C";
+   //    sgn_mV[sgn_mV]={mss_val,0.715,2.12,3.91,5.71,9.45};global@caseid="20071001a: warm lab";
+  }
+  if(chn_typ==chn_nir){
+    // NIR Channel 1310 nm
+    print("Regressing NIR 1310 nm channel calibration measurements...\n");
+    rfl_pct[sgn_mV]={mss_val,9.43,25.68,46.67,65.23,98.5}; // [pct] Reflectance
+    sgn_mV[sgn_mV]={4.551,7.070,13.82,24.18,34.60,58.27};global@caseid="20071207c: NIR calibration for dirty snow";
+    // sgn_mV[sgn_mV]={4.68,7.12,13.83,24.19,34.6,mss_val};global@caseid="20071004: chambre froid -15C";
+    // sgn_mV[sgn_mV]={2.95,4.52,8.90,15.66,22.41,37.86};global@caseid="20071001: warm lab";
+  }
+  //    print("ERROR: Invalid channel\n");
+  set_miss(sgn_mV,mss_val); // Missing value
+  set_miss(rfl_pct,mss_val); // Missing value
+  print(global@caseid);
+  // Assign generic names for mathematics
+  abc=sgn_mV;
+  ord=rfl_pct;
+}else if(rgr_typ==rgr_qdr){
+  abc_nbr=5; // [nbr] Number of abscissae
+} // !rgr_typ
+
+abc_avg=abc.avg(); // [] Abscissa average
+ord_avg=ord.avg(); // [] Ordinate average
+ss_xx=((abc-abc_avg)^2).total(); // [] Sum of squares of deviations from mean abscissa
+ss_yy=((ord-ord_avg)^2).total(); // [] Sum of squares of deviations from mean ordinate
+ss_xy=((abc-abc_avg)*(ord-ord_avg)).total(); // [] Covariance
+var_x=ss_xx/abc_nbr; // [] Variance of abscissae
+var_y=ss_yy/abc_nbr; // [] Variance of ordinates
+slp=ss_xy/ss_xx; // [] Slope
+fst=ord_avg-slp*abc_avg; // [] Offset
+crr_cff_sqr=ss_xy*ss_xy/(ss_xx*ss_yy); // [] Variance explained
+crr_cff=sqrt(crr_cff_sqr); // [] Correlation coefficient
+ord_prd=fst+slp*abc; // [] Ordinates predicted by regression
+
+ss_xx@long_name="Sum of squares of deviations from mean abscissa";
+ss_yy@long_name="Sum of squares of deviations from mean ordinate";
+ss_xy@long_name="Covariance";
+var_x@long_name="Variance of abscissae";
+var_y@long_name="Variance of ordinates";
+slp@long_name="Slope";
+fst@long_name="Offset";
+crr_cff_sqr@long_name="Variance explained";
+crr_cff@long_name="Correlation coefficient";
+
+rfl_pct@long_name="Reflectance";
+rfl_pct@units="percent";
+
+rfl=1.0e-2*rfl_pct; // [fraction] Reflectance
+rfl_pct@long_name="Reflectance";
+rfl_pct@units="fraction";
+
+sgn_mV@long_name="Signal in millivolts";
+sgn_mV@units="millivolt";
+
+sgn=1.0e-3*sgn_mV; // [V] Signal
+sgn@long_name="Signal";
+sgn@units="volt";
+
+
+

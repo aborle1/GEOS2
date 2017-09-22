@@ -1,0 +1,146 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Purpose: debian/rules file for NCO
+# Copyright (C) 1999--2002 by Brian Mays
+# Copyright (C) 2003--2011 by Charlie Zender
+# Usage:
+# scp ~/nco/debian/rules givre.ess.uci.edu:nco/debian
+
+# Sample debian/rules that uses debhelper
+# GNU copyright 1997 to 1999 by Joey Hess
+
+# Modified to make a template file for a multi-binary package with separated
+# build-arch and build-indep targets  by Bill Allombert 2001
+
+# Uncomment this to turn on verbose mode
+#export DH_VERBOSE=1
+
+# Export this to make some magic below work
+export DH_OPTIONS
+
+# These are used for cross-compiling and for saving the configure script
+# from having to guess our platform (since we know it already)
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+ifeq ($(DEB_BUILD_GNU_TYPE), $(DEB_HOST_GNU_TYPE))
+	confflags := --build=$(DEB_BUILD_GNU_TYPE)
+else
+	confflags := --build=$(DEB_BUILD_GNU_TYPE) --host=$(DEB_HOST_GNU_TYPE)
+endif
+
+export CFLAGS := -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0
+else
+	CFLAGS += -O2
+endif
+# 20110114 Enable dap-netcdf netcdf4 udunits2 build options by default
+# Allow them to be turned off by putting disable-XXX in DEB_BUILD_OPTIONS
+ifneq (,$(findstring disable-dap-netcdf,$(DEB_BUILD_OPTIONS)))
+	confflags += --disable-dap-netcdf
+else
+	confflags += --enable-dap-netcdf
+endif
+ifneq (,$(findstring disable-netcdf4,$(DEB_BUILD_OPTIONS)))
+	confflags += --disable-netcdf4
+else
+	confflags += --enable-netcdf4
+endif
+ifneq (,$(findstring disable-udunits2,$(DEB_BUILD_OPTIONS)))
+	confflags += --disable-udunits2
+else
+	confflags += --enable-udunits2
+endif
+
+# Make Debian-default netCDF directories override development netCDF installations in, e.g., /usr/local
+# 20070721: This may inadvertently cause libtool to set set rpath
+# In turn this generates linda warnings about hard-coded rpath
+# Since their Debian packages exist, always enable GSL and ncap2
+# Environment variables NETCDF*, defined in Zender's bashrc, often confuse Debian
+# Debian requires that libraries are known by package-manager
+# Thus environment variables that point, e.g., to /usr/local, are unhelpful
+config.status: configure
+	dh_testdir
+# 20140413 call dh_autoreconf before calling configure (in build or configure target) per Debian Bug #744476
+	dh_autoreconf
+	LD_LIBRARY_PATH='' LDFLAGS='' NETCDF_INC='/usr/include' NETCDF_LIB='/usr/lib' NETCDF_ROOT='/usr' NETCDF4_ROOT='/usr' \
+	./configure $(confflags) \
+		--prefix=/usr \
+		--infodir=/usr/share/info \
+		--libdir=/usr/lib/nco \
+		--mandir=/usr/share/man \
+		--enable-gsl \
+		--enable-ncap2 \
+		--disable-dap-opendap \
+		--disable-nco_cplusplus \
+		--disable-udunits \
+		--disable-static
+
+# Architecture 
+build: build-arch
+
+build-arch: build-arch-stamp
+build-arch-stamp:  config.status
+	$(MAKE) 
+	cd doc && $(MAKE) html
+	cd doc && $(MAKE) nco.info
+# Documentation to distribute in future
+#	cd doc && $(MAKE) nco.ps
+#	cd doc && $(MAKE) nco.dvi
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-arch-stamp build-indep-stamp config-stamp
+	[ ! -f Makefile ] || $(MAKE) distclean
+
+	rm -f data/big.nc
+# 20140413 call dh_autoreconf_clean before dh_clean in the clean target per Debian Bug #744476
+	dh_autoreconf_clean
+	dh_clean
+
+install: install-arch
+
+install-arch:
+	dh_testdir
+	dh_testroot
+	dh_clean -a
+	dh_installdirs -a
+# Commands to install architecture part of package into debian/tmp
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/nco
+	rm `find $(CURDIR)/debian -name '*.la'`
+# NCO installs header files by default, which Debian does not want (yet)
+	dh_install -a --exclude="*.h *.hh"
+
+# Must not depend on anything 
+# This is to be called by binary-arch/binary-multi in another 'make' thread
+binary-common:
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs doc/ChangeLog
+	dh_installdocs
+	install -d debian/nco/usr/share/doc/nco/html
+	install -m 644 doc/nco.html/*.html debian/nco/usr/share/doc/nco/html
+	rm -f debian/nco/usr/share/info/dir
+	dh_installinfo
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress 
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture independant packages using the common target
+binary-indep: build install
+
+# Build architecture dependant packages using the common target
+binary-arch: build-arch install-arch
+	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install install-arch 

@@ -1,0 +1,230 @@
+// $Header$ -*-C++-*-
+
+// Purpose: Sample input script for ncap2
+
+/* Usage: 
+   ncap2 -O -v -S ~/nco/data/ncap2.in ~/nco/data/in.nc ~/foo.nc
+   ncks ~/foo.nc | /bin/more */
+
+a1=three_dmn_var_dbl+three_dmn_var_int;
+a2=sin(three_dmn_var_dbl)^2.0 + cos(three_dmn_var_dbl)^2.0;
+if(a2 > 0.99) a3=1.00;
+a4[$time,$lat,$lon]=time*2;
+a1@one=four;
+a5=a1@one;
+
+// check if thens
+if( 0 ) a6=0; else {{ a7=1; a8=2; }}
+if(1) {a9=1; a10=2;}
+if( 0.0 ) a6=0; else if(0) {a11=1; a12=2;} else if( 3>2) a13=3;
+// check dangling else
+if(1) if(0) a14=1; else a15=1; 
+a20[$time]=666;
+a21[$time,$lat]=a1@one;
+//Check casting
+a22[time,lat,lon,lev]=P0*hyam+hybm*PS; // Works because prs_mdp in LHS cast
+b2=999;
+b2@one=2222.0d; 
+b2@zero=three_dmn_var_dbl@_FillValue;
+b2@two=sin(3.14);
+b2@three=cos(3.14);
+b2@four=!sin(3.14);
+b3=b2@zero;
+// Check bare numbers are being parsed OK
+c1@byte=10b;
+c1@short=20s;
+c1@int=30;
+c1@int2=23L;
+c1@int3=24l;
+c1@float=40f;
+c1@double=50d;
+c1@double2=25.;
+c1@exp=21e2;
+c1@exp2=21.1e10f;
+c1@exp3=2e-2d;
+c1@exp4=2.e3;
+c1@zero=0.0;
+c1@zero1=.0;
+c1@zero2=0.0e2;
+c1=four*c1@byte;
+d1=three_dmn_var_int*c1@double;
+// put var "into" an attributte
+d1@one=three_dmn_var_dbl;
+// Multiply two attributes one sz=1
+d1@two=d1@one*c1@int;
+// multiply attribute and var of the same size !
+e1=d1@one*three_dmn_var_int;
+// check global attributtes
+// Read global
+e1@test=global@history;
+// write global
+global@test=999;
+global@test2=global@Conventions;
+// Mask examples --grab  only values <= 20 from three_dmn_var_dbl
+mask_out= (three_dmn_var_dbl <= 20) *three_dmn_var_dbl;
+// check var/att casting;
+e1@test=three_dmn_var_int;
+e1@test2=e1@test*c1@int;
+e1@three=10d;
+// plain numbers are created as vars -- 
+// mixed expression -resultant type=double
+e1@four=1.001d*e1@three;
+// resultant expression resultant type=int
+e1@five=e1@three*199;
+e1@six=e1@three*e1@three;
+// below op not done -- att must conform to var 
+//e1@seven=e1@test*100;
+// below op valid att size= var size
+e1@eight=e1@test*three_dmn_var_dbl;
+//e2[time]=0.99;
+e2=11111.0;
+//Check hyperslabbing
+//Create some vars
+th=three_dmn_var_dbl;
+f1[$time,$lat]=666;
+f2[$time,$lat,$lon]=time*2;
+f3[$lon]=time(3);
+time1=time;
+// hyperslab with RHS a scalar
+f2(9,:,:)=.99;
+f2(7,,)=.77;
+f2(5,::,0)=.55;
+f2(1,:,::2)=1111;
+f4=th(0,0,0)+th(9,1,3);
+time1(0:4)=.4444;
+time1(5:9)=.5555;
+// Create attributes and derive attributes from variables
+f2@one=time(::3);
+f2@two=1000.0;
+f2@three=f2@one*f2@two;
+// hyperlslab on the LHS & RHS 
+// Empty brackets indicate the entire variable
+// is to be hyperslabbed.
+f3()=time1(0:6:2);
+th(9,,)=th(2,,);
+// Check attribute propagation
+// LHS-variable inherits attributes from left-most RHS-variable
+g1=999.00;
+g1@a=10;
+g1@b=20.0;
+g1@c=30.0;
+// Above attributes are copied to g2
+g2=g1;
+// g3 will get attributes for rz
+// 20110318: NB triggers regression failure TODO nco111
+g3=rz*four; 
+// Check attribute propagation with mod and pow
+g4= (g1@c * g1@a) % 2.0 ^ three_dmn_var_dbl;
+// Check att propagation with a LHS hyperslab
+g4(2,0,0)=987654.0;
+// Check attribute inheritance
+// z in output should inherit atts from z in input
+// z=1000;
+// Attribute string handling
+h1=10.0;
+h1@units="microns";
+h1@long_name="Tesla\t";
+// variable string handling
+// Create a variable string (currently painful)
+h2[char_dmn_lng04]="a";  // string is now "aaa"
+h2()="hell";            // string is now "hell"
+// hyperslab a variable string;
+h3=two_dmn_rec_var_sng;
+h3(1,0:2)="ccc";
+h4=fl_nm;
+h4(6:11)="henrys";
+// If hyperslabbing a var in the input 
+// then the var is first copied to output e.g
+weight(0)=weight(0)+10;
+// Increment and decrement operators
+// Deceptively complex expression
+// time is read from the input file
+// its elements are incremented by one and then the result is
+// written to the output file and subsequently then assigned to i2
+// i2 is then written to file
+i2=++time;
+// time in the output is now decremented by one
+// and ALL elements of of i2 & i3 are equal
+i3=time--;
+if(i2==i3) i2@equal=1; else i2@equal=0;
+// can string together operators
+i4=i5=i6=0;
+// below the result is i4=10, i5=10,i6=0
+i4+=i5+=i6+10;
+// below the result is i4=80  i5=8 i6=2
+i4*=i5-=i6=2;
+// can use assign in an if then i7=0,0,0,0,0,0,0,0,0,0
+if( 0==(i7=i3-i2) ) i7@equals=1; else i7@equals=0;
+// all elements of i7 now 10
+i7()=10;  
+// all elements of i7 now 11
+i7+=1;
+// ternary operator -similar to the one in C 
+// in below attribute is assigned the string "true"
+i7@test = ( i7 >9 ? "true" : "false");
+i8=0;
+// Side effects 
+j1=0;
+// Unlike C there is no short circuiting with AND/OR
+// so in the below statement the result is that
+// j1=1 and j1@bool is undeclared
+if(0 && j1++) j1@bool="true"; 
+// similarly after below j1=0 j1@bool is still undeclared
+if( 1 || --j1 ) j1@bool="true"; 
+j2=10;
+j3=1;
+// There are no side effects with the ternary operator, e.g.,
+// the result is that j2=10, j3=2, j4=2.
+j4= (i7<9 ? ++j2 : ++j3);
+// Defining Dimensions
+// use the defdim function. Dimensions in the input file CANNOT
+// be redefined in the output. Dimensions are imutable and
+// once defined in  cannot be redefined
+// (NB: defdim should return a bool value indicating success or failure)
+defdim("x",1);
+defdim("y",4);
+defdim("z",9);
+// LHS Cast a new variable with new dimensions
+k1[$x,$y,$z]=1.01d;
+// Dimension size can be used in an expression by postfixing it with "size" e.g.,
+if($x.size==1 && $y.size < 5 && $z.size==9)
+ k1@max=9;
+//
+k1@size=$x.size*$y.size*$z.size;
+// hyperlsab with dim values
+k1(0,0,0:($z.size-3))=2.01d;
+//
+k2=4.0;
+k3=k2+=10;
+//
+// quoting of vars/atts/dims ie names which contain '.' or '-'
+defdim("a--list.A",10);
+defdim("a..---",20);
+'b..m1'['$a--list.A']=100.1;
+'b..m1'(0)=90.1;
+'b..m1@c--lost'=23;
+var_double=1.0;
+var_float=1.0f;
+var_int=1;
+var_short=1s;
+var_byte=1b;
+var_char[char_dmn_lng04]="Hell";
+/* Following lines _require_ netCDF4:
+   Uncommenting them in ncap2.in is not recommended since we cannot
+   assume that ncap2 was built with netCDF4 */
+/*
+var_ubyte=1ub; 
+var_ushort=1us;
+var_uint=1u;
+var_int64=1ll;
+var_uint64=1ull; 
+*/
+// function reverse 
+m1=three_dmn_var_sht;
+// reverse the data -- can specify positional args as well 
+m2=m1.reverse($0,$2);
+m3=m1.reverse($lon);
+// permute dims --nb for permute MUST specify all dims
+// record dim must be the first dim in list
+m4=m1.permute($0,$2,$1);
+m5=a22.permute($time,$lev,$lon,$lat);

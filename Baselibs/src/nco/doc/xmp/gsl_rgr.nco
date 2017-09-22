@@ -1,0 +1,41 @@
+// Linear Regression
+// Called by ann_avg.sh
+// Caution: make sure the variable name is 
+//  in agreement with the main script (now is 'snd')
+// Online: http://nco.sourceforge.net/nco.html#Annual-Average-over-Regions
+
+// Declare variables
+*c0[$rgn]=0.;        // Intercept
+*c1[$rgn]=0.;        // Slope
+*sdv[$rgn]=0.;       // Standard deviation
+*covxy[$rgn]=0.;     // Covariance
+*x = double(time);
+
+for (*rgn_id=0;rgn_id<$rgn.size;rgn_id++)   // Loop over regions
+{
+	gsl_fit_linear(time,1,snd(:,rgn_id),1,$time.size, \
+    &tc0, &tc1, &cov00, &cov01,&cov11,&sumsq); // Linear regression function
+	c0(rgn_id) = tc0;    // Output results
+	c1(rgn_id) = tc1;
+	covxy(rgn_id) = gsl_stats_covariance(time,1,\
+    $time.size,double(snd(:,rgn_id)),1,$time.size); // Covariance function
+	sdv(rgn_id) = gsl_stats_sd(snd(:,rgn_id), \
+    1, $time.size);   // Standard deviation function
+}
+
+// P value------------------------------------------------------------
+*time_sdv = gsl_stats_sd(time, 1, $time.size);
+*r_value = covxy/(time_sdv*sdv); 
+*t_value = r_value/sqrt((1-r_value^2)/($time.size-2));
+pval = abs(gsl_cdf_tdist_P(t_value, $time.size-2) - \
+  gsl_cdf_tdist_P(-t_value, $time.size-2));
+//----------------------------------------------------------------
+
+// Write RAM variables to disk
+//------------------------------------------------------------
+// Usually NCO writes the outputs directly to disk
+// Using RAM variables, declared by *, will shorten running time
+// Output the final results using ram_write()
+//------------------------------------------------------------
+ram_write(c0);
+ram_write(c1);

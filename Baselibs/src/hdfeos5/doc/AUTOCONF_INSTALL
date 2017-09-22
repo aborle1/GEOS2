@@ -1,0 +1,128 @@
+Installing HDF-EOS5 using Autoconf/Automake
+
+1)  Quick Start (here we assume hdfeos5 directory is inside a directory 
+considered as <target-dir>, and that the brand is linux. You may replace 
+it with another supported brand name if you are installing hdfeos5 in a 
+different platform)
+
+To build HDF-EOS5 from <target-dir>/hdfeos5 and install the HDF-EOS5 library
+into <target-dir>/hdfeos5/lib/linux :
+    $ cd <target-dir>/hdfeos5
+    $ ./configure --with-hdf5=/path/to/hdf5 --libdir=<target-dir>/hdfeos5/lib/linux
+    $ make install
+
+
+2)  Configuration
+
+HDF-EOS5 uses the GNU autoconf system for configuration, which detects various
+features of the host system and creates the Makefiles. On most systems with
+HDF-EOS5 installed it should be sufficient to say:
+
+    $ ./configure               OR      
+    $ sh configure
+
+The configuration process can be controlled through environment variables
+and command-line switches.  For a complete list of switches type:
+
+    $ ./configure --help
+
+Configure must be re-run for each platform, and the source tree can only be
+configured for one platform at a time.
+
+In 64-bit machines one must set the desired compiler flag for the compilation
+ mode before running ./configure. For example to install HDF-EOS5 in 32-bit
+ mode in SGI one must set CC as:
+setenv CC "cc  -n32"
+
+or to install HDF-EOS5 in 64-bit mode in SGI one must set CC as:
+setenv CC "cc  -64"
+
+In a 64-bit linux the 32-bit flag is “-m32”. So for 32-bit installation
+one must set CC as:
+setenv CC "gcc  -m32"
+
+The same is applied to the FORTRAN compiler flag.
+
+3)  Building against HDF5
+
+On systems without HDF5 installed, where HDF5 is not found automatically,
+or to link against a different version of the HDF5 library, the user must
+specify the path to HDF5.  This can be done either by giving the path to
+configure directly:
+
+    $ ./configure --with-hdf5=/path/to/hdf5
+
+or by setting the environment variable CC to be the h5cc script installed
+with HDF5:
+
+    $ H5CC=/path/to/hdf5/bin/h5cc
+    $ ./configure
+
+
+4)  Building against ZLIB and SZLIB
+
+HDF-EOS5 does not require the zlib and szlib libraries to build,
+but some of the tests in the testdrivers directory require them.  Their
+paths can be given to configure using the --with-zlib and --with-szlib
+switches:
+
+    $ ./configure --with-zlib=/usr/local/zlib --with-szlib=/usr/local/szlib
+
+
+5)  Specifying install locations
+
+The location where the HDF-EOS5 library will be installed is controlled by
+the --libdir switch.  To set the install location to
+<target-dir>/hdfeos5/lib/linux :
+
+    $ ./configure --libdir=<target-dir>/hdfeos5/lib/linux
+
+HDF-EOS5 tradionally installs libraries into the hdfeos5/lib/* directories
+and does not install header files.  Users who wish to install both libraries
+and header files should use the --enable-install-include switch to enable
+this feature and the --prefix switch to control where they are installed.
+To install into /usr/local/hdfeos5/include and /usr/local/hdfeos5/lib :
+
+    $ ./configure --enable-install-include --prefix=/usr/local/hdfeos5
+
+The default installation location if no flags are specified is a directory
+named hdfeos5 in the current directory, with libraries in hdfeos5/lib and
+include files in hdfeos5/include (if installing include files is enabled).
+
+
+6)  Building and Installing
+
+Once HDF-EOS5 has been configured, its makefiles can be used to build, test,
+and install.  To build the library:
+
+    $ make
+
+To run tests (if present):
+
+    $ make check
+
+To install to the location specified during configure:
+
+    $ make install
+
+These commands do not need to be run in order; if the library has not been
+built, 'make install' will build it before installing.  However, configure
+must always have been run on the current system before running make.
+
+
+7)  The Testdrivers Directory
+
+The testdrivers directory contains test to verify that HDF-EOS5 has built
+correctly.  Users who wish to run these tests should copy the testdrivers
+directory into the hdfeos5 directory before running configure.  Configure
+will detect the presence of this directory and 'make check' will run all
+the tests it contains.
+
+
+8)  For More Information
+
+For more information about using autoconf and automake, see the
+documentation online at
+http://sources.redhat.com/autobook/autobook/autobook.html
+or HDF5's documentation.
+

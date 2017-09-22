@@ -1,0 +1,15 @@
+prefix=/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/netcdf
+ccompiler=mpicc
+fcompiler=mpifort
+
+Name: netcdf-fortran
+Description: NetCDF Client Library for Fortran
+URL: http://www.unidata.ucar.edu/netcdf
+Version: 4.4.4
+Requires.private: netcdf > 4.1.1
+Libs: -L${libdir} -lnetcdff
+Libs.private: -L${libdir} -lnetcdff -lnetcdf
+Cflags: -I${includedir}

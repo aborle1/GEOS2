@@ -1,0 +1,21 @@
+D/AerosolDust////
+D/include////
+D/ioChemistry////
+D/photolysis////
+D/sad////
+D/smv2chem////
+D/stratTropMech////
+D/sulfur////
+/GmiChemistryMethod_mod.F90/1.2.2.1.14.1.16.1.2.1.2.1.2.1.2.1.2.1.2.1.4.1.2.1.2.1.6.1.2.1.2.1.2.1.4.1.8.1.10.1.6.1.2.1.6.1.18.1.10.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiFastJX_includeMod.F90/1.1.4.2.84.1/Thu May 11 12:02:26 2017/-kk/TIcarus-1_0_p1
+/GmiGravitationalSettling_mod.F90/1.1.2.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiPhotolysisRateConstants_mod.F90/1.1.2.1.14.1.20.1.4.1.2.1.10.1.34.1.8.1.8.1.2.1.64.1.8.1/Thu May 11 12:02:26 2017/-kk/TIcarus-1_0_p1
+/GmiSavedVariables_mod.F90/1.1.4.2/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiShipEmission_mod.F90/1.1.1.1.82.1.32.1.40.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiSolverInterface_mod.F90/1.1.2.1.10.1.4.1.16.1.4.1.24.1.8.1.32.1.8.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiStratosphericLoss_mod.F90/1.1.2.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiSurfaceEmissionInChemistry_mod.F90/1.1.2.1.30.1.4.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiThermalRateConstants_mod.F90/1.1.2.1.14.1.20.1.20.1.12.1.32.1.8.1.64.1.14.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiUpdateChemistry_mod.F90/1.1.2.1.8.1.2.1.4.1.2.1.2.1.6.1.2.1.2.1.2.1.4.1.18.1.14.1.42.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiUpdateForcingBC_mod.F90/1.1.2.1.34.1.20.1.12.1.42.1.24.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GmiUpdateSAD_mod.F90/1.1.2.1.8.1.6.1.20.1.18.1.8.1.6.3.2.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1

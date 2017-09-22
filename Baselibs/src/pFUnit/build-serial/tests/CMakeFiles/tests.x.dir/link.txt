@@ -1,0 +1,1 @@
+/usr/bin/gfortran    -g -O0 -fbounds-check -fopenmp CMakeFiles/tests.x.dir/selfTests.F90.o  -o tests.x  ../source/libpfunit.a libtestpfunit.a ../source/libpfunit.a 

@@ -1,0 +1,4 @@
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Test.o : /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Base.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Init.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_LogErr.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_UtilTypes.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_VM.o 
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_ComplianceIC.o :  
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMCI_Test.o : ESMCI_Test.h
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMC_Test.o : ESMCI_Test.h ESMC_Test.h

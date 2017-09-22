@@ -1,0 +1,31 @@
+NCO is three things: a geoscience data analysis toolkit, an
+open-source software project, and an academic enterprise that embodies
+fundamental new (research-level) algorithms for geoscience data
+analysis. Successful academic research depends upon peer-evaluation,
+dissemination, and explicit acknowledgement of prior work and original
+results. The accepted way to convey acknowledgement to NCO for ideas
+or assistance in workflow processing is to cite its peer-reviewed 
+description and or its User Guide. We encourage users and data science 
+researchers to cite NCO for another reason, too: it helps funding
+agencies track the impact of the work they fund.
+
+The recommended citation for NCO software is
+
+Zender, C. S. (2008), Analysis of Self-describing Gridded Geoscience
+Data with netCDF Operators (NCO), Environ. Modell. Softw., 23(10),
+1338-1342, doi:10.1016/j.envsoft.2008.03.004. 
+
+or
+
+Zender, C. S. (2014), netCDF Operator (NCO) User Guide, Version 4.4.3,
+http://nco.sf.net/nco.pdf. 
+
+Use the former when referring to overall design, purpose, and
+optimization of NCO, and use the latter when referring to specific
+features and/or the Users Guide itself.
+
+Additional information on citing NCO is in the User Guide at
+http://nco.sf.net#ctt
+A complete list of NCO publications and presentations is at
+http://nco.sf.net#pub
+This list links to the full papers and seminars themselves.

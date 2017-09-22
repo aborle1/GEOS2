@@ -1,0 +1,17 @@
+hdfeos5/lib/sun5
+hdfeos5/lib/sun5.8
+hdfeos5/lib/dec
+hdfeos5/lib/hp
+hdfeos5/lib/ibm
+hdfeos5/lib/linux
+hdfeos5/lib/sgi32
+hdfeos5/lib/sgi64
+hdfeos5/lib/irix65
+hdfeos5/make_exclude_list    
+hdfeos5/install
+hdfeos5/testdrivers
+hdfeos5/landsat_test
+hdfeos5/lost+found
+
+
+

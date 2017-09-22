@@ -1,0 +1,7 @@
+/.gitignore/1.1.1.1/Wed Jun  3 16:11:31 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.2/Wed Jun  3 16:11:31 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.13/Mon Aug  8 13:41:36 2016/-kk/TGMAO-Baselibs-4_0_8
+D/cuda////
+D/nco////
+D/nco++////
+D/nco_c++////

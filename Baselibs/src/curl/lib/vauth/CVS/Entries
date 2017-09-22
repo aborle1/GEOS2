@@ -1,0 +1,16 @@
+/cleartext.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/cram.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/digest.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/digest.h/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/digest_sspi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/krb5_gssapi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/krb5_sspi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/ntlm.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/ntlm.h/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/ntlm_sspi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/oauth2.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/spnego_gssapi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/spnego_sspi.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/vauth.c/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+/vauth.h/1.1.1.1/Mon Aug  8 13:44:42 2016/-kk/TGMAO-Baselibs-4_0_8
+D

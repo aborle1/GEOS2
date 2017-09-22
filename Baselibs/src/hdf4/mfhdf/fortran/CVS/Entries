@@ -1,0 +1,22 @@
+/CMakeLists.txt/1.1.1.4/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeTests.cmake/1.1.1.3/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.5/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.7/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/common.inc/1.1.1.1/Wed Jul 25 13:02:32 2007/-kk/TGMAO-Baselibs-4_0_8
+/depend/1.1.1.1/Wed Jul 25 13:02:32 2007/-kk/TGMAO-Baselibs-4_0_8
+/ftest.f.in/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/hdftest.f/1.1.1.3/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/hdftest1.f/1.1.1.2/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/hdftst.sav/1.1.1.1/Wed Jul 25 13:02:33 2007/-kk/TGMAO-Baselibs-4_0_8
+/jackets.c.in/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/mffunc.inc/1.1.1.3/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+/mfhdf_fortrandll.def/1.1.1.2/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/mfsdf.c/1.1.1.6/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/mfsdf.h/1.1.1.1/Mon Oct  1 18:11:14 2012/-kk/TGMAO-Baselibs-4_0_8
+/mfsdff.f/1.1.1.3/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+/netcdf.inc.in/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/test_nc.cdl/1.1.1.1/Wed Jul 25 13:02:33 2007/-kk/TGMAO-Baselibs-4_0_8
+/test_nc.nc/1.1.1.1/Wed Jul 25 13:02:33 2007/-kk/TGMAO-Baselibs-4_0_8
+/testfortran.sh.in/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/tszip.f/1.1.1.3/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+D/examples////

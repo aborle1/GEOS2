@@ -1,0 +1,19 @@
+Source: nco
+Section: science
+Priority: optional
+Maintainer: Charlie Zender <zender@uci.edu>
+Uploaders: Francesco Paolo Lovergine <frankie@debian.org>
+Build-Depends: debhelper (>= 7), antlr, bison, flex, gsl-bin, libgsl0-dev, libantlr-dev, netcdf-bin, libnetcdf-dev, libcurl4-gnutls-dev, texinfo, libudunits2-0, libudunits2-dev
+Standards-Version: 3.8.4
+Homepage: http://nco.sf.net/
+
+Package: nco
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: command-line operators to analyze netCDF files
+ NCO is a suite of programs known as operators. The operators are stand-alone,
+ command-line programs executable in a POSIX shell. Operators take one or more
+ HDF or netCDF files as input, perform operations (e.g., averaging, 
+ hyperslabbing), and produce a netCDF output file. NCO was originally designed 
+ to manipulate and analyze climate data, though it works on any netCDF format 
+ datasets.

@@ -1,0 +1,24 @@
+D/CMIP_1977_1982////
+/GNUmakefile/1.8/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/SST_ICE_bcs.csh/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/SST_ICE_bcs.pl/1.4/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/bin2bin.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/caspian_ice_fix.pdf/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/check.F90/1.2/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/convert_nsidc_grid.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/fill_Land.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/fill_NPOLE.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/get_nsidc_icec.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/hflip.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/input_stuff.txt/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/interp_to_eight_deg.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/make_ostia_eigth.csh/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/make_ostia_quart.csh/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/proc_SST_FRACI.F90/1.1.14.2.2.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/proc_SST_FRACI_ostia_quart.F90/1.2/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_Ostia.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_Ostia_quart.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_Reynolds.F90/1.2/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_input.F90/1.1.14.2.2.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_input_quart.F90/1.2/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/read_nsidc_icec.F90/1.1/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1

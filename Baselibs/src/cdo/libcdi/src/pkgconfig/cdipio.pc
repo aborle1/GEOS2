@@ -1,0 +1,43 @@
+prefix=/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/cdo
+cflags=-I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/cdo
+fcflags=-I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/cdo 
+libs=-L${exec_prefix}/lib -lcdipio   -lcdi    -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lnetcdf  -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lsz 
+threads_libs=
+threads_cflags=
+szlib_cflags= -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include
+szlib_libs= -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lsz
+netcdf_root=/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux
+netcdf_cflags= -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include
+netcdf_libs= -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lnetcdf
+jasper_libs=
+grib_api_cflags=
+grib_api_libs=
+cdipio_build_cc=mpicc
+cdipio_build_cflags=-fPIC  
+cdipio_build_cppflags=-I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include -DgFortran  -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/zlib    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/szlib    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/jpeg    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/hdf5    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/hdf    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/uuid    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/netcdf    -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/udunits2  
+cdipio_build_ldflags=-L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib 
+cdipio_build_libs= -lm -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lnetcdf -ljpeg -lmfhdf -ldf -lhdf5_hl -lhdf5 -ldl -lm -lmfhdf -ldf -lsz -ljpeg -lcurl -lssl -lcrypto -lssl -lcrypto -lz -lm -ldl -lm -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -lcurl -lssl -lcrypto -lssl -lcrypto -lz -lm	 -lexpat -lmfhdf -ldf -lsz -ljpeg  -ldl -lm
+cdipio_build_fc=mpifort
+cdipio_build_fcflags=
+cdipio_build_f77=mpifort
+cdipio_build_fflags=-g -O2
+cdipio_build_cxx=mpic++
+cdipio_build_cxxflags=-g -O2
+cdipio_build_enable_grib=no
+cdipio_build_enable_cgribex=yes
+cdipio_build_enable_service=yes
+cdipio_build_enable_extra=yes
+cdipio_build_enable_ieg=yes
+
+Name: cdipio
+Description: CDI-PIO is the MPI-parallel layer of CDI
+URL: 
+Version: 1.7.2
+Requires: 
+Libs: ${libs}
+Cflags: ${cflags}
+FCflags: ${fcflags}
+

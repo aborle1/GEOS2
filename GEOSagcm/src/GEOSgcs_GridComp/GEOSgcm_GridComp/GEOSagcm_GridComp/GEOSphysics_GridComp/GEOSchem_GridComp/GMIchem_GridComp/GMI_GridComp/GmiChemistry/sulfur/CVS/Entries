@@ -1,0 +1,11 @@
+/aqu_sulfchem.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/const_so2topar.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/const_sulf_update.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/gas_sulfchem.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/qk_aqu_rates.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/qk_gas_rates.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/setup_aquchem.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/so2topar_rates.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/sulfchem.F90/1.1.1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/sulfchem_solver.F90/1.1.1.1.58.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+D

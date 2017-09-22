@@ -1,0 +1,27 @@
+/Makefile_kpp_achem_gas/1.5/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas.def/1.4/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas.eqn/1.5/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas.kpp/1.4/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas.spc/1.5/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Function.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Global.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Hessian.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_HessianSP.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Initialize.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Integrator.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Jacobian.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_JacobianSP.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_LinearAlgebra.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Main.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Model.f90/1.1/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Monitor.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Parameters.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Precision.f90/1.2/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Rates.f90/1.7/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Stoichiom.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_StoichiomSP.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_Util.f90/1.6/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_mex_Fun.f90/1.4/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_mex_Hessian.f90/1.4/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/kpp_achem_gas_mex_Jac_SP.f90/1.4/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+D

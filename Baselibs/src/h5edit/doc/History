@@ -1,0 +1,315 @@
+H5edit HISTORY
+============
+This file contains history of the H5edit tool releases.
+
+%%%%1.3.0%%%%   
+=====================================
+H5edit version 1.3.0 released on 2014-06-30.
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    Added the segment management routines for the backup VFD to support better
+    performance. (AKC - 2014/06/25 JPSS-90)
+    Added Backup VFD to support the atomicity option. (AKC - 2014/03/11 -
+    JPSS-88)
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    - None
+
+Bug Fixes since H5edit v1.2.1
+=============================
+
+    Configuration
+    -------------
+    - None
+
+    Tools
+    -----
+    - None
+
+    Tests
+    -----
+    - None
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+Mac OS X 10.7.5 and 10.8.4
+SunOS 5.11
+
+Known Problems
+* h5edit does not return non-zero exit code when there is syntax error.
+  (AKC - 2013/08/08 - JPSS-72).
+
+%%%%1.2.1%%%%   
+=====================================
+H5edit version 1.2.1 released on 2013-12-10.
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    - Added support to allow "_" as a valid character of attribute names. (AKC 2013-12-10 JPSS-83)
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    - None
+
+Bug Fixes since H5edit v1.2.0
+=============================
+
+    Configuration
+    -------------
+    - None
+
+    Tools
+    -----
+    - Added support for STRING attributes by the MODIFY command. (AKC 2013-11-20 JPSS-81).
+
+
+    Tests
+    -----
+    - None
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+Mac OS X 10.7.5 and 10.8.4
+SunOS 5.11
+
+Known Problems
+* h5edit does not return non-zero exit code when there is syntax error.
+  (AKC - 2013/08/08 - JPSS-72).
+
+%%%%1.2.0%%%%   
+=====================================
+H5edit version 1.2.0 released on 2013-08-09.
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    - Added support for the MODIFY command. (AKC 2013-08-07).
+
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    - Support for Mac OS X Mountain Lion updated to 10.8.4. (AKC 2013-08-08).
+
+Bug Fixes since H5edit v1.1.0
+=============================
+
+    Configuration
+    -------------
+    - None
+
+    Tools
+    -----
+    - None
+
+    Tests
+    -----
+    - None
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+Mac OS X 10.7.5 and 10.8.4
+SunOS 5.11
+
+Known Problems
+* h5edit does not return non-zero exit code when there is syntax error.
+  (AKC - 2013/08/08 - JPSS-72).
+
+%%%%1.1.0%%%%   
+=====================================
+H5edit version 1.1.0 released on 2013-03-04.
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    - Added support for the COPY command. (JP 2013-02-14).
+
+    - Added support for --atomic inc option. (AKC 2013-02-07).
+
+    - Added support for the RENAME command. (AKC 2013-02-06).
+
+    - Added support for the --atomic option which will maintain a backup
+      file which can be used to recover the original data file if some
+      errors are encountered. (AKC 2012-12-31)
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    - Added SunOS 5.11 support. (AKC 2013-02-20).
+
+    - Added Mac OS X 10.7.5 and 10.8.2 to the supported platforms.
+      (AKC 2013-02-14)
+
+
+Bug Fixes since H5edit v1.0.1
+=============================
+
+    Configuration
+    -------------
+    - None
+
+    Tools
+    -----
+    - None
+
+    Tests
+    -----
+    - The testh5edit.sh had an output mismatch error for HDF5 V1.8.9 because
+      the h5dump of V1.8.9 has a bug fix that affects its output which was
+      used by h5dit to verify test output.  The expected output file is
+      updated to work with HDF5 v1.8.9.  This change is not backward
+      compatible. Therefore, h5edit now expects to work with HDF5 V1.8.9 or
+      newer. (JPSS-45, AKC 2012-06-11)
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+Mac OS X 10.7.5 and 10.8.2
+SunOS 5.11
+
+%%%%1.0.1%%%%   
+=====================================
+Version 1.0.1 released Oct 10, 2011
+=====================================
+
+New Features
+============
+
+    Configuration
+    -------------
+    - None
+    
+    Tools
+    -----
+    - None
+
+    Support for New Platforms, Languages, and Compilers
+    ---------------------------------------------------
+    - None
+
+
+Bug Fixes since H5edit v1.0.0
+=============================
+
+    Configuration
+    -------------
+    - Fixed incorrect Makefile.am and test/Makefile.am so that bin/reconfigure
+      can generate the correct corresponding Makefile.in files. ((Bug ID:
+      JPSS-33) (AKC - 2011/09/21)
+    - Added aclocal.m4 which will provide my own version of macros used
+      instead of generated by users by their own machine.
+      Added AM_MAINTAINER_MODE to configure.ac so that make does not run the
+      rebuild rules. (Bug ID: JPSS-33) (AKC - 2011/09/20)
+
+    Tools
+    -----
+    - None
+
+
+Platforms Tested
+================
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+SunOS 5.10
+
+%%%%1.0.0%%%%   
+=====================================
+Version 1.0.0 released July 31, 2011
+=====================================
+Added support to accept command syntax having the Target-object and attribute
+names given as one name separated by slash (/). H5edit will first treat it as
+a dataset attribute. If dataset is not found, will try it as a group
+attribute.
+    E.g.,
+	CREATE /GroupA/Dataset2/KiloToMile {{0.60}};
+	    is the same as
+        CREATE /GroupA/Dataset2 KiloToMile {{0.60}};
+
+Platforms Supported:
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+SunOS 5.10
+
+%%%%0.2%%%%   
+=====================================
+Version 0.2 released Mar 31, 2011
+=====================================
+Change command syntax to have the Target-object before the created object.
+    E.g., CREATE /GroupA/Dataset2 KiloToMile {{0.60}};
+The following keywords are now optional:
+    DATASET, DATATYPE, DATASPACE, DATA, SCALAR, SIMPLE.
+Command syntax are greatly simplified by having default values:
+    If target object type is not specified, default value is DATASET.
+    If datatype is not specified, default value is Native Float.
+    If dataspace is not specified, default value is SCALAR.
+	E.g., CREATE /GroupA/Dataset2 KiloToMile {{0.60}};
+	means to create in dataset /GroupA/Dataset2 a scalar native float type
+	attribute with the value of 0.60.
+
+Platforms Supported:
+Linux 2.6 32bit and 64bits
+Linux 2.6 on PowerPC
+SunOS 5.10
+AIX 6.1
+
+=====================================
+Initial version released Dec 31, 2010
+=====================================
+CREATE and DELETE attributes commands implemented.
+Dataspace supported: SCALAR and Supports INTEGER and FLOAT numerial types
+Commands implemented:
+    Create attribute
+    Delete attribute
+Datatype supported:
+    All integer types: native int, big or little endian int, long, long long,
+	short, …
+    All float types: float, double, long double. …
+    Strings type: null-terminated fixed length strings.
+Data space supported:
+    SCALAR
+    SIMPLE (Multiple dimensions)
+Tool command line options supported:
+    -c command, --command command:
+	Specify an H5edit command to apply to the file h5file.
+    --command-file commfile
+	Specify a command file, commfile, that contains H5edit commands written
+	in the H5edit Command Language, to apply to the file h5file.
+    -h, --help
+	Print a usage message and exit

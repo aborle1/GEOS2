@@ -1,0 +1,1 @@
+/usr/bin/gfortran    -g -O0 -fbounds-check -fopenmp CMakeFiles/tests.x.dir/selfTests.F90.o  -o tests.x  ../source/libpfunit.a libtestpfunit.a /usr/lib/openmpi/lib/libmpi_usempif08.so /usr/lib/openmpi/lib/libmpi_usempi_ignore_tkr.so /usr/lib/openmpi/lib/libmpi_mpifh.so /usr/lib/openmpi/lib/libmpi.so ../source/libpfunit.a 

@@ -1,0 +1,1 @@
+/usr/bin/gfortran    -g -O0 -fbounds-check -fopenmp CMakeFiles/remote.x.dir/RemoteProgram.F90.o  -o remote.x  ../source/libpfunit.a libtestpfunit.a ../source/libpfunit.a 

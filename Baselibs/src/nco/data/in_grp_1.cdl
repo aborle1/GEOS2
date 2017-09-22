@@ -1,0 +1,25 @@
+// Purpose: Generate a group file structure with common and non-common objects; pair of files are in_grp_1.cdl and in_grp_2.cdl
+// Generate netCDF files with:
+// ncgen -k netCDF-4 -b -o ~/nco/data/in_grp_1.nc ~/nco/data/in_grp_1.cdl
+// ncgen -k netCDF-4 -b -o ~/nco/data/in_grp_2.nc ~/nco/data/in_grp_2.cdl
+
+netcdf in_grp_1 {
+
+  dimensions:
+  lon=4;
+ 
+  //
+  //g1
+  //
+  group: g1 { 
+  variables:
+    float var1(lon);
+    float var2(lon);
+	float lon(lon);
+  data:
+    var1=1,1,1,1;
+    var2=1,1,1,1;
+	lon=1,2,3,4;
+  } // end g1
+
+} // end root group

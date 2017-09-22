@@ -1,0 +1,3 @@
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Init_C.o : /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Calendar.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Comp.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Init.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_LogErr.o 
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMCI_Init.o : ESMCI_Init.h
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMC_Init.o : ESMC.h ESMCI.h ESMC_Init.h

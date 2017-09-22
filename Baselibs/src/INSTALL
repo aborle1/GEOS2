@@ -1,0 +1,208 @@
+                    Installing the Simplified Baselibs
+                                Aug 2016
+                    ----------------------------------
+
+0) REQUIREMENTS
+
+   - a C compiler, preferably gcc 
+
+   - a f77 compiler, preferably gfortran for compiling NetCDF and HDF-4;
+     Fortran 90 is disabled for these
+
+   - a f90 compiler for the ESMF; the default is "gfortran" on Linux
+     and Darwin; "f90" elsewhere. 
+
+   - The MPI library. On a Linux desktop/laptop, OpenMPI is recommended.
+     Make sure mpicc, mpifc, etc is on your path. Try compiling a simple
+     "Hello, world!" program with mpicc and running it; sometimes you need
+     to set your LD_LIBRARY_PATH so that the runtime MPI libraries can be
+     found.
+
+     Linux Note: many Linux distributions now have OpenMPI packages. 
+                 However these either lack Fortran altogether or
+                 use gfortran. You must have OpenMPI with Fortran
+                 support, and the Fortran compiler used to build MPI
+                 must the Fortran compiler you will be using.
+
+   - on Linux, make sure "bison" and "flex" are installed; on generic Unix
+     platforms, make sure you have "yacc" and "lex".
+
+   - a bit of luck :-)
+
+
+1) GETTING THE SOURCES
+
+   For checking out the software from sourcemotel.gsfc.nasa.gov, first
+   get a $tag from someone, for example GMAO-Baselibs-4_1_0. Then issue 
+   the CVS command
+
+   % setenv CVS_RSH ssh
+
+     On discover:     
+   % cvs -z3 -d:ext:$username@progressdirect:/cvsroot/baselibs \
+     co -r $tag -d <directory to check out to> Baselibs
+
+     Elsewhere:     
+   % cvs -z3 -d:ext:$username@ptunnel:/cvsroot/baselibs \
+     co -r $tag -d <directory to check out to> Baselibs
+
+   (If interested in the minimalistic *essential* build, delete all
+    subdirectories but esmf/ and netcdf/).
+
+2) QUICK INSTALL
+
+   If you are feeling lucky, building is just as simple as
+
+   % cd Baselibs/src 
+   % make install
+   % make verify
+
+   The canonical system name is determined by the GNU config.guess
+   script include. Type
+
+   % ./config.guess
+
+   to find out your system name; e.g., "i686-pc-linux-gnu". The result
+   of your build will be installed under "i686-pc-linux-gnu/" in this
+   case; look around.
+
+
+3) CUSTOMIZING YOUR INSTALLATION
+
+   If 2) does not work you will need to recode some of the video
+   drivers in assembly language and rebuild the kernel. Just
+   kidding. If the Baselib does not build out of the repository, then
+   you will need to customize a few things. For example, to choose the
+   ifort compiler under Linux, just enter this
+
+   % make install F90=ifort
+
+   IMPORTANT: set "F90" not "FC". The most common options are:
+
+   ALLDIRS    Use that to restrict which packages get built. If you
+              one want NetCDF and ESMF just enter
+
+              % make install ALLDIRS='netcdf esmf'
+
+   ESMF_COMM  which ESMF communication to use; see file esmf/INSTALL
+              for details. The default is "openmpi".
+
+   CONFIG_SETUP  
+              this is to help detail what combination of compiler and
+              MPI was used. If unspecified, the default is the value
+              of F90
+
+   F90        Fortran 90 compiler; default is gfortran on Linux and
+              Darwin, "f90" elsewhere
+
+   ROOTDIR    root directory for installing the binaries; the
+              installation directory will be at
+
+              prefix = $(ROOTDIR)/$(SYSNAME)/$(CONFIG_SETUP)/$(ARCH)
+
+              where $(ARCH) is the result of `uname -s`, e.g., Linux.
+
+   prefix     Bypass the definition above and install at this
+              directory. It is no recommended that you specify this -
+              specify  ROOTDIR instead
+
+   GCC_INCLUDE_DIR
+              Required for build in Darwin for Intel compiler.  
+              Specifies the location of GCC include files.  e.g.,
+              /usr/lib/gcc/i686-apple-darwin9/4.0.1/include/ 
+
+
+4) SITE-SPECIFIC INSTRUCTIONS
+
+   If you plan on installing the baselibs on a NASA NCCS or NAS-owned
+   system, you can follow these instructions for a quick and easy build.
+
+   If you are attempting to build baselibs on a system not listed here
+   and you're having problems, please contact Matthew.Thompson@nasa.gov for
+   assistance and future inclusion of your site in this document.
+
+   ------------------------------
+   Discover (x86_64 Linux system)
+   ------------------------------
+
+   Intel 13.1.2 (comp/intel-13.1.2.183) and MVAPICH2 2.1a (other/mpi/mvapich2-2.1a/intel-13.1.2.183)
+      
+      Also loaded: lib/mkl-13.0.1.117
+                   other/comp/gcc-4.6.3-sp1
+                   other/SIVO-PyD/spd_1.15.0_gcc-4.6.3-sp1_mkl-13.0.1.117
+
+      TO BUILD: make install ESMF_COMM=mvapich2 CONFIG_SETUP='ifort_13.1.2.183-mvapich2_2.1a'
+
+   Intel 15.0.0 (comp/intel-15.0.0.090) and MVAPICH2 2.1a (other/mpi/mvapich2-2.1a/intel-15.0.0.090)
+      
+      Also loaded: lib/mkl-15.0.0.090
+                   other/comp/gcc-4.6.3-sp1
+                   other/SIVO-PyD/spd_1.20.0_gcc-4.6.3-sp1_mkl-15.0.0.090
+
+      TO BUILD: make install ESMF_COMM=intelmpi CONFIG_SETUP='ifort_15.0.0.090-mvapich2_2.1a'
+
+   Intel 15.0.0 (comp/intel-15.0.0.090) and Intel MPI 5.0.1.035 (mpi/impi-5.0.1.035)
+      
+      Also loaded: lib/mkl-15.0.0.090
+                   other/comp/gcc-4.6.3-sp1
+                   other/SIVO-PyD/spd_1.20.0_gcc-4.6.3-sp1_mkl-15.0.0.090
+
+      TO BUILD: make install ESMF_COMM=intelmpi CONFIG_SETUP='ifort_15.0.0.090-impi-5.0.1.035'
+
+   PGI 14.10 (comp/pgi-14.10.0) and OpenMPI 1.8.3 (other/mpi/openmpi/1.8.3-pgi-14.10.0)
+
+      Also loaded: other/comp/gcc-4.6.3-sp1
+                   lib/mkl-13.0.1.117
+                   other/SIVO-PyD/spd_1.15.0_gcc-4.6.3-sp1_mkl-13.0.1.117
+
+      TO BUILD: make install ESMF_COMM=openmpi CONFIG_SETUP='pgfortran_14.10-openmpi_1.8.3'
+
+   gfortran 4.9.1 (other/comp/gcc-4.9.1) and MVAPICH2 2.1a (other/mpi/mvapich2-2.1a/gcc-4.9.1)
+      
+      Also loaded: lib/mkl-15.0.0.090
+                   other/SIVO-PyD/spd_1.20.0_gcc-4.9.1-sp1_mkl-15.0.0.090
+
+      TO BUILD: make install ESMF_COMM=mvapich2 CONFIG_SETUP='gfortran_4.9.1-mvapich2_2.1a'
+
+   ------------------------------
+   Pleiades (x86_64 Linux system)
+   ------------------------------
+   Intel 13 (comp-intel/2013.5.192) and MPT 2.11r13 (mpi-sgi/mpt.2.11r13)
+
+      Also loaded: python/2.7.6
+
+      TO BUILD: make install ESMF_COMM=mpi CONFIG_SETUP='ifort_2013.5.192-mpt_2.11r13'
+      TO BUILD (using icc as CC): make install ESMF_COMM=mpi CONFIG_SETUP='ifort_2013.5.192-mpt_2.11r13' MPICC_CC=icc MPICXX_CXX=icpc
+
+   PGI 13 (comp-pgi/13.5) and Open MPI 1.7.2 (mpi-openmpi/1.6.4/pgi/13.5)
+
+      Also loaded: python/2.7.6
+
+      TO BUILD: make install ESMF_COMM=openmpi CONFIG_SETUP='pgfortran_13.5-openmpi_1.6.4'
+
+   ---------------------------------------------
+   Sensorweb (x86 Mac OS X system)
+   ---------------------------------------------
+   make install
+        This command will work if you have an installation of OpenMPI built
+        with GCC, and has F90 support, on your PATH.  It will build baselibs
+        with GNU compilers and OpenMPI.
+
+   export GCC_INCLUDE_DIR=/usr/lib/gcc/i686-apple-darwin9/4.0.1/include
+   make install CC=icc CXX=icpc F77=ifort F90=ifort ESMF_COMM=mpi
+        These two commands will build baselibs with the Intel compilers
+        and the version of OpenMPI already installed on the system. 
+
+
+4) USING THE BASELIBS IN GEOS-5
+
+   You just need to set BASEDIR as
+
+   % setenv BASEDIR $(ROOTDIR)/$(SYSNAME)/$(CONFIG_SETUP)
+
+   where, if CONFIG_SETUP is not specified during build, it
+   will be $(F90)
+
+
+For additional information, contact Matthew.Thompson@nasa.gov.
+

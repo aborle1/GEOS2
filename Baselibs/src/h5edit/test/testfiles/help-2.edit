@@ -1,0 +1,18 @@
+usage:
+h5edit [-h | --help] h5file
+h5edit [OPTIONS] h5file
+OPTIONS
+   -h, --help
+       Print a usage message and exit
+   -c command, --command command:
+       Specify an H5edit command to apply to the file h5file.
+   --command-file commfile
+       Specify a command file, commfile, that contains H5edit commands written
+       in the H5edit Command Language, to apply to the file h5file.
+   --dryrun
+       (To be supported in future implementation)
+       Just check the syntax of the H5edit commands against the HDF5 file
+       without making the actual changes to the HDF5 file.
+   --version
+       Print the version information of h5edit.
+

@@ -1,0 +1,81 @@
+D/NETHEATG////
+D/aerosol////
+D/albedo////
+D/cldhi////
+D/cldlo////
+D/cldmd////
+D/cldtt////
+D/cloud////
+D/eflux////
+D/emp////
+D/fcst////
+D/formulas////
+D/grads_util////
+D/gwd////
+D/hcmp////
+D/hflux////
+D/lcmp////
+D/lwgdwn////
+D/lwgdwnc////
+D/lwgdwncf////
+D/lwgnet////
+D/lwgnetc////
+D/lwgnetcf////
+D/lwgup////
+D/lwgupc////
+D/lwgupcf////
+D/lwp////
+D/moist////
+D/nettoa////
+D/nettoac////
+D/olr////
+D/olrc////
+D/olrcf////
+D/osr////
+D/osrc////
+D/osrcf////
+D/phys////
+D/precip////
+D/quad////
+D/rad////
+D/radnetg////
+D/radnetgc////
+D/radswt////
+D/res////
+D/speed////
+D/sst////
+D/swgdwn////
+D/swgdwnc////
+D/swgdwncf////
+D/swgnet////
+D/swgnetc////
+D/swgnetcf////
+D/swgup////
+D/swgupc////
+D/swgupcf////
+D/tau////
+D/taux////
+D/tauy////
+D/taylor////
+D/toacf////
+D/tpw////
+D/tseries////
+D/tskin////
+D/turb////
+D/uflux////
+D/zcmp////
+D/zcmp1////
+/GNUmakefile/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/chckhist.new/1.16/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/chckhist.old/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/chckrc/1.10/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/configure/1.62/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/get_exports/1.3/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/landscape.script/1.40/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/moveplot/1.23/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/movestat/1.5/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/portrait.script/1.60/Thu May 11 12:02:32 2017/-kk/TIcarus-1_0_p1
+/quickplot/1.129/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/quickstat/1.29/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/zonal/1.12/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1
+/zonal.f/1.8/Thu May 11 12:01:58 2017/-kk/TIcarus-1_0_p1

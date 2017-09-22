@@ -1,0 +1,10 @@
+D/Applications////
+D/Config////
+D/GMAO_Shared////
+D/NCEP_Shared////
+D/GEOSgcs_GridComp////
+/Assert.pl/1.18.2.9/Thu May 11 12:01:53 2017/-kk/TIcarus-1_0_p1
+/GNUmakefile/1.95/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/g5_modules/1.67.10.4.4.1/Thu May 11 12:06:13 2017/-kk/TIcarus-1_0_p1
+/g5_modules.sh/1.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/parallel_build.csh/1.82/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1

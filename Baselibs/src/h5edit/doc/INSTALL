@@ -1,0 +1,31 @@
+Instructions for the Installation of H5edit Tool
+=====================================================
+
+========
+To build:
+========
+Assuming gmake and h5cc (HDF5 C compiler) are in your $PATH, just do
+    % ./configure
+    % gmake
+
+The default C compiler is to h5cc.
+If you want to use a specific h5cc compiler, do
+    % env CC=$mypath/h5cc ./configure
+
+To build with different compiler flags, use the CFLAGS variable, e.g.
+     % env CFLAGS=-O2 ./configure
+This command will set the compiling to "h5cc -O2".
+
+============
+To run tests:
+============
+    % gmake check
+
+==========
+To install:
+==========
+To install,
+    % gmake install
+These go to h5edit/bin of the built directory by default.  If you want
+to install it somewhere else such as /usr/local/bin/h5edit,
+    % gmake prefix=/usr/local install

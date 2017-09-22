@@ -1,0 +1,46 @@
+/CMakeLists.txt/1.1.1.3/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.13/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.15/Mon Aug  8 13:34:27 2016/-kk/TGMAO-Baselibs-4_0_8
+/nctestserver.c/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/run_ncdap_tests.sh/1.1.1.2/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_auth.c/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/t_dap.c/1.1.1.1/Thu Oct 11 11:59:51 2012/-kk/TGMAO-Baselibs-4_0_8
+/t_dap3a.c/1.1.1.3/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/t_dap3b.c/1.1.1.1/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_dap3c.c/1.1.1.1/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_dap4.c/1.1.1.1/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_dap4a.c/1.1.1.1/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_dap4c.c/1.1.1.1/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/t_misc.c/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/t_ncf330.c/1.1.1.1/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/test_cvt.c/1.1.1.6/Tue Jun 10 14:48:04 2014/-kk/TGMAO-Baselibs-4_0_8
+/test_nstride_cached.c/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/test_partvar.c/1.1.1.4/Mon Aug  8 13:34:27 2016/-kk/TGMAO-Baselibs-4_0_8
+/test_partvar2.c/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/test_vara.c/1.1.1.3/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/test_varm3.c/1.1.1.7/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/testauth.sh/1.1.1.2/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/testurl.sh/1.1.1.1/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/tst_formatx.sh/1.1.1.2/Mon Mar 30 18:06:13 2015/-kk/TGMAO-Baselibs-4_0_8
+/tst_longremote3.sh/1.1.1.2/Thu Oct 11 11:59:51 2012/-kk/TGMAO-Baselibs-4_0_8
+/tst_longremote4.sh/1.1.1.2/Thu Oct 11 11:59:51 2012/-kk/TGMAO-Baselibs-4_0_8
+/tst_ncdap.sh/1.1.1.10/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_ncdap3.sh/1.1.1.5/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_ncdap4.sh/1.1.1.3/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_ncdap_shared.sh/1.1.1.7/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_nocache3.sh/1.1.1.2/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_nocache4.sh/1.1.1.2/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_remote.sh/1.1.1.13/Mon Aug  8 13:34:27 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_remote3.sh/1.1.1.6/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_remote4.sh/1.1.1.4/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_special.sh/1.1.1.2/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+/tst_tds.sh/1.1.1.2/Thu Feb  4 19:57:12 2016/-kk/TGMAO-Baselibs-4_0_8
+D/expected3////
+D/expected4////
+D/expectremote3////
+D/expectremote4////
+D/expecttds3////
+D/nocacheremote3////
+D/nocacheremote4////
+D/special3////
+D/testdata3////

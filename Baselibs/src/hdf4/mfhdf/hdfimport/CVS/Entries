@@ -1,0 +1,17 @@
+/CMakeLists.txt/1.1.1.4/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeTests.cmake/1.1.1.3/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.4/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.7/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/SDSfloat2.hdf/1.1.1.2/Fri Sep 12 15:59:23 2008/-kk/TGMAO-Baselibs-4_0_8
+/SDSfloat3.hdf/1.1.1.2/Fri Sep 12 15:59:23 2008/-kk/TGMAO-Baselibs-4_0_8
+/crtSDSfloats.c/1.1.1.1/Wed Jul 25 13:02:49 2007/-kk/TGMAO-Baselibs-4_0_8
+/gen_sds_floats.c/1.1.1.1/Wed Jul 25 13:02:49 2007/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport-w.out2/1.1.1.2/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport.c/1.1.1.5/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport.input1/1.1.1.1/Wed Jul 25 13:02:50 2007/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport.out1/1.1.1.2/Fri Sep 12 15:59:23 2008/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport.out2/1.1.1.1/Wed Jul 25 13:02:50 2007/-kk/TGMAO-Baselibs-4_0_8
+/hdfimport.out3/1.1.1.2/Fri Sep 12 15:59:23 2008/-kk/TGMAO-Baselibs-4_0_8
+/hdfimporttest.c/1.1.1.2/Fri Sep 12 15:59:23 2008/-kk/TGMAO-Baselibs-4_0_8
+/testutil.sh.in/1.1.1.1/Wed Jul 25 13:02:51 2007/-kk/TGMAO-Baselibs-4_0_8
+D/testfiles////

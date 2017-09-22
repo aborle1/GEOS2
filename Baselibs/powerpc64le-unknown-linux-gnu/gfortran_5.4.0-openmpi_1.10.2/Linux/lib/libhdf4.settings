@@ -1,0 +1,40 @@
+	    SUMMARY OF THE HDF4 CONFIGURATION
+	    =================================
+
+General Information:
+-------------------
+		   HDF4 Version: 4.2.12
+		  Configured on: Sat Sep 16 17:37:22 EDT 2017
+		  Configured by: aborle1@p8umbc1
+		 Configure mode: production
+		    Host system: /home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu
+              Uname information: Linux p8umbc1 4.10.0-30-generic #34~16.04.1-Ubuntu SMP Wed Aug 2 02:12:28 UTC 2017 ppc64le ppc64le ppc64le GNU/Linux
+		      Libraries: 
+	     Installation point: /home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux
+
+Compiling Options:
+------------------
+               Compilation Mode: production
+                     C compiler: /usr/bin/gcc
+                         CFLAGS:  -fPIC -O3 -fomit-frame-pointer
+                       CPPFLAGS:  -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/zlib -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/jpeg -I/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/include/szlib -DBIG_LONGS -DSWAP 
+               Shared Libraries: no
+               Static Libraries: yes
+  Statically Linked Executables: no
+                        LDFLAGS: -lm -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib -L/home/aborle1/Baselibs/powerpc64le-unknown-linux-gnu/gfortran_5.4.0-openmpi_1.10.2/Linux/lib
+ 	 	Extra libraries: -lsz -ljpeg -lz 
+ 		       Archiver: ar
+ 		 	 Ranlib: ranlib
+
+Languages:
+----------
+                        Fortran: yes
+               Fortran Compiler: /usr/bin/gfortran
+                         FFLAGS:  -O
+
+                           Java: no
+
+Features:
+---------
+               SZIP compression: enabled with encoder
+   Support for netCDF API 2.3.2: no

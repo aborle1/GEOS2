@@ -1,0 +1,37 @@
+/.gitignore/1.1.1.2/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/.travis.yml/1.1.1.2/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeLists.txt/1.1.1.3/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/COPYRIGHT/1.1.1.2/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/CTestConfig.cmake.in/1.1.1.2/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/Doxyfile.general/1.1.1.3/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/F03Interfaces_LICENSE/1.1.1.1/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.2/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.4/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/README.md/1.1.1.3/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/RELEASE_NOTES.md/1.1.1.3/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/acinclude.m4/1.1.1.2/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/aclocal.m4/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/compile/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/config.guess/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/config.h.cmake.in/1.1.1.1/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/config.h.in/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/config.sub/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/configure/1.1.1.4/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/configure.ac/1.1.1.4/Mon Aug  8 13:39:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/depcomp/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/install-sh/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/ltmain.sh/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/missing/1.1.1.3/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+/netcdf-fortran.pc.in/1.1.1.2/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/nf-config.cmake.in/1.1.1.1/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/nf-config.in/1.1.1.2/Mon Mar 30 18:10:58 2015/-kk/TGMAO-Baselibs-4_0_8
+/test-driver/1.1.1.2/Thu Feb  4 20:07:30 2016/-kk/TGMAO-Baselibs-4_0_8
+D/CMakeExtras////
+D/autom4te.cache////
+D/docs////
+D/examples////
+D/fortran////
+D/libsrc////
+D/m4////
+D/nf03_test////
+D/nf_test////

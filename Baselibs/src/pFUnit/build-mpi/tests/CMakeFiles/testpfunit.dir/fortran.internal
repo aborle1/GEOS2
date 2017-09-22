@@ -1,0 +1,34 @@
+# The fortran modules provided by this target.
+provides
+ brokensetupcase_mod
+ brokentestcase_mod
+ fixturetestcase_mod
+ makeinfinity_mod
+ makenan_mod
+ mocklistener_mod
+ mocksut_mod
+ robusttestsuite_mod
+ simpletestcase_mod
+ sut_mod
+ test_assert_mod
+ test_assertbasic_mod
+ test_assertcomplex_mod
+ test_assertinteger_mod
+ test_assertreal_mod
+ test_basicopenmp_mod
+ test_exception_mod
+ test_fixturetestcase_mod
+ test_mockcall_mod
+ test_mockrepository_mod
+ test_mpicontext_mod
+ test_mpiexception_mod
+ test_mpiparameterizedtestcase_mod
+ test_mpitestcase_mod
+ test_robustrunner_mod
+ test_simpletestcase_mod
+ test_stringconversionutilities_mod
+ test_testmethod_mod
+ test_testresult_mod
+ test_testsuite_mod
+ test_unixprocess_mod
+ test_xmlprinter_mod

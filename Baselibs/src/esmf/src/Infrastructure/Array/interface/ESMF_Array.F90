@@ -1,0 +1,2051 @@
+! $Id$
+!
+! Earth System Modeling Framework
+! Copyright 2002-2012, University Corporation for Atmospheric Research, 
+! Massachusetts Institute of Technology, Geophysical Fluid Dynamics 
+! Laboratory, University of Michigan, National Centers for Environmental 
+! Prediction, Los Alamos National Laboratory, Argonne National Laboratory, 
+! NASA Goddard Space Flight Center.
+! Licensed under the University of Illinois-NCSA License.
+!
+!==============================================================================
+#define ESMF_FILENAME "ESMF_Array.F90"
+!==============================================================================
+!
+! ESMF Array Module
+module ESMF_ArrayMod
+!
+!==============================================================================
+!
+! This file contains the Fortran wrapper code for the C++ implementation of
+!  the Array class.
+!
+!------------------------------------------------------------------------------
+! INCLUDES
+#include "ESMF.h"
+
+!==============================================================================
+!BOPI
+! !MODULE: ESMF_ArrayMod
+!
+
+!   Fortran API wrapper of C++ implemenation of Array
+!
+!------------------------------------------------------------------------------
+
+! !USES:
+  use ESMF_UtilTypesMod     ! ESMF utility types
+  use ESMF_InitMacrosMod    ! ESMF initializer macros
+  use ESMF_BaseMod          ! ESMF base class
+  use ESMF_LogErrMod        ! ESMF error handling
+  use ESMF_LocalArrayMod
+  use ESMF_ArraySpecMod
+  use ESMF_VMMod
+  use ESMF_DELayoutMod
+  use ESMF_DistGridMod
+  use ESMF_RHandleMod
+  use ESMF_F90InterfaceMod  ! ESMF Fortran-C++ interface helper
+  
+  ! class sub modules
+  use ESMF_ArrayCreateMod   ! contains the ESMF_Array derived type definition
+  use ESMF_ArrayGatherMod
+  use ESMF_ArrayGetMod
+  use ESMF_ArrayHaMod
+  use ESMF_ArrayIOMod
+  use ESMF_ArrayScatterMod
+  
+  implicit none
+
+!------------------------------------------------------------------------------
+! !PRIVATE TYPES:
+  private
+
+!------------------------------------------------------------------------------
+! !PUBLIC TYPES:
+  public ESMF_Array                 ! implemented in ESMF_ArrayCreateMod 
+      
+!------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+!
+! !PUBLIC MEMBER FUNCTIONS:
+
+! - ESMF-public methods:
+  public operator(==)               ! implemented in ESMF_ArrayCreateMod 
+  public operator(/=)               ! implemented in ESMF_ArrayCreateMod 
+  public ESMF_ArrayCreate           ! implemented in ESMF_ArrayCreateMod 
+  public ESMF_ArrayDestroy          ! implemented in ESMF_ArrayCreateMod 
+  public ESMF_ArrayGather           ! implemented in ESMF_ArrayGatherMod 
+  public ESMF_ArrayGet              ! implemented in ESMF_ArrayGetMod 
+  public ESMF_ArrayHalo             ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayHaloRelease      ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayHaloStore        ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayPrint            ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayRead             ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayRedist           ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayRedistRelease    ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayRedistStore      ! implemented in ESMF_ArrayHaMod
+  public ESMF_ArrayReduce
+  public ESMF_ArrayScatter          ! implemented in ESMF_ArrayScatterMod 
+  public ESMF_ArraySet
+  public ESMF_ArraySMM
+  public ESMF_ArraySMMRelease
+  public ESMF_ArraySMMStore
+  public ESMF_ArrayValidate
+  public ESMF_ArrayWrite
+  public ESMF_ArrayWriteC
+
+#ifdef FIRSTNEWARRAYPROTOTYPE
+  public ESMF_ArrayWait
+#endif
+  
+! - ESMF-internal methods:
+  public ESMF_ArrayGetInit          ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArraySetInitCreated   ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArrayGetThis          ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArraySetThis          ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArraySetThisNull      ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArrayCopyThis         ! implemented in ESMF_ArrayCreateMod
+  public ESMF_ArrayConstructPioDof  ! implemented in ESMF_ArrayGetMod
+
+
+!EOPI
+!------------------------------------------------------------------------------
+
+!------------------------------------------------------------------------------
+! The following line turns the CVS identifier string into a printable variable.
+  character(*), parameter, private :: version = &
+    '$Id$'
+
+!==============================================================================
+! 
+! INTERFACE BLOCKS
+!
+!==============================================================================
+
+! -------------------------- ESMF-public method -------------------------------
+!BOPI
+! !IROUTINE: ESMF_ArraySet -- Generic interface
+
+! !INTERFACE:
+  interface ESMF_ArraySet
+
+! !PRIVATE MEMBER FUNCTIONS:
+!
+    module procedure ESMF_ArraySetDefault
+    module procedure ESMF_ArraySetPLocalDe
+      
+! !DESCRIPTION: 
+! This interface provides a single entry point for the various 
+!  types of {\tt ESMF\_ArraySet} functions.   
+!EOPI 
+  end interface
+
+
+! -------------------------- ESMF-public method -------------------------------
+!BOPI
+! !IROUTINE: ESMF_ArraySMMStore -- Generic interface
+
+! !INTERFACE:
+  interface ESMF_ArraySMMStore
+
+! !PRIVATE MEMBER FUNCTIONS:
+!
+    module procedure ESMF_ArraySMMStoreI4
+    module procedure ESMF_ArraySMMStoreI8
+    module procedure ESMF_ArraySMMStoreR4
+    module procedure ESMF_ArraySMMStoreR8
+    module procedure ESMF_ArraySMMStoreNF
+!EOPI
+
+  end interface
+
+      
+! -------------------------- ESMF-public method -------------------------------
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce -- Generic interface
+
+! !INTERFACE:
+  interface ESMF_ArrayReduce
+
+! !PRIVATE MEMBER FUNCTIONS:
+!
+    module procedure ESMF_ArrayReduce
+    module procedure ESMF_ArrayReduceFarray
+
+#ifdef FIRSTNEWARRAYPROTOTYPE
+
+    module procedure ESMF_ArrayReduceScalarBR8       !1st prototype
+    module procedure ESMF_ArrayReduceScalarNBRootR8  !1st prototype
+    module procedure ESMF_ArrayReduceScalarNBR8      !1st prototype
+#endif
+! todo: need to write vector version where the user can specify which
+!       dimensions of narray are supposed to be reduced. output is vector
+!       good news is that the vector version does not have to be type/kind
+!       overloaded because of the result being a LocalArray!
+
+! !DESCRIPTION: 
+! This interface provides a single entry point for the various 
+!  types of {\tt ESMF\_ArrayReduce} functions.   
+!EOPI 
+  end interface
+
+
+
+#ifdef FIRSTNEWARRAYPROTOTYPE
+! -------------------------- ESMF-public method -------------------------------
+!BOPI
+! !IROUTINE: ESMF_ArrayWait -- Generic interface
+
+! !INTERFACE:
+  interface ESMF_ArrayWait
+
+! !PRIVATE MEMBER FUNCTIONS:
+!
+    module procedure ESMF_ArrayWaitRoot
+    module procedure ESMF_ArrayWaitDE
+
+! !DESCRIPTION: 
+! This interface provides a single entry point for the various 
+!  types of {\tt ESMF\_ArrayWait} functions.   
+!EOPI 
+  end interface
+#endif
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+contains
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayReduce()"
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce
+
+! !INTERFACE:
+  subroutine ESMF_ArrayReduce(array, result, reduceflag, rootPET, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),       intent(inout)         :: array
+    real(ESMF_KIND_R8),     intent(out), optional :: result
+    type(ESMF_Reduce_Flag), intent(in)            :: reduceflag
+    integer,                intent(in)            :: rootPET
+    type(ESMF_VM),          intent(in),  optional :: vm
+    integer,                intent(out), optional :: rc  
+!
+! !DESCRIPTION:
+!     Fully reduce the entire Array into a single {\tt result} on {\tt rootPET}
+!     according to the operation specified in {\tt reduceflag}. Only root must
+!     specify a valid result argument.
+!
+!     This version of the interface 
+!     implements the PET-based blocking paradigm: Each PET of the VM must issue
+!     this call exactly once for {\em all} of its DEs. The
+!     call will block until all PET-local data objects are accessible.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object across which data will be scattered.
+!     \item[{[result ]}]
+!        Argument into which to reduce the Array. Only root
+!        must provide a valid {\tt result} argument.
+!     \item[reduceflag] 
+!        Reduction operation. See section \ref{const:reduce} for a list of 
+!        valid reduce operations. There will be options that determine the 
+!        sequence of operations to ensure bit-wise reproducibility.
+!     \item[rootPET]
+!          root.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    result = real(0.,ESMF_KIND_R8)  ! quiet down compiler warnings while not fully implemented
+    
+  end subroutine ESMF_ArrayReduce
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayReduce()"
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayReduce()
+  subroutine ESMF_ArrayReduceFarray(array, farray, reduceflag, rootPET, &
+    dimList, tile, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),           intent(inout)           :: array
+    real(ESMF_KIND_R8), target, intent(out),  optional  :: farray(:,:)
+    type(ESMF_Reduce_Flag),     intent(in)              :: reduceflag
+    integer,                    intent(in)              :: rootPET
+    integer,                    intent(in)              :: dimList(:)
+    integer,                    intent(in),   optional  :: tile
+    type(ESMF_VM),              intent(in),   optional  :: vm
+    integer,                    intent(out),  optional  :: rc  
+!
+! !DESCRIPTION:
+!     Reduce the dimensions specified in {\tt dimList} of the Array object 
+!     into {\tt farray} on {\tt rootPET} according to the operation specified 
+!     in {\tt reduceflag}. Only root must provide a valid {\tt farray} argument.
+!     
+!     This partial reduction operation is tile specific, i.e. only a single
+!     DistGrid tile of the Array will be reduced. The tile can be selected
+!     by the optional {\tt tile} argument. The shape of the provided 
+!     {\tt farray} argument must match that of the Array tile reduced by the
+!     dimensions specified in {\tt dimList}.
+!      
+!
+!     This version of the interface 
+!     implements the PET-based blocking paradigm: Each PET of the VM must issue
+!     this call exactly once for {\em all} of its DEs. The
+!     call will block until all PET-local data objects are accessible.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object across which data will be scattered.
+!     \item[{[farray]}]
+!        Fortran array into which to reduce the Array. Only root
+!        must provide a valid {\tt farray} argument.
+!     \item[reduceflag] 
+!        Reduction operation. See section \ref{const:reduce} for a list of 
+!        valid reduce operations. There will be options that determine the 
+!        sequence of operations to ensure bit-wise reproducibility.
+!     \item[rootPET]
+!          root.
+!     \item[dimList]
+!        List of Array dimensions to be reduced.
+!     \item[{[tile]}]
+!        The DistGrid tile in {\tt array} to reduce into {\tt farray}.
+!        By default tile 1 of {\tt farray} will be reduced.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+  end subroutine ESMF_ArrayReduceFarray
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySetDefault()"
+!BOP
+! !IROUTINE: ESMF_ArraySet - Set object-wide Array information
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySet()
+  subroutine ESMF_ArraySetDefault(array, keywordEnforcer, computationalLWidth, &
+    computationalUWidth, name, rc)
+
+!
+! !ARGUMENTS:
+    type(ESMF_Array),   intent(inout)         :: array
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,            intent(in),  optional :: computationalLWidth(:,:)
+    integer,            intent(in),  optional :: computationalUWidth(:,:)
+    character(len = *), intent(in),  optional :: name
+    integer,            intent(out), optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+!     Sets adjustable settings in an {\tt ESMF\_Array} object. Arrays with
+!     tensor dimensions will set values for {\em all} tensor components.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item [array]
+!       {\tt ESMF\_Array} object for which to set properties.
+!     \item [{[name]}]
+!       The Array name.
+!     \item[{[computationalLWidth]}] 
+!       \begin{sloppypar}
+!       This argument must have of size {\tt (dimCount, localDeCount)}.
+!       {\tt computationalLWidth} specifies the lower corner of the
+!       computational region with respect to the lower corner of the exclusive
+!       region for all local DEs.
+!       \end{sloppypar}
+!     \item[{[computationalUWidth]}] 
+!       \begin{sloppypar}
+!       This argument must have of size {\tt (dimCount, localDeCount)}.
+!       {\tt computationalUWidth} specifies the upper corner of the
+!       computational region with respect to the upper corner of the exclusive
+!       region for all local DEs.
+!       \end{sloppypar}
+!     \item [{[rc]}]
+!       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+    type(ESMF_InterfaceInt)       :: computationalLWidthArg ! helper variable
+    type(ESMF_InterfaceInt)       :: computationalUWidthArg ! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, array, rc)
+    
+    ! Set the name in Base object
+    if (present(name)) then
+      call c_ESMC_SetName(array, "Array", name, localrc)
+      if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+        ESMF_CONTEXT, rcToReturn=rc)) return
+    endif
+
+    ! Deal with (optional) array arguments
+    computationalLWidthArg = &
+      ESMF_InterfaceIntCreate(farray2D=computationalLWidth, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    computationalUWidthArg = &
+      ESMF_InterfaceIntCreate(farray2D=computationalUWidth, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySet(array, computationalLWidthArg, &
+      computationalUWidthArg, localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Garbage collection
+    call ESMF_InterfaceIntDestroy(computationalLWidthArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    call ESMF_InterfaceIntDestroy(computationalUWidthArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySetDefault
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySetPLocalDe()"
+!BOP
+! !IROUTINE: ESMF_ArraySet - Set DE-local Array information
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySet()
+  subroutine ESMF_ArraySetPLocalDe(array, keywordEnforcer, localDe, rimSeqIndex, rc)
+
+!
+! !ARGUMENTS:
+    type(ESMF_Array),   intent(inout)         :: array
+    integer,            intent(in)            :: localDe
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,            intent(in),  optional :: rimSeqIndex(:)
+    integer,            intent(out), optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+!     Sets adjustable settings in an {\tt ESMF\_Array} object for a specific
+!     localDe.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item [array]
+!       {\tt ESMF\_Array} object for which to set properties.
+!     \item [localDe]
+!       Local DE for which to set values.
+!     \item[{[rimSeqIndex]}] 
+!       Sequence indices in the halo rim of localDe.
+!     \item [{[rc]}]
+!       Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Call into the internal method
+    call ESMF_ArraySetPLocalDeInternal(array, localDe, rimSeqIndex, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySetPLocalDe
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMM()"
+!BOP
+! !IROUTINE: ESMF_ArraySMM - Execute an Array sparse matrix multiplication
+!
+! !INTERFACE:
+  subroutine ESMF_ArraySMM(srcArray, dstArray, routehandle, keywordEnforcer, &
+    routesyncflag, finishedflag, cancelledflag, zeroregion, checkflag, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),          intent(in),    optional :: srcArray
+    type(ESMF_Array),          intent(inout), optional :: dstArray
+    type(ESMF_RouteHandle),    intent(inout)           :: routehandle
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    type(ESMF_RouteSync_Flag), intent(in),    optional :: routesyncflag
+    logical,                   intent(out),   optional :: finishedflag
+    logical,                   intent(out),   optional :: cancelledflag
+    type(ESMF_Region_Flag),    intent(in),    optional :: zeroregion
+    logical,                   intent(in),    optional :: checkflag
+    integer,                   intent(out),   optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+!   \begin{sloppypar}
+!   Execute a precomputed Array sparse matrix multiplication from {\tt srcArray}
+!   to {\tt dstArray}. Both {\tt srcArray} and {\tt dstArray} must be weakly
+!   congruent and typekind conform to the respective Arrays used during 
+!   {\tt ESMF\_ArraySMMStore()}.
+!   \end{sloppypar}
+!   Congruent Arrays possess matching DistGrids, and the shape of the local
+!   array tiles matches between the Arrays for every DE. For weakly congruent
+!   Arrays the size of the undistributed dimensions, that vary faster with
+!   memory than the first distributed dimension, is permitted to be different.
+!   This means that the same {\tt routehandle} can be applied to a large class
+!   of similar Arrays that differ in the number of elements in the left most
+!   undistributed dimensions.
+!
+!   The {\tt srcArray} and {\tt dstArray} arguments are optional in support of
+!   the situation where {\tt srcArray} and/or {\tt dstArray} are not defined on
+!   all PETs. The {\tt srcArray} and {\tt dstArray} must be specified on those
+!   PETs that hold source or destination DEs, respectively, but may be omitted
+!   on all other PETs. PETs that hold neither source nor destination DEs may
+!   omit both arguments.
+!
+!   It is erroneous to specify the identical Array object for {\tt srcArray} and
+!   {\tt dstArray} arguments.
+!
+!   See {\tt ESMF\_ArraySMMStore()} on how to precompute 
+!   {\tt routehandle}. See section \ref{Array:SparseMatMul} for details on the
+!   operation {\tt ESMF\_ArraySMM()} performs.
+!
+!   This call is {\em collective} across the current VM.
+!
+!   \begin{description}
+!   \item [{[srcArray]}]
+!     {\tt ESMF\_Array} with source data.
+!   \item [{[dstArray]}]
+!     {\tt ESMF\_Array} with destination data.
+!   \item [routehandle]
+!     Handle to the precomputed Route.
+!   \item [{[routesyncflag]}]
+!     Indicate communication option. Default is {\tt ESMF\_ROUTESYNC\_BLOCKING},
+!     resulting in a blocking operation.
+!     See section \ref{const:routesync} for a complete list of valid settings.
+!   \item [{[finishedflag]}]
+!     \begin{sloppypar}
+!     Used in combination with {\tt routesyncflag = ESMF\_ROUTESYNC\_NBTESTFINISH}.
+!     Returned {\tt finishedflag} equal to {\tt .true.} indicates that all
+!     operations have finished. A value of {\tt .false.} indicates that there
+!     are still unfinished operations that require additional calls with
+!     {\tt routesyncflag = ESMF\_ROUTESYNC\_NBTESTFINISH}, or a final call with
+!     {\tt routesyncflag = ESMF\_ROUTESYNC\_NBWAITFINISH}. For all other {\tt routesyncflag}
+!     settings the returned value in {\tt finishedflag} is always {\tt .true.}.
+!     \end{sloppypar}
+!   \item [{[cancelledflag]}]
+!     A value of {\tt .true.} indicates that were cancelled communication
+!     operations. In this case the data in the {\tt dstArray} must be considered
+!     invalid. It may have been partially modified by the call. A value of
+!     {\tt .false.} indicates that none of the communication operations was
+!     cancelled. The data in {\tt dstArray} is valid if {\tt finishedflag} 
+!     returns equal {\tt .true.}.
+!   \item [{[zeroregion]}]
+!     \begin{sloppypar}
+!     If set to {\tt ESMF\_REGION\_TOTAL} {\em (default)} the total regions of
+!     all DEs in {\tt dstArray} will be initialized to zero before updating the 
+!     elements with the results of the sparse matrix multiplication. If set to
+!     {\tt ESMF\_REGION\_EMPTY} the elements in {\tt dstArray} will not be
+!     modified prior to the sparse matrix multiplication and results will be
+!     added to the incoming element values. Setting {\tt zeroregion} to 
+!     {\tt ESMF\_REGION\_SELECT} will only zero out those elements in the 
+!     destination Array that will be updated by the sparse matrix
+!     multiplication. See section \ref{const:region} for a complete list of
+!     valid settings.
+!     \end{sloppypar}
+!   \item [{[checkflag]}]
+!     If set to {\tt .TRUE.} the input Array pair will be checked for
+!     consistency with the precomputed operation provided by {\tt routehandle}.
+!     If set to {\tt .FALSE.} {\em (default)} only a very basic input check
+!     will be performed, leaving many inconsistencies undetected. Set
+!     {\tt checkflag} to {\tt .FALSE.} to achieve highest performance.
+!   \item [{[rc]}]
+!     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!   \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+    type(ESMF_Array)        :: opt_srcArray ! helper variable
+    type(ESMF_Array)        :: opt_dstArray ! helper variable
+    type(ESMF_RouteSync_Flag)     :: opt_routesyncflag ! helper variable
+    type(ESMF_Logical)      :: opt_finishedflag   ! helper variable
+    type(ESMF_Logical)      :: opt_cancelledflag  ! helper variable
+    type(ESMF_Region_Flag)  :: opt_zeroregion ! helper variable
+    type(ESMF_Logical)      :: opt_checkflag! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+
+    ! Check init status of arguments, deal with optional Array args
+    ESMF_INIT_CHECK_DEEP(ESMF_RouteHandleGetInit, routehandle, rc)
+    if (present(srcArray)) then
+      ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+      opt_srcArray = srcArray
+    else
+      call ESMF_ArraySetThisNull(opt_srcArray, localrc)
+      if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+        ESMF_CONTEXT, rcToReturn=rc)) return
+    endif
+    if (present(dstArray)) then
+      ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+      opt_dstArray = dstArray
+    else
+      call ESMF_ArraySetThisNull(opt_dstArray, localrc)
+      if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+        ESMF_CONTEXT, rcToReturn=rc)) return
+    endif
+    
+    ! Set default flags
+    opt_routesyncflag = ESMF_ROUTESYNC_BLOCKING
+    if (present(routesyncflag)) opt_routesyncflag = routesyncflag
+    opt_zeroregion = ESMF_REGION_TOTAL
+    if (present(zeroregion)) opt_zeroregion = zeroregion
+    opt_checkflag = ESMF_FALSE
+    if (present(checkflag)) opt_checkflag = checkflag
+        
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMM(opt_srcArray, opt_dstArray, routehandle, &
+      opt_routesyncflag, opt_finishedflag, opt_cancelledflag, opt_zeroregion, &
+      opt_checkflag, localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+      
+    ! translate back finishedflag
+    if (present(finishedflag)) then
+      finishedflag = opt_finishedflag
+    endif
+    
+    ! translate back cancelledflag
+    if (present(cancelledflag)) then
+      cancelledflag = opt_cancelledflag
+    endif
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMM
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMRelease()"
+!BOP
+! !IROUTINE: ESMF_ArraySMMRelease - Release resources associated with Array sparse matrix multiplication
+!
+! !INTERFACE:
+  subroutine ESMF_ArraySMMRelease(routehandle, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_RouteHandle), intent(inout)         :: routehandle
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                intent(out), optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+!   Release resouces associated with an Array sparse matrix multiplication. 
+!   After this call {\tt routehandle} becomes invalid.
+!
+!   \begin{description}
+!   \item [routehandle]
+!     Handle to the precomputed Route.
+!   \item [{[rc]}]
+!     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!   \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+
+    ! Check init status of arguments, deal with optional Array args
+    ESMF_INIT_CHECK_DEEP(ESMF_RouteHandleGetInit, routehandle, rc)
+        
+    ! Call into the RouteHandle code
+    call ESMF_RouteHandleRelease(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMRelease
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+!BOP
+! !IROUTINE: ESMF_ArraySMMStore - Precompute Array sparse matrix multiplication with local factors
+!
+! !INTERFACE:
+! ! Private name; call using ESMF_ArraySMMStore()
+! subroutine ESMF_ArraySMMStore<type><kind>(srcArray, dstArray, &
+!   routehandle, factorList, factorIndexList, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+!   type(ESMF_Array),                 intent(in)    :: srcArray
+!   type(ESMF_Array),                 intent(inout) :: dstArray
+!   type(ESMF_RouteHandle),           intent(inout) :: routehandle
+!   <type>(ESMF_KIND_<kind>), target, intent(in)    :: factorList(:)
+!   integer,                          intent(in)    :: factorIndexList(:,:)
+!type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+!   integer,                          intent(out), optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+! \label{ArraySMMStoreTK}
+! {\tt ESMF\_ArraySMMStore()} is a collective method across all PETs of the
+! current Component. The interface of the method is overloaded, allowing 
+! -- in principle -- each PET to call into {\tt ESMF\_ArraySMMStore()}
+! through a different entry point. Restrictions apply as to which combinations
+! are sensible. All other combinations result in ESMF run time errors. The
+! complete semantics of the {\tt ESMF\_ArraySMMStore()} method, as provided
+! through the separate entry points shown in \ref{ArraySMMStoreTK} and
+! \ref{ArraySMMStoreNF}, is described in the following paragraphs as a whole.
+!
+!   \begin{sloppypar}
+!   Store an Array sparse matrix multiplication operation from {\tt srcArray}
+!   to {\tt dstArray}. PETs that specify non-zero matrix coefficients must use
+!   the <type><kind> overloaded interface and provide the {\tt factorList} and
+!   {\tt factorIndexList} arguments. Providing {\tt factorList} and
+!   {\tt factorIndexList} arguments with {\tt size(factorList) = (/0/)} and
+!   {\tt size(factorIndexList) = (/2,0/)} or {\tt (/4,0/)} indicates that a 
+!   PET does not provide matrix elements. Alternatively, PETs that do not 
+!   provide matrix elements may also call into the overloaded interface
+!   {\em without} {\tt factorList} and {\tt factorIndexList} arguments.
+!   \end{sloppypar}
+!
+!   Both {\tt srcArray} and {\tt dstArray} are interpreted as sequentialized
+!   vectors. The sequence is defined by the order of DistGrid dimensions and 
+!   the order of tiles within the DistGrid or by user-supplied arbitrary
+!   sequence indices. See section \ref{Array:SparseMatMul} for details on the
+!   definition of {\em sequence indices}.
+!
+!   Source and destination Arrays, as well as the supplied {\tt factorList}
+!   argument, may be of different <type><kind>. Further source and
+!   destination Arrays may differ in shape and number of elements.
+!
+!   It is erroneous to specify the identical Array object for {\tt srcArray} and
+!   {\tt dstArray} arguments.
+!
+!   The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+!   {\tt ESMF\_ArraySMM()} on any pair of Arrays that are weakly congruent
+!   and typekind conform with the {\tt srcArray}, {\tt dstArray} pair. 
+!   Congruent Arrays possess matching DistGrids, and the shape of the local
+!   array tiles matches between the Arrays for every DE. For weakly congruent
+!   Arrays the size of the undistributed dimensions, that vary faster with
+!   memory than the first distributed dimension, is permitted to be different.
+!   This means that the same {\tt routehandle} can be applied to a large class
+!   of similar Arrays that differ in the number of elements in the left most
+!   undistributed dimensions.
+!
+!   This method is overloaded for:\newline
+!   {\tt ESMF\_TYPEKIND\_I4}, {\tt ESMF\_TYPEKIND\_I8},\newline 
+!   {\tt ESMF\_TYPEKIND\_R4}, {\tt ESMF\_TYPEKIND\_R8}.
+!   \newline
+!
+!   This call is {\em collective} across the current VM.
+!
+!   \begin{description}
+!   \item [srcArray]
+!     {\tt ESMF\_Array} with source data.
+!   \item [dstArray]
+!     {\tt ESMF\_Array} with destination data. The data in this Array may be
+!     destroyed by this call.
+!   \item [routehandle]
+!     Handle to the precomputed Route.
+!   \item [factorList]
+!     List of non-zero coefficients.
+!   \item [factorIndexList]
+!     Pairs of sequence indices for the factors stored in {\tt factorList}.
+!
+!     \begin{sloppypar}
+!     The second dimension of {\tt factorIndexList} steps through the list of
+!     pairs, i.e. {\tt size(factorIndexList,2) == size(factorList)}. The first
+!     dimension of {\tt factorIndexList} is either of size 2 or size 4.
+!     \end{sloppypar}
+!
+!     In the {\em size 2 format} {\tt factorIndexList(1,:)} specifies the
+!     sequence index of the source element in the {\tt srcArray} while
+!     {\tt factorIndexList(2,:)} specifies the sequence index of the
+!     destination element in {\tt dstArray}. For this format to be a valid
+!     option source and destination Arrays must have matching number of
+!     tensor elements (the product of the sizes of all Array tensor dimensions).
+!     Under this condition an identiy matrix can be applied within the space of
+!     tensor elements for each sparse matrix factor.
+!
+!     \begin{sloppypar}
+!     The {\em size 4 format} is more general and does not require a matching
+!     tensor element count. Here the {\tt factorIndexList(1,:)} specifies the
+!     sequence index while {\tt factorIndexList(2,:)} specifies the tensor
+!     sequence index of the source element in the {\tt srcArray}. Further
+!     {\tt factorIndexList(3,:)} specifies the sequence index and
+!     {\tt factorIndexList(4,:)} specifies the tensor sequence index of the 
+!     destination element in the {\tt dstArray}.
+!     \end{sloppypar}
+!
+!     See section \ref{Array:SparseMatMul} for details on the definition of 
+!     Array {\em sequence indices} and {\em tensor sequence indices}.
+!   \item [{[rc]}]
+!     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!   \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMStoreI4()"
+!BOPI
+! !IROUTINE: ESMF_ArraySMMStore - Precompute and store an Array sparse matrix multiplication 
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySMMStore()
+  subroutine ESMF_ArraySMMStoreI4(srcArray, dstArray, routehandle, factorList, &
+    factorIndexList, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),              intent(in)            :: srcArray
+    type(ESMF_Array),              intent(inout)         :: dstArray
+    type(ESMF_RouteHandle),        intent(inout)         :: routehandle
+    integer(ESMF_KIND_I4), target, intent(in)            :: factorList(:)
+    integer,                       intent(in)            :: factorIndexList(:,:)
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                       intent(out), optional :: rc
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                         :: localrc            ! local return code
+    integer(ESMF_KIND_I4), pointer  :: opt_factorList(:)  ! helper variable
+    integer                         :: len_factorList     ! helper variable
+    type(ESMF_InterfaceInt)         :: factorIndexListArg ! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+    
+    ! Wrap factor arguments
+    len_factorList = size(factorList)
+    opt_factorList => factorList
+    factorIndexListArg = &
+      ESMF_InterfaceIntCreate(farray2D=factorIndexList, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMMStore(srcArray, dstArray, routehandle, &
+      ESMF_TYPEKIND_I4, opt_factorList, len_factorList, factorIndexListArg, &
+      localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Garbage collection
+    call ESMF_InterfaceIntDestroy(factorIndexListArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Mark routehandle object as being created
+    call ESMF_RouteHandleSetInitCreated(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMStoreI4
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMStoreI8()"
+!BOPI
+! !IROUTINE: ESMF_ArraySMMStore - Precompute and store an Array sparse matrix multiplication
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySMMStore()
+  subroutine ESMF_ArraySMMStoreI8(srcArray, dstArray, routehandle, factorList, &
+    factorIndexList, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),              intent(in)            :: srcArray
+    type(ESMF_Array),              intent(inout)         :: dstArray
+    type(ESMF_RouteHandle),        intent(inout)         :: routehandle
+    integer(ESMF_KIND_I8), target, intent(in)            :: factorList(:)
+    integer,                       intent(in)            :: factorIndexList(:,:)
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                       intent(out), optional :: rc
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                         :: localrc            ! local return code
+    integer(ESMF_KIND_I8), pointer  :: opt_factorList(:)  ! helper variable
+    integer                         :: len_factorList     ! helper variable
+    type(ESMF_InterfaceInt)         :: factorIndexListArg ! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+    
+    ! Wrap factor arguments
+    len_factorList = size(factorList)
+    opt_factorList => factorList
+    factorIndexListArg = &
+      ESMF_InterfaceIntCreate(farray2D=factorIndexList, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMMStore(srcArray, dstArray, routehandle, &
+      ESMF_TYPEKIND_I8, opt_factorList, len_factorList, factorIndexListArg, &
+      localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Garbage collection
+    call ESMF_InterfaceIntDestroy(factorIndexListArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Mark routehandle object as being created
+    call ESMF_RouteHandleSetInitCreated(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMStoreI8
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMStoreR4()"
+!BOPI
+! !IROUTINE: ESMF_ArraySMMStore - Precompute and store an Array sparse matrix multiplication
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySMMStore()
+  subroutine ESMF_ArraySMMStoreR4(srcArray, dstArray, routehandle, factorList, &
+    factorIndexList, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),           intent(in)            :: srcArray
+    type(ESMF_Array),           intent(inout)         :: dstArray
+    type(ESMF_RouteHandle),     intent(inout)         :: routehandle
+    real(ESMF_KIND_R4), target, intent(in)            :: factorList(:)
+    integer,                    intent(in)            :: factorIndexList(:,:)
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                    intent(out), optional :: rc
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                         :: localrc            ! local return code
+    real(ESMF_KIND_R4), pointer     :: opt_factorList(:)  ! helper variable
+    integer                         :: len_factorList     ! helper variable
+    type(ESMF_InterfaceInt)         :: factorIndexListArg ! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+    
+    ! Wrap factor arguments
+    len_factorList = size(factorList)
+    opt_factorList => factorList
+    factorIndexListArg = &
+      ESMF_InterfaceIntCreate(farray2D=factorIndexList, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMMStore(srcArray, dstArray, routehandle, &
+      ESMF_TYPEKIND_R4, opt_factorList, len_factorList, factorIndexListArg, &
+      localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Garbage collection
+    call ESMF_InterfaceIntDestroy(factorIndexListArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Mark routehandle object as being created
+    call ESMF_RouteHandleSetInitCreated(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMStoreR4
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMStoreR8()"
+!BOPI
+! !IROUTINE: ESMF_ArraySMMStore - Precompute and store an Array sparse matrix multiplication
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySMMStore()
+  subroutine ESMF_ArraySMMStoreR8(srcArray, dstArray, routehandle, factorList, &
+    factorIndexList, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),           intent(in)            :: srcArray
+    type(ESMF_Array),           intent(inout)         :: dstArray
+    type(ESMF_RouteHandle),     intent(inout)         :: routehandle
+    real(ESMF_KIND_R8), target, intent(in)            :: factorList(:)
+    integer,                    intent(in)            :: factorIndexList(:,:)
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                    intent(out), optional :: rc
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer                         :: localrc            ! local return code
+    real(ESMF_KIND_R8), pointer     :: opt_factorList(:)  ! helper variable
+    integer                         :: len_factorList     ! helper variable
+    type(ESMF_InterfaceInt)         :: factorIndexListArg ! helper variable
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+    
+    ! Wrap factor arguments
+    len_factorList = size(factorList)
+    opt_factorList => factorList
+    factorIndexListArg = &
+      ESMF_InterfaceIntCreate(farray2D=factorIndexList, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMMStore(srcArray, dstArray, routehandle, &
+      ESMF_TYPEKIND_R8, opt_factorList, len_factorList, factorIndexListArg, &
+      localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Garbage collection
+    call ESMF_InterfaceIntDestroy(factorIndexListArg, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Mark routehandle object as being created
+    call ESMF_RouteHandleSetInitCreated(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMStoreR8
+!------------------------------------------------------------------------------
+
+
+!------------------------------------------------------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArraySMMStoreNF()"
+!BOP
+! !IROUTINE: ESMF_ArraySMMStore - Precompute Array sparse matrix multiplication without local factors
+!
+! !INTERFACE:
+  ! Private name; call using ESMF_ArraySMMStore()
+  subroutine ESMF_ArraySMMStoreNF(srcArray, dstArray, routehandle, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),       intent(in)            :: srcArray
+    type(ESMF_Array),       intent(inout)         :: dstArray
+    type(ESMF_RouteHandle), intent(inout)         :: routehandle
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,                intent(out), optional :: rc
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+! \label{ArraySMMStoreNF}
+! {\tt ESMF\_ArraySMMStore()} is a collective method across all PETs of the
+! current Component. The interface of the method is overloaded, allowing 
+! -- in principle -- each PET to call into {\tt ESMF\_ArraySMMStore()}
+! through a different entry point. Restrictions apply as to which combinations
+! are sensible. All other combinations result in ESMF run time errors. The
+! complete semantics of the {\tt ESMF\_ArraySMMStore()} method, as provided
+! through the separate entry points shown in \ref{ArraySMMStoreTK} and
+! \ref{ArraySMMStoreNF}, is described in the following paragraphs as a whole.
+!
+!   \begin{sloppypar}
+!   Store an Array sparse matrix multiplication operation from {\tt srcArray}
+!   to {\tt dstArray}. PETs that specify non-zero matrix coefficients must use
+!   the <type><kind> overloaded interface and provide the {\tt factorList} and
+!   {\tt factorIndexList} arguments. Providing {\tt factorList} and
+!   {\tt factorIndexList} arguments with {\tt size(factorList) = (/0/)} and
+!   {\tt size(factorIndexList) = (/2,0/)} or {\tt (/4,0/)} indicates that a 
+!   PET does not provide matrix elements. Alternatively, PETs that do not 
+!   provide matrix elements may also call into the overloaded interface
+!   {\em without} {\tt factorList} and {\tt factorIndexList} arguments.
+!   \end{sloppypar}
+!
+!   Both {\tt srcArray} and {\tt dstArray} are interpreted as sequentialized
+!   vectors. The sequence is defined by the order of DistGrid dimensions and 
+!   the order of tiles within the DistGrid or by user-supplied arbitrary
+!   sequence indices. See section \ref{Array:SparseMatMul} for details on the
+!   definition of {\em sequence indices}.
+!
+!   Source and destination Arrays, as well as the supplied {\tt factorList}
+!   argument, may be of different <type><kind>. Further source and
+!   destination Arrays may differ in shape and number of elements.
+!
+!   It is erroneous to specify the identical Array object for {\tt srcArray} and
+!   {\tt dstArray} arguments.
+!
+!   The routine returns an {\tt ESMF\_RouteHandle} that can be used to call 
+!   {\tt ESMF\_ArraySMM()} on any pair of Arrays that are weakly congruent
+!   and typekind conform with the {\tt srcArray}, {\tt dstArray} pair. 
+!   Congruent Arrays possess matching DistGrids, and the shape of the local
+!   array tiles matches between the Arrays for every DE. For weakly congruent
+!   Arrays the size of the undistributed dimensions, that vary faster with
+!   memory than the first distributed dimension, is permitted to be different.
+!   This means that the same {\tt routehandle} can be applied to a large class
+!   of similar Arrays that differ in the number of elements in the left most
+!   undistributed dimensions.
+!   \newline
+!
+!   This call is {\em collective} across the current VM.
+!
+!   \begin{description}
+!   \item [srcArray]
+!     {\tt ESMF\_Array} with source data.
+!   \item [dstArray]
+!     {\tt ESMF\_Array} with destination data. The data in this Array may be
+!     destroyed by this call.
+!   \item [routehandle]
+!     Handle to the precomputed Route.
+!   \item [{[rc]}]
+!     Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!   \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, srcArray, rc)
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, dstArray, rc)
+    
+    ! Call into the C++ interface, which will sort out optional arguments
+    call c_ESMC_ArraySMMStoreNF(srcArray, dstArray, routehandle, &
+      localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! Mark routehandle object as being created
+    call ESMF_RouteHandleSetInitCreated(routehandle, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+  end subroutine ESMF_ArraySMMStoreNF
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayValidate()"
+!BOP
+! !IROUTINE: ESMF_ArrayValidate - Validate object-wide Array information
+
+! !INTERFACE:
+  subroutine ESMF_ArrayValidate(array, keywordEnforcer, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array), intent(in)            :: array
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    integer,          intent(out), optional :: rc  
+!
+! !STATUS:
+! \begin{itemize}
+! \item\apiStatusCompatibleVersion{5.2.0r}
+! \end{itemize}
+!
+! !DESCRIPTION:
+!      Validates that the {\tt Array} is internally consistent.
+!      The method returns an error code if problems are found.  
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!          Specified {\tt ESMF\_Array} object.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    integer                 :: localrc      ! local return code
+
+    ! initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, array, rc)
+    
+    ! Call into the C++ interface, which will sort out optional arguments.
+    call c_ESMC_ArrayValidate(array, localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+      
+    ! return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+    
+  end subroutine ESMF_ArrayValidate
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayWrite"
+!BOP
+! !IROUTINE: ESMF_ArrayWrite - Write Array data into a file
+! \label{api:ArrayWrite}
+!
+! !INTERFACE:
+  subroutine ESMF_ArrayWrite(array, file, keywordEnforcer, &
+     variableName, append, timeslice, iofmt, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),     intent(in)            :: array
+    character(*),         intent(in)            :: file
+type(ESMF_KeywordEnforcer), optional:: keywordEnforcer ! must use keywords below
+    character(*),         intent(in),  optional :: variableName
+    logical,              intent(in),  optional :: append
+    integer,              intent(in),  optional :: timeslice
+    type(ESMF_IOFmtFlag), intent(in),  optional :: iofmt
+    integer,              intent(out), optional :: rc
+!
+! !DESCRIPTION:
+!   Write Array data into a file. For this API to be functional, the 
+!   environment variable {\tt ESMF\_PIO} should be set to "internal" when 
+!   the ESMF library is built.  Please see the section on 
+!   Data I/O,~\ref{io:dataio}. 
+!
+!   Limitations:
+!   \begin{itemize}
+!     \item Only 1 DE per PET supported.
+!     \item Not supported in {\tt ESMF\_COMM=mpiuni} mode.
+!   \end{itemize}
+!
+!  The arguments are:
+!  \begin{description}
+!   \item[array]
+!    The {\tt ESMF\_Array} object that contains data to be written.
+!   \item[file]
+!    The name of the output file to which Array data is written.
+!   \item[{[variableName]}]
+!    Variable name in the output file; default is the "name" of Array.
+!    Use this argument only in the IO format (such as NetCDF) that
+!    supports variable name. If the IO format does not support this 
+!    (such as binary format), ESMF will return an error code.
+!   \item[{[append]}]
+!    Logical: if .true., data (with attributes) is appended to an
+!    existing file; default is .false.
+!   \item[{[timeslice]}]
+!    Some IO formats (e.g. NetCDF) support the output of data in form of
+!    time slices. The {\tt timeslice} argument provides access to this
+!    capability. Usage of this feature requires that the first slice is
+!    written with a positive {\tt timeslice} value, and that subsequent slices
+!    are written with a {\tt timeslice} argument that increments by one each
+!    time. By default, i.e. by omitting the {\tt timeslice} argument, no
+!    provisions for time slicing are made in the output file.
+!   \item[{[iofmt]}]
+!    \begin{sloppypar}
+!    The IO format. Please see Section~\ref{opt:iofmtflag} for the list 
+!    of options. If not present, defaults to {\tt ESMF\_IOFMT\_NETCDF}.
+!    \end{sloppypar}
+!   \item[{[rc]}]
+!    Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!  \end{description}
+!
+!EOP
+!------------------------------------------------------------------------------
+    ! Local vars
+    integer :: localrc                   ! local return code
+    integer :: localtk
+    integer :: rank, time
+    logical :: appd_internal
+    character(len=80) :: varname
+    type(ESMF_IOFmtFlag) :: iofmt_internal
+    character(len=10) :: piofmt
+
+    type(ESMF_TypeKind_Flag)             :: typekind
+
+    ! Initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+
+#ifdef ESMF_PIO
+
+    ! Check init status of arguments
+    ESMF_INIT_CHECK_DEEP(ESMF_ArrayGetInit, array, rc)
+
+    ! Handle IO format
+    iofmt_internal = ESMF_IOFMT_NETCDF   ! default format
+    if (present(iofmt)) iofmt_internal = iofmt
+
+    if (iofmt_internal .eq. ESMF_IOFMT_NETCDF) then
+      ! NETCDF format selected
+#ifdef ESMF_PNETCDF
+      piofmt = "pnc"  ! PNETCDF first choice to write NETCDF format
+#elif ESMF_NETCDF
+      piofmt = "snc"  ! serial NETCDF second choice to write NETCDF format
+#else
+      call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="ESMF must be compiled with NETCDF or PNETCDF support for this format choice", &
+        ESMF_CONTEXT, rcToReturn=rc)
+      return
+#endif
+
+    else if (iofmt_internal == ESMF_IOFMT_NETCDF4P) then
+      ! NETCDF format selected
+#ifdef ESMF_NETCDF
+      piofmt = "nc4p"  ! parallel read/write of NETCDF4 (HDF5) files 
+#else
+      call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg= "ESMF must be compiled with NETCDF support for this format choice", &
+        ESMF_CONTEXT, rcToReturn=rc)
+      return
+#endif
+
+    else if (iofmt_internal == ESMF_IOFMT_NETCDF4C) then
+      ! NETCDF format selected
+#ifdef ESMF_NETCDF
+      piofmt = "nc4c"  ! parallel read/serial write of NetCDF4 (HDF5) 
+                       ! files with data compression
+#else
+      call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="ESMF must be compiled with NETCDF support for this format choice", &
+        ESMF_CONTEXT, rcToReturn=rc)
+      return
+#endif
+
+    else if (iofmt_internal == ESMF_IOFMT_BIN) then
+ 
+#ifdef ESMF_MPIIO
+      ! binary format selected
+      piofmt = "bin"
+      if (present(variableName)) then
+        call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_INCOMP, &
+        msg="The input argument variableName cannot be sepcified in ESMF_IOFMT_BIN mode", &
+          ESMF_CONTEXT, rcToReturn=rc)
+        return
+      endif
+      if (present(timeslice)) then
+        call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_INCOMP, &
+        msg="The input argument timeslice cannot be sepcified in ESMF_IOFMT_BIN mode",  &
+          ESMF_CONTEXT, rcToReturn=rc)
+        return
+      endif
+#else
+      call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="ESMF must be compiled with an MPI that implements MPI-IO to support this format choice", &
+        ESMF_CONTEXT, rcToReturn=rc)
+      return
+#endif
+
+    else
+
+      ! format option that is not supported
+      call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="this format is not currently supported by the ESMF IO layer", &
+        ESMF_CONTEXT, rcToReturn=rc)
+      return
+
+    endif
+
+    ! Handle time dimension
+    time = -1   ! default, no time dimension
+    if (present(timeslice)) time = timeslice
+
+    !
+    ! Obtain typekind and rank
+    call ESMF_ArrayGet( array, typekind=typekind, rank=rank, name=varname, rc=localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+    if(present(variableName)) varname = variableName
+ 
+    appd_internal = .false.
+    if(present(append)) appd_internal = append
+
+
+    ! Call a T/K/R specific interface in order to create the proper
+    !  type of F90 pointer, allocate the space, set the values in the
+    !  Array object, and return.  (The routine this code is calling is
+    !  generated by macro.)
+
+    localtk = typekind%dkind
+
+    !! calling routines generated from macros by the preprocessor
+
+    select case (localtk)
+      !
+      case (ESMF_TYPEKIND_I4%dkind)
+        ! The PIO data type is PIO_int
+        select case(rank)
+          case (1)
+            call ESMF_ArrayWriteIntl1DI4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (2)
+            call ESMF_ArrayWriteIntl2DI4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (3)
+            call ESMF_ArrayWriteIntl3DI4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (4)
+            call ESMF_ArrayWriteIntl4DI4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (5)
+            call ESMF_ArrayWriteIntl5DI4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case default
+            call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_BAD, msg="Unsupported rank", &
+              ESMF_CONTEXT, rcToReturn=rc)
+            return
+        end select
+
+      case (ESMF_TYPEKIND_R4%dkind)
+        ! The PIO data type is PIO_real
+        select case(rank)
+          case (1)
+            call ESMF_ArrayWriteIntl1DR4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (2)
+            call ESMF_ArrayWriteIntl2DR4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (3)
+            call ESMF_ArrayWriteIntl3DR4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (4)
+            call ESMF_ArrayWriteIntl4DR4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (5)
+            call ESMF_ArrayWriteIntl5DR4(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case default
+            call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_BAD, msg="Unsupported rank", &
+              ESMF_CONTEXT, rcToReturn=rc)
+            return
+        end select
+
+      case (ESMF_TYPEKIND_R8%dkind)
+        ! The PIO data type is PIO_double
+        select case(rank)
+          case (1)
+            call ESMF_ArrayWriteIntl1DR8(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (2)
+            call ESMF_ArrayWriteIntl2DR8(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (3)
+            call ESMF_ArrayWriteIntl3DR8(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (4)
+            call ESMF_ArrayWriteIntl4DR8(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case (5)
+            call ESMF_ArrayWriteIntl5DR8(array, file, varname, appd_internal, time, piofmt, rc=localrc)
+            if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+              ESMF_CONTEXT, rcToReturn=rc)) return
+          case default
+            call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_BAD, msg="Unsupported rank", &
+              ESMF_CONTEXT, rcToReturn=rc)
+            return
+        end select
+
+      case default
+        call ESMF_LogSetError(rcToCheck=ESMF_RC_ARG_BAD, msg="Unsupported typekind", &
+          ESMF_CONTEXT, rcToReturn=rc)
+        return
+
+    end select
+
+    ! Return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+#else
+    ! Return indicating PIO not present
+    call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="ESMF must be compiled with PIO support to support I/O methods", &
+      ESMF_CONTEXT, rcToReturn=rc)
+#endif
+
+  end subroutine ESMF_ArrayWrite
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayWriteC"
+!BOPI
+! !IROUTINE: ESMF_ArrayWriteC - Write Array data into a file
+! \label{api:ArrayWrite}
+!
+! !INTERFACE:
+  subroutine ESMF_ArrayWriteC(array, file, &
+     variableName, append, timeslice, iofmt, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),     intent(inout)          :: array
+    character(*),         intent(in)             :: file
+    character(*),         intent(in),  optional  :: variableName
+    logical,              intent(in),  optional  :: append
+    integer,              intent(in),  optional  :: timeslice
+    type(ESMF_IOFmtFlag), intent(in),  optional  :: iofmt
+    integer,              intent(out), optional  :: rc
+!
+!
+! !DESCRIPTION:
+!   Write Array data into a file. For this API to be functional, the 
+!   environment variable {\tt ESMF\_PIO} should be set to "internal" when 
+!   the ESMF library is built.  Please see the section on 
+!   Data I/O,~\ref{io:dataio}. 
+!
+!   Limitations:
+!   \begin{itemize}
+!     \item Only 1 DE per PET supported.
+!     \item Not supported in {\tt ESMF\_COMM=mpiuni} mode.
+!   \end{itemize}
+!
+!  The arguments are:
+!  \begin{description}
+!   \item[array]
+!    The {\tt ESMF\_Array} object that contains data to be written.
+!   \item[file]
+!    The name of the output file to which Array data is written.
+!   \item[{[variableName]}]
+!    Variable name in the output file; default is the "name" of Array.
+!    Use this argument only in the IO format (such as NetCDF) that
+!    supports variable name. If the IO format does not support this 
+!    (such as binary format), ESMF will return an error code.
+!   \item[{[append]}]
+!    Logical: if .true., data (with attributes) is appended to an
+!    existing file; default is .false.
+!   \item[{[timeslice]}]
+!    Some IO formats (e.g. NetCDF) support the output of data in form of
+!    time slices. The {\tt timeslice} argument provides access to this
+!    capability. Usage of this feature requires that the first slice is
+!    written with a positive {\tt timeslice} value, and that subsequent slices
+!    are written with a {\tt timeslice} argument that increments by one each
+!    time. By default, i.e. by omitting the {\tt timeslice} argument, no
+!    provisions for time slicing are made in the output file.
+!   \item[{[iofmt]}]
+!    \begin{sloppypar}
+!    The IO format. Please see Section~\ref{opt:iofmtflag} for the list 
+!    of options. If not present, defaults to {\tt ESMF\_IOFMT\_NETCDF}.
+!    \end{sloppypar}
+!   \item[{[rc]}]
+!    Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!  \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    ! Local vars
+    integer :: localrc                   ! local return code
+    integer :: localtk
+    integer :: rank, time
+    logical :: appd_internal
+    character(len=80) :: varname
+    type(ESMF_IOFmtFlag) :: iofmt_internal
+    character(len=10) :: piofmt
+
+    ! Initialize return code; assume routine not implemented
+    localrc = ESMF_RC_NOT_IMPL
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+
+#ifdef ESMF_PIO
+
+    ! Call into the C++ interface, which will call IO object
+    call c_esmc_arraywritec(array, file, variableName, append, &
+        timeslice, iofmt, localrc)
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+    ! Return successfully
+    if (present(rc)) rc = ESMF_SUCCESS
+
+#else
+    ! Return indicating PIO not present
+    call ESMF_LogSetError(rcToCheck=ESMF_RC_LIB_NOT_PRESENT, &
+      msg="ESMF must be compiled with PIO support to support I/O methods", &
+      ESMF_CONTEXT, rcToReturn=rc)
+#endif
+
+  end subroutine ESMF_ArrayWriteC
+!------------------------------------------------------------------------------
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!!!!!!!!!!!!! old-style newArray calls of 1st prototype calls !!!!!!!!!!!!!!!!!
+
+
+#ifdef FIRSTNEWARRAYPROTOTYPE
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayReduceScalarBR8()"
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce - Reduce a Array to a single R8 scalar
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayReduce()
+  subroutine ESMF_ArrayReduceScalarBR8(array, result, reduceflag, &
+    reduceflagDummy, rootPET, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),    intent(in)              :: array
+    real(ESMF_KIND_R8),     intent(out)             :: result
+    type(ESMF_Reduce_Flag),  intent(in)              :: reduceflag
+    type(ESMF_Reduce_Flag),  intent(in)              :: reduceflagDummy !prevent conflict
+    integer,                intent(in)              :: rootPET
+    type(ESMF_VM),          intent(in),   optional  :: vm
+    integer,                intent(out),  optional  :: rc  
+!         
+!
+! !DESCRIPTION:
+!     Reduce {\tt array} to a singe R8 scalar {\tt result}. The reduction
+!     operation is specified in {\tt reduceFlag}.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object that will be reduced.
+!     \item[result]
+!        Upon return this will hold the result of the reduction operation. Only
+!        {\tt rootPET} must provide a valid {\tt result} argument.
+!        {\tt result} arguments on other PETs will be used to check the
+!        data type and kind but are otherwise ignored.
+!   \item[reduceflag] 
+!        Reduction operation. See section \ref{const:reduce} for a list of 
+!        valid reduce operations.
+!     \item[rootPET]
+!        PET on which result will be returned.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer :: localrc                        ! local return code
+
+    ! Initialize return code
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    localrc = ESMF_RC_NOT_IMPL
+
+    ! Call into the C++ interface, which will sort out optional arguments.
+!    call c_ESMC_ArrayReduceScalarB(array, result, ESMF_TYPEKIND_R8, reduceflag, &
+!      rootPET, vm, localrc)
+
+    ! Use LogErr to handle return code
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+  end subroutine ESMF_ArrayReduceScalarBR8
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayReduceScalarNBRootR8()"
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce - Reduce a Array to a single R8 scalar
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayReduce()
+  subroutine ESMF_ArrayReduceScalarNBRootR8(array, result, reduceflag, &
+    rootPET, commhandle, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),    intent(in)              :: array
+    real(ESMF_KIND_R8),     intent(out)             :: result
+    type(ESMF_Reduce_Flag),  intent(in)              :: reduceflag
+    integer,                intent(in)              :: rootPET
+    type(ESMF_CommHandle),  intent(inout)           :: commhandle
+    type(ESMF_VM),          intent(in),   optional  :: vm
+    integer,                intent(out),  optional  :: rc  
+!         
+!
+! !DESCRIPTION:
+!     Reduce {\tt array} to a singe R8 scalar {\tt result}. The reduction
+!     operation is specified in {\tt reduceFlag}.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object that will be reduced.
+!     \item[result]
+!        Upon return (after wait returned!!!) this will hold the result of the reduction operation. Only
+!        {\tt rootPET} must provide a valid {\tt result} argument.
+!        {\tt result} arguments on other PETs will be used to check the
+!        data type and kind but are otherwise ignored.
+!     \item[reduceflag] 
+!        Reduction operation. See section \ref{const:reduce} for a list of 
+!        valid reduce operations.
+!     \item[rootPET]
+!        PET on which result will be returned.
+!     \item[commhandle]
+!          Upon return {\tt commhandle} on {\tt rootPET} holds the 
+!          {\tt ESMF\_CommHandle} associated with the non-blocking scatter 
+!          operation.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer :: localrc                        ! local return code
+
+    ! Initialize return code
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    localrc = ESMF_RC_NOT_IMPL
+
+    ! Call into the C++ interface, which will sort out optional arguments.
+!    call c_ESMC_ArrayReduceScalarNBRoot(array, result, ESMF_TYPEKIND_R8, reduceflag, &
+!      rootPET, commhandle, vm, localrc)
+
+    ! Use LogErr to handle return code
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+  end subroutine ESMF_ArrayReduceScalarNBRootR8
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayReduceScalarNBR8()"
+!BOPI
+! !IROUTINE: ESMF_ArrayReduce - Reduce a Array to a single R8 scalar
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayReduce()
+  subroutine ESMF_ArrayReduceScalarNBR8(array, result, reduceflag, rootPET, &
+    de, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),    intent(in)              :: array
+    real(ESMF_KIND_R8),     intent(out)             :: result
+    type(ESMF_Reduce_Flag),  intent(in)              :: reduceflag
+    integer,                intent(in)              :: rootPET
+    integer,                intent(in)              :: de
+    type(ESMF_VM),          intent(in),   optional  :: vm
+    integer,                intent(out),  optional  :: rc  
+!         
+!
+! !DESCRIPTION:
+!     Reduce {\tt array} to a singe R8 scalar {\tt result}. The reduction
+!     operation is specified in {\tt reduceFlag}.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object that will be reduced.
+!     \item[result]
+!        Upon return this will hold the result of the reduction operation. Only
+!        {\tt rootPET} must provide a valid {\tt result} argument.
+!        {\tt result} arguments on other PETs will be used to check the
+!        data type and kind but are otherwise ignored.
+!     \item[reduceflag] 
+!        Reduction operation. See section \ref{const:reduce} for a list of 
+!        valid reduce operations.
+!     \item[rootPET]
+!        PET on which result will be returned.
+!     \item[de]
+!          DE for which this call is issued.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer :: localrc                        ! local return code
+
+    ! Initialize return code
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    localrc = ESMF_RC_NOT_IMPL
+
+    ! Call into the C++ interface, which will sort out optional arguments.
+!    call c_ESMC_ArrayReduceScalarNB(array, result, ESMF_TYPEKIND_R8, reduceflag, &
+!      rootPET, de, vm, localrc)
+
+    ! Use LogErr to handle return code
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+  end subroutine ESMF_ArrayReduceScalarNBR8
+!------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+! ---- Wait methods ---------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayWaitRoot()"
+!BOPI
+! !IROUTINE: ESMF_ArrayWait - Wait for non-blocking Array communication
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayWait()
+  subroutine ESMF_ArrayWaitRoot(array, rootPET, commhandle, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),       intent(inout)           :: array
+    integer,                intent(in)              :: rootPET
+    type(ESMF_CommHandle),  intent(inout)           :: commhandle
+    type(ESMF_VM),          intent(in),   optional  :: vm
+    integer,                intent(out),  optional  :: rc  
+!         
+!
+! !DESCRIPTION:
+!     Wait for non-blocking communication associated with {\tt commhandle}
+!     to finish making all data objects valid and accessible. This call is
+!     only to be issued from the PET which was {\tt rootPET} for the respecitve
+!     communication call.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object across which data will be scattered.
+!     \item[rootPET]
+!          PET that was the root during the respective communication call.
+!     \item[commhandle]
+!          Wait for the data object on rootPET associated with commhandle to
+!          become available.
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer :: localrc                        ! local return code
+
+    ! Initialize return code
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    localrc = ESMF_RC_NOT_IMPL
+
+    ! Call into the C++ interface, which will sort out optional arguments.
+!    call c_ESMC_ArrayWaitRoot(array, rootPET, commhandle, vm, localrc)
+
+    ! Use LogErr to handle return code
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+  end subroutine ESMF_ArrayWaitRoot
+!------------------------------------------------------------------------------
+
+
+! -------------------------- ESMF-public method -------------------------------
+#undef  ESMF_METHOD
+#define ESMF_METHOD "ESMF_ArrayWaitDE()"
+!BOPI
+! !IROUTINE: ESMF_ArrayWait - Wait for non-blocking Array communication
+
+! !INTERFACE:
+  ! Private name; call using ESMF_ArrayWait()
+  subroutine ESMF_ArrayWaitDE(array, de, vm, rc)
+!
+! !ARGUMENTS:
+    type(ESMF_Array),       intent(inout)           :: array
+    integer,                intent(in)              :: de
+    type(ESMF_VM),          intent(in),   optional  :: vm
+    integer,                intent(out),  optional  :: rc  
+!         
+!
+! !DESCRIPTION:
+!     Wait for non-blocking communication to finish for the specific DE,
+!     making available the associated data in {\tt array}.
+!
+!     The arguments are:
+!     \begin{description}
+!     \item[array] 
+!        The {\tt ESMF\_Array} object across which data will be scattered.
+!     \item[de]
+!          DE for which this call is issued. 
+!     \item[{[vm]}]
+!        Optional {\tt ESMF\_VM} object of the current context. Providing the
+!        VM of the current context will lower the method's overhead.
+!     \item[{[rc]}] 
+!          Return code; equals {\tt ESMF\_SUCCESS} if there are no errors.
+!     \end{description}
+!
+!EOPI
+!------------------------------------------------------------------------------
+    integer :: localrc                        ! local return code
+
+    ! Initialize return code
+    if (present(rc)) rc = ESMF_RC_NOT_IMPL
+    localrc = ESMF_RC_NOT_IMPL
+
+    ! Call into the C++ interface, which will sort out optional arguments.
+!    call c_ESMC_ArrayWaitDE(array, de, vm, localrc)
+
+    ! Use LogErr to handle return code
+    if (ESMF_LogFoundError(localrc, ESMF_ERR_PASSTHRU, &
+      ESMF_CONTEXT, rcToReturn=rc)) return
+
+  end subroutine ESMF_ArrayWaitDE
+!------------------------------------------------------------------------------
+
+
+#endif
+
+end module ESMF_ArrayMod

@@ -1,0 +1,1082 @@
+$Header$
+
+# Purpose: TODO items for NCO
+
+ftr=do-able feature (low-hanging fruit)
+
+# URL:
+http://nco.sf.net/TODO
+
+# Usage: Upload to homepage:
+/usr/bin/scp ~/nco/doc/TODO nco.sf.net:/home/project-web/nco/htdocs
+/usr/bin/scp ~/nco/doc/TODO dust.ess.uci.edu:/var/www/html/nco
+
+******************************************************************************
+NCO Wish list:
+Numbers were assigned in chronological order in three categories:
+Building (bldXXX), ncap-related (ncapXXX), and generic NCO (ncoXXX):
+bldXXX: Items specifically related to building and installation.
+ncapXXX: These items do not affect rest of NCO
+ncoXXX: 15 high priority items are shown first, then another ~100 items
+Question marks indicate items or implementations are debatable
+Please help out wherever your experience allows.
+******************************************************************************
+
+************************************************************************
+Begin precision paper
+************************************************************************
+Precipitated by questions from Lori Sentman, Mark Flanner, Gary Strand
+ncwa and ncra issues only:
+ncks -O -v PS,gw  ${DATA}/dstmch90/dstmch90_clm.nc ~/dstmch90_ps.nc
+ncrename -O -v PS,ps_flt ~/dstmch90_ps.nc
+ncap2 -O -s 'ps_dbl=double(ps_flt)' ~/dstmch90_ps.nc ~/dstmch90_ps.nc
+ncwa -O -w gw ~/dstmch90_ps.nc ~/dstmch90_ps_xyt.nc
+ncks -H -C ~/dstmch90_ps_xyt.nc
+ncks -m -C ~/dstmch90_ps.nc
+************************************************************************
+End precision paper
+************************************************************************
+
+************************************************************************
+Begin ncoXXX TODOs
+************************************************************************
+Highest priority NCO-wide items that You can help with:
+nco59. Add "averaged over dimension x from y to z" attribute to ncwa-processed variables
+nco97. Add x_op=average... attributes to averagers for ncar_csm
+nco124. Use `install' program and mkdir -p in bld/Makefile method
+nco128. Ensure target 'dir' is made before *.d dependency files 
+nco152. Change make or nco_dst.pl to add docs to /usr/doc in RPM
+nco164. Spiff up NCO homepage web page (Logo?)
+nco165. Create Makefile dependency to do 'make dir' if lib, obj, bin directories do not exist
+nco212. Ensure structures are always passed by reference (default is pass by value)
+nco312. Make TODO list more legible (change to, e.g., Emacs list/outline mode, LaTeX, Wiki?) 
+nco313. Redo TODO subject categorization by discriminating based on skills required to tackle. Initial cateogorization might be e.g., autotools, bison, C, C++, Debian, flex, HTML, Perl, RPM, www, TeXInfo
+nco356. ncwa benchmark yields incorrect answers for arrays exceeding 10^7 elements with xlc and gcc, why?
+is this related to nco354?
+zender@esmf04m:~/nco/data$ date;ncwa -O ${DATA}/mie/big.nc ${DATA}/mie/foo.nc;date;ncks -H ${DATA}/mie/foo.nc
+Mon Jul 19 16:58:22 PDT 2004
+ncwa: INFO No dimensions specified with -a, therefore reducing (averaging, taking minimum, etc.) over all dimensions
+Mon Jul 19 16:58:47 PDT 2004
+wvl_1e0 = 1
+wvl_1e1 = 1
+wvl_1e2 = 1
+wvl_1e3 = 1
+wvl_1e4 = 1
+wvl_1e5 = 1
+wvl_1e6 = 1
+wvl_1e7 = 1
+wvl_1e8 = 0.167772 (NB: this is approximately 1/6)
+nco405. Modify multi-slabbing so that it places the output slabs in the order in which they were specified rather than the order they appear in the input file (Martin Schultz)
+
+NCO-wide items of lesser priority:
+nco50. Allow user-specified scalar weights to ncwa
+nco51. Make getopt() a shared subroutine?
+nco53. Add wall clock timer options? (to provide more info than, e.g., timex())
+nco55. nco_var_cnf_dmn() should be able to expand (x,64,128) array into (nx,64,128) array (maybe)
+nco60. Make something that can mask field without having to average over dimension
+nco66. Make history attribute get appended, rather than overwritten, when in append mode
+nco69. ncks option for file/field summary: var name list,var min,max,avg,mss_val,# mss_val,
+nco75. Add warning to ncwa triggered by averaging over lat without weighting by gw with NCAR_CSM_FORMAT
+nco79. Allow ncrename .$var_nm syntax to work on all operators (so variables not present cause warning, not error)
+nco82. Make libnco namespace-safe by prefixing all library subroutines with nco_
+nco86. Extend stride/wraparound capability to all operators possible
+nco92. ncrcat -O -v base_time,time_offset arm.cdf arm.cdf foo.nc;ncks -H -C -h foo.nc | m gives bad time_offset on LINUX not SUNMP (problem with LINUX adding record coordinate to open file?)
+nco99. Allow ncatted to dump file in ncatted format
+nco103. Implement trapezoidal rule option in ncra, nces
+nco105. Add easy-to-read tabular display option for file contents for ncks, i.e, allow ncks -s to print multiple variables in column format
+nco106. Add switch to remove degenerate dimensions from ncra
+nco111. Investigate whether using ncwa to average files where variables of type 
+        NC_CHAR have a record dimension causes core dumps or other problems.
+        i.e., LSM variable timecom caused subtle ncra problems for awhile.
+        Problem caused when weight or mask has dimension not in dimension extraction list
+        ncwa -O -C -D 5 -v fl_nm -w gw ~/nco/data/in.nc ~/foo.nc
+        fails because fl_nm has dimension char_dmn_lng but gw has dimension lat
+        call to nco_var_fll() for gw requires that lat be in dmn_lst
+nco113. Rethink normalization switch options in ncwa
+nco114. Fix nco_var_cnf_dmn() so that returned weight always has same size tally array as template variable
+nco115. SIGFPE when sum of denominator in ncwa (i.e., sum of weight) is zero
+        Users should not be doing weighted averages if denominator sums to zero, but...
+        Desired fix here is graceful exit instead of core dump
+nco143. Add -W or -q switch to turn off squelch most warning messages in ncra, ncrcat (especially warnings about non-monotonicity)
+nco144. Add option(s) to select all N-D variables where N=0,1,2...
+nco145. Implement later netCDF and CF conventions, e.g., time_op in ncra
+nco146. Allow proxies for coordinate variables so that, e.g., hyperslabs
+        may be specified for "date" even though "time" is the coordinate. 
+        Proxies must be one dimensional and monotonic, of course.
+nco147. Use builtin mkstemp() so file is built in fast directory rather than, say, NFS-mounted directory like /fs/cgd  
+nco148. Put in more useful error diagnostics for Schweitzer's data holes
+        These only appear in ncra/ncrcat because ncks treats same hyperslab as a wrap!
+        Define a convention consistent between ncks and ncra!
+        cd ~/nco/data
+        ncks -O -C -d lon,10.0,80.0 -v time_lon in.nc foo.nc;ncks -H foo.nc
+        ncrcat -O -C -d lon,10.0,80.0 -v time_lon in.nc foo.nc;ncks -H foo.nc
+nco149. Add ncks hyperslab tests to nco_tst.pl to catch inconsistencies like #148
+nco151. Dynamically modify web pages so files with changing version numbers can be directly linked
+nco158. Add policy for hyperslabbing single level values to User's Guide
+        Multi-file operators with record coordinate
+        treat single point hyperslabs differently than single file operators 
+        or than any operators with single point cuts on non-record coordinates.
+        See explanatory notes in nco_lmt_evl().
+nco166. Document 'make test' so people know it exists and use it
+nco173. Add switch to ncra which allows user to remove degenerate time dimension from result
+nco174. Setup ncra,nces,ncwa to do standard deviations sdn with one call
+nco182. Add -L, --license switch to print license terms (as suggested by GNU coding style)
+nco190. Make typ_pck et al. use nc_type enum or something sane for default
+nco192. ncdiff sometimes subtracts files of incommensurate size without complaint
+        ncks -O -v one_dmn_rec_var -d time,0,1 in.nc foo1.nc
+        ncks -O -v one_dmn_rec_var -d time,0,2 in.nc foo2.nc
+        ncdiff -O foo1.nc foo2.nc foo3.nc
+        This may make sense, e.g., for 1-D record variables of different lengths, but not for multidimensional variables
+        Former case should print warning, latter case should exit with error
+nco193. Convert dimension sizes from type "long int" to type "size_t"?
+nco199. Internationalize (i18n) NCO with gettext()
+nco203. Perform benchmarking tests to quantify arithmetic performance improvements, I/O bottlenecks, etc.
+nco209. Add rules to automagically make MANIFEST and update Sourceforge download area
+nco215. nco_var_cnf_dmn() does not abort when variables do not conform because dimension list of one is subset of other but ORDER of dimensions differs, e.g., a(lat,lev,lon) !~ b(lon,lev). Attempting this will return incorrect answers!
+nco225. Pass aed by reference in nco_aed_prc()
+nco226. Is xrf in nco_var_cnf_dmn() is really necessary? If not, remove it and make wgt arg const var_sct * const
+nco228. g++ linking requiring #ifndef GNUC++ around fabsf,fmodf defs in nco_var_scv.c
+nco230. Keep track of type of _FillValue field in variable structure for reasons described in nco_cnf_var_typ()/nco_cnv_mss_val_typ()
+nco232. Warn when arithmetic operators encounter packed variables?
+nco233. Makefile.old rule for make tst appears broken for long FTP rule
+nco237. Break down nco.texi into bite-size chunks, e.g., one file per section
+nco238. Replace y=(typ *)nco_malloc(nbr*sizeof(typ)) with y=(typ *)nco_malloc(nbr*sizeof(*y))?
+nco239. Create one global compatibility file (nco_xpf.[ch]?) activated by HAVE_ or NEED_ actions so do not have multiple platform dependent #includes as is case now with HAVE_STRCASECMP, HAVE_STRDUP requiring nco_sng_utl.h
+nco241. Add run-time switch which requests that output be _FillValue where ANY input field is _FillValue. NCO discussion forum 20021212.
+nco245. Eliminate all instances of passing naked constants
+nco246. Deprecate USE_FORTRAN_ARITHMETIC from Makefile
+nco250. ncks -s should refuse to print strings formatted with %s unless they contain NUL-terminator. This will avoid segfaults like
+        ncks -C -H -s "%s" -v fl_nm ~/nco/data/in.nc
+nco251. Does ncks -B correctly write packed variables in binary format?
+nco255. Desktop icon for NCO gui interface
+nco258. Develop syntax/procedure for specifying lists of hyperslabs for single pass, low memory consumption MSA jobs like Martin Schultz's in Discussion forum on 20030506
+nco259. Variadic function extension to nco_malloc() to support printing debugging messages?
+nco260. Warn (but work) when coordinate variable has more than two dimensions
+nco261. Switch from toggling defaults to --no-option format for all Booleans. e.g., --abc should ensure alphabetization is True, and --no-abc should ensure it is false, rather than toggling.
+nco266. ncbo: Finish ncbo.1 manpage
+nco270. Automate uploading of tagged .deb builds to ftp://ftp.debian.org
+nco275. Use nco_mss_val_cnf() in ncflint
+nco276. Use nco_mss_val_cnf() in ncap
+nco277. Use nco_mss_val_cnf() in ncwa
+nco287. Develop dianostics for OMP OpenMP implementation in ncra
+nco292. nco_fl_utl.c: Use autoconf HAVE_NETWORK instead of WIN32
+nco293. nco_fl_utl.c: Use autoconf HAVE_MKDIR_M instead of SUN4
+nco294. Globals variable in NCO operators are prg, prg_nm, nco_dbg_lvl 
+        If possible, modify so that shared-library (rather than main.c) holds
+        and returns thread-specific values for each, set with, e.g., prg_set().
+        Make prg, prg_nm, and nco_dbg_lvl local to main(), not global to main.c
+nco295. Understand/maintain re-entrant behavior of shared library.
+nco298. Localize ncap's three globals: ncap_ncl_dpt_crr, ncap_ln_nbr_crr, ncap_fl_spt_glb?
+nco299. Prefix prg,nco_prg_nm,nco_dbg_lvl globals with nco_ for namespace cleanliness
+nco300. Activate ccmalloc libdl into configure.ac for enable-debug-custom
+nco301. Unable to use DDD on autotools NCO executable with --enable-debug-custom
+nco302. Add speedy GCC optimization flags to --enable-optimize-custom
+nco303. Make test suite more comprehensive
+nco309. Free memory allocated in nco_fl_utl.c: fl_lst_in=(char **)nco_malloc(sizeof(char *)); /* fxm: free() this memory sometime */
+nco310. Add ENABLE_DEBUG_CUSTOM, ENABLE_OPTIMIZE_CUSTOM, ... to bld/Makefile
+nco311. Automatically convert int,short to float in nco_var_pwr()
+nco315. GNUC non-ANSI rank reduction methods in nco_var_avg.c fail on large files. Problem with stack memory allocation?
+nco316. Change offending nco_malloc() to nco_malloc_flg() calls for #315
+nco317. Understand stack memory problem. ulimits? compiler switches?
+nco318. Solve stack memory problem and benchmark vs. ANSI code branch
+nco320. LaTeX-like hyphens in TeXInfo?
+nco321. Do not promote NC_FLOAT to NC_DOUBLE in ncra/nces(?)
+nco322. Implement integer empowerment in var_scv_pwr() with, e.g., GSL
+nco323. Collect all past ANNOUNCE files and place in reverse chronological order in ANNOUNCE file
+nco324. Add release date to "Version Summary" section on homepage
+nco328. Ability to reverse specified dimensions (use negative stride?)
+nco333. Clean up preprocessor symbols with cd ~/nco/src/nco;ifnames *.c
+nco335. ncflint: implement interpolation/mss_val algorithms two and three as options?
+nco336. Allow input file lists to be specified in a text file and to supercede command line arguments. This will be useful on platforms with limited buffers for command line arguments and globbing expansions (e.g., AIX)
+nco337. When input file is a symbolic link, print name of linked-to-file as debugging information
+nco340. o/a/e stdin is overwritten when stdin input method used
+        cd ~/nco/data;echo "in.nc" | ncecat -D 3 -o foo.nc
+nco342. Get canonicalize_file_name() working in nco_fl_info_get()
+nco344. Create sophisticated etags regular expressions for change version number in all documentation tags_doc.sh
+nco352. Probably related to 351: OpenMP directive must appear in main() or ldd will not associate /usr/lib/libxlsmp.a(smprt_64.o) with executable so rtld errors occur on AIX
+************** Important ***************************
+nco354. ncwa dumps core on AIX ESMF on large files regardless of OpenMP: 
+	fxm: Does this show need to use "long long" instead of "long" for counts/buffers?
+        ncwa -D 5 -O -a wvl -v ss_co_alb ${DATA}/mie/mie_1000000.nc ${DATA}/mie/foo_avg_1000000.nc (works)
+        ncwa -D 5 -O -a wvl -v ss_co_alb ${DATA}/mie/mie_10000000.nc ${DATA}/mie/foo_avg_10000000.nc (fails)
+        fails with 
+        Segmentation fault (core dumped)
+nco359. Allow spaces between variables names in -v var_lst arguments (assuming list whitespace is quoted, of course)
+nco362. mmr: reduce memory during run by free()'ing var_fix[idx],var_fix_out[idx],var_prc[idx],var_prc_out[idx] after writes
+nco363. ncpdq: document netCDF limitations in nco.texi
+nco375. Do something more consistent with: nco_exit(EXIT_FAILURE)
+nco385. ncpdq: dynamically allocate arrays in nco_var_dmn_rdr_mtd(), nco_var_dmn_rdr_val()?
+nco386. Remove purely diagnostic arrays from nco_var_dmn_rdr_mtd(), nco_var_dmn_rdr_val()?
+nco389. ncpdq: Single dimension in re-order list with no negative sign is always identity transformation, warn? exit?
+nco390. ncpdq: make -a optional? (all switches are optional in all other operators)
+nco392. OpenMP: thread main loop of ncatted
+nco395. ncpdq: document rdr shr lists
+nco396. free() memory at end of each operator
+nco397. make ncpack symbolic link to ncpdq? Re-order/pack are completely independent yet need same structure of program
+nco404. Does Ersoy's XML stylesheet nco.css work?
+nco406. Add advantages/disadvantages of NCO (compared to e.g., ANTS) description?
+nco421. ncpdq: Make packing offer to move missing value to inside range
+nco425. ncpdq: Make unpacking offer to unpack missing value to preserve its usefulness
+nco426. ncpdq: Make packing offer to pack missing value to the packed type to preserve its usefulness
+nco427. ncpdq, ncra: Fix pck_dbg problems in nco_var_get() which automatically down-convert missing value to typ_dsk. How to reconcile with nco457?
+nco441. Packing NC_DOUBLE->NC_CHAR, NC_INT->NC_CHAR, or
+   NC_SHORT->NC_CHAR and then unpacking, places 0.0
+        instead of 1.0 in first element, why? implicit conversion of NUL byte when value = 0.
+        ncpdq -D 5 -O -C -P all_new -M flt_chr -v three_dmn_var_dbl ~/nco/data/in.nc ~/foo.nc
+        ncks -m -H -v three_dmn_var_dbl ~/foo.nc
+        ncpdq -D 3 -O -C -P upk ~/foo.nc ~/foo_upk.nc
+        ncks -m -H -v three_dmn_var_dbl ~/foo_upk.nc
+nco453. Re-think handling of dangling pointers in nco_pck_val()?
+nco454. ncpdq: Combine nco_pck_map,nco_pck_typ into new nco_pck_sct to avoid proliferation of argument passing
+nco457. ncpdq: _FillValue is not converted to variable type when variable is not packed three_dmn_var_dbl. How to reconcile with nco427?
+nco461. Always plenty of great ideas for new NCO functionality in http://tinyurl.com/6pzqd
+nco462. ncpdq: pack/unpack missing_data just like variable data? The reason I did not do this originally is because I did not want the _FillValue to contribute to the dynamic range of values which need packing. Since my _FillValues are always huge (1.0e36), packing _FillValues would greatly diminish the precision of the valid packed data. Best solution appears to be to check if _FillValue distorts valid_range, and, if so, pack _FillValue to default value of packed type.
+nco463. add optional scale_factor, add_offset arguments to ncap pack()?
+nco464. ncpdq: convert _FillValue to packed type
+        ncpdq -O -D 4 -C -P all_new -v mss_val ~/nco/data/in.nc ~/foo.nc
+        ncpdq -O -C -U -v mss_val ~/foo.nc ~/foo_upk.nc
+        ncks -C -m -H ~/foo_upk.nc
+nco467. Keep track of CDO "Climate Data Operators" http://www.mpimet.mpg.de/~cdo/
+nco469. Use default _FillValue e.g., NC_FILL_FLOAT, or values from <limits.h>, <float.h>?
+nco474. Incorporate alternative "chunking" for ncrcat when data are one-dimensional, to avoid high disk/network access incurred by retrieving one float at a time
+nco477. Make default to copy but not to print associated coordinate variables?
+nco479. netCDF/L from Loci: http://loci.cs.utk.edu/modules.php?name=News&file=article&sid=40
+nco480. Add boxcar averaging option (average in groups of n records) to ncra
+nco482. Remove return's from void functions dated 20050109 once gcc-3.4.2 behavior fixed or gcc upgraded on i386 platforms
+nco483. Compiling with ABORT_ON_ERROR and calling without an option dumps core
+        Fix so inputting 0 filenames merely prints usage, does not abort?
+nco487. Add ncks option to suppress over-writing attributes in output file by attributes of source file#1
+nco494. Implement gzip library wrapper library build option for znetCDF?
+nco514. MPI builds call superfluous linker steps:
+        make MPI=Y > foo 2>&1
+nco516. Implement SDO-wide data pipes, e.g., ncra in*.nc | ncwa | ncrename t,tpt foo.nc
+        This would bring us one step closer to grid services, too
+nco527. Purify ncatted memory: 
+        valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncatted -D 5 -O -a float_att,,c,f,74 -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+        valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncatted -D 5 -O -a char_att,att_var,a,c,"and appended Sentence three,with,lots,of,commas" -a short_att,att_var,c,s,37,38,39 -a float_att,att_var,d,,, -a long_att,att_var,o,l,37 -a new_att,att_var,o,d,73,74,75 -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+        valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncatted -D 5 -O -a float_att,,a,f,74,75,76 -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+# Commas at end of following aed_sct appear never to be free()'d, are responsible for three unfree'd bytes
+        valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncatted -D 5 -O -a float_att,att_var,d,,, -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+nco533. Implement C99 mathematical special functions: lgamma_r, j0, j1, jn, y0, y1, yn
+nco542. Put batch scripts, executables in ${DATA}/nco_bm/CASEID? Where to put created files
+nco546. Use makeatletter command in CCSM example in nco.texi?
+nco547. doc: Format CCSM example in nco.texi
+nco548. Hyper-link all switches to explanatory sections?
+nco560. Change FTP access script to facilitate mget *?
+	NCO cannot process files obtained this way unless mget feeds information on files obtained back to main()
+	Script modification would be simple:
+	ftp -i climate.llnl.gov << END
+	bin
+	cd sresa1b/atm/mo/tas/ncar_ccsm3_0/run2
+	lcd /data/zender/sresa1b/atm/mo/tas/ncar_ccsm3_0/run2
+	mget *
+	quit
+	END
+nco565. bm: Add ncatted bm to quantify nc__enddef() tuning improvements
+nco564. Implement --64bit switch in ncatted?
+nco566. Implement --64bit switch in ncrename?
+nco568. bm: test NC_SHARE in ncatted/ncrename?
+nco576. Re-order arguments so var_sbt computes op2:=op1-op2 rather than op2:=op2-op1
+nco577. ncbo: remove dangling pointers in var_1, var_2 after ncap_var_cnf_dmn()
+nco578. ncbo: Use ncbo.c as template for [mp]ncflint re-write
+nco599. mpi: Allow targets to determine Makefile variables so, e.g., 'make mpi' automagically defines MPI=Y
+nco607. mpi: mpnc*: Define structures (rather than int arrays) for MPI messages
+nco609. mpi: Tune (or remove?) sleep interval in MPI operators
+nco612. ncks ncdump-like features for netCDF4 files structures
+nco616: netCDF4 breaks assumption that range/precision increases with nc_type enum
+nco622. NULL'ify opt_crr unless opt_lng detected?
+nco624. mpi: Document MPI in users guide/manual
+nco630. Change if thr_nbr > 0 to if thr_nbr > 1 for nco_thr_att_cat()?
+nco631. Change usleep() to nanosleep()
+nco635. ncwa: MACOSX "regressions" caused by broken FREEBSD/MACOSX 'cut' binary
+        Solution may be to install GNU textutils?
+        cd ~/nco/bm;~/nco/bm/nco_bm.pl --dbg=0 --regress --udpreport ncwa
+        ncwa -h -O -D 0 -y min -v three_dmn_var_dbl -a lon -p ~/nco/data in.nc ${DATA}/nco_bm/foo.nc
+        ncks -C -H -s '%f,' -v three_dmn_var_dbl ${DATA}/nco_bm/foo.nc > ${DATA}/nco_bm/foo
+        cut -d, -f 7 ${DATA}/nco_bm/foo # (breaks on MACOSX,FREEBSD? fine on AIX, LINUX)
+nco636. mpi: Try pnetcdf: http://www-unix.mcs.anl.gov/parallel-netcdf/
+nco639. Fix packing code to be parallel over in_id without requiring 
+	extra var->nc_id initialization everywhere
+nco640. mpi: Naming: mpnc* (as currently implemented) or ncmpi* (as in pnetcdf)?
+nco641. mpi: Use netCDF4 MPI I/O hooks in nco_open/nco_create (mpncecat.c is testbed)
+nco642. mpi: Create nco_pnetcdf.h, nco_pnetcdf.c wrapper replacements?
+nco643. bld/Makefile fails with netCDF4 and MPI simultaneously enabled
+	make NETCDF4=Y MPI=Y ends with error in first compile (nco_att_utl.o)
+	/usr/include/mpi.h:95: error: two or more data types in declaration specifiers
+	/usr/include/mpi.h:278: error: two or more data types in declaration specifiers
+nco645. mpi: Does wrapping MPI-IO routines for netCDF4 and pnetCDF require ENABLE_MPI?
+	Perhaps same MPI must be used to build netCDF4 as is used for NCO?
+nco648. mpi: Does mpncra create dangling pointers when it packs/unpacks variables?
+nco649. Add ncks --prn_cln switch to print coords/vars naked (no names, indices)
+nco651. Use hdr_pad standard to add documentation for long switches without short counterparts, e.g., --cmp, --mpi 
+nco653. mpi: Segregate MPI from non-MPI builds completely in bld/Makefile on AIX
+nco655. Incorporate BLAS if possible?
+nco658. netCDF4 regression in ncrename test #1: Regression re-verified 20060924, 20070831, 20080220, 20080512 PBN4
+        make NETCDF4=Y FL_FMT=netcdf4 tst 
+        ncks -O --fl_fmt=netcdf4 -v lat_T42 ~/nco/data/in.nc ~/foo.nc;od -An -c -N4 ~/foo.nc
+        ncrename -O -d lat_T42,lat -v lat_T42,lat ~/foo.nc
+nco664. dap: ncatted & ncrename will not work with DAP because there is not any
+	way currently to retrieve the DAP files to local files for them to
+	operate on. see nco_fl_utl.c:~813 in nco_fl_mk_lcl().  
+	Currently just fails semi-gracefully.
+nco666. Grid regridding/interpolation operator ncrebin?
+nco668. Prefix nco.png fractal icon with text "NC" to look like "NCO"
+nco669. Command-line switch for float->double math-promotion to avoid underflow?
+nco675. ncap2: Makefile generates redundant antlr runs
+nco683. Convert to subversion http://sf.net/docs/E09/
+nco685. Run static analysis tool on NCO codebase
+nco689. bug: Multislabs (multiple limits on same dimension) fail in arithmetic operators. Currently, arithmetic operators silently ignore all limit specifications after the first. Solution: Diagnose and fail with informative warning until nco690 implemented.
+        ncwa -O -a lat,lon -w area -d lat,30.,90. -d lon,345.,360. -d lon,0.,195. isccpd_0112_clm_landmask.nc foo4.nc
+nco690. ftr: Implement multislabs in arithmetic operators (no reason not to!)
+nco694. Change nco_bool to C99 standard bool as per Wikipedia?
+nco702. ncwa: How to mix new ncwa behavior with -I wgt_msk_crd_var?
+nco705. ncwa: Add lmn_nbr_wgt and DID_BROADCAST outputs to nco_var_cnf_dmn()?
+nco706. ncwa: Add DID_REDUCE outputs to nco_var_avg_reduce()?
+nco709. ncwa: Change wgt_brd_flg (may have wrong meaning)
+nco717. Averaging empty record variable creates an element in output!:
+	ncwa -O ~/nco/data/in_rec_zero.nc ~/foo.nc
+	ncwa -O -a lon ~/nco/data/in_rec_zero.nc ~/foo.nc
+	This seems unavoidable since variable must be a scalar in output,
+	and scalars automatically have one element of space reserved, whereas
+	zero-record arrays have not elements of space reserved.
+	Scalar is ill-defined of course.
+	Hence averaging the file increases the data storage.
+	What to do?  Nothing.
+nco722. mpncwa: DDRA diagnostics should work in MPI mode, not just SMP mode
+nco725. rgr: Add attribute propagation regression test
+        ncap2 -v -O -s 'cnv_CF_crd2=cnv_CF_crd' -s 'lon2=lon(0)' -p ~/nco/data in.nc ~/foo.nc
+nco737. rgr: Add regression for regex'ing consecutive Q's?
+	ncks -O -v 'Q[0-1][0-9]|2[0-3]' ~/nco/data/in.nc ~/foo.nc;ncks -H ~/foo.nc
+	ncks -O -v 'Q[0-9][0-9]$' ~/nco/data/in.nc ~/foo.nc;ncks -H ~/foo.nc
+nco738. nco_cnv_cf_cll_mth_add() CF cell methods
+nco744. ncra: Add option to eliminate degenerate dimensions in ncra (like ncwa -b)
+nco745. rgr: Add regression test for ncwa --rdd
+nco747. Change lat to -45,45 and add lat_grd = -90,0,90 in in.cdl
+nco754. thr: Make sure private/firstprivate aspects of ddra_info are correct
+nco755. Test timers on ESMF under openmp
+nco756. thr: Make nco_ddra() thread-safe
+nco757. ncbo bug: works with --mmr_drt, fails with --mmr_cln
+	ncwa -O -a time -p ~/nco/data in.nc ~/foo_avg.nc
+	ncbo --mmr_cln -O -D 1 ~/nco/data/in.nc ~/foo_avg.nc ~/foo.nc
+	valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncbo --mmr_cln -O ~/nco/data/in.nc ~/foo_avg.nc ~/foo.nc > ~/foo 2>&1
+	valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncbo --mmr_cln -O -v one_dmn_rec_var ~/nco/data/in.nc ~/foo_avg.nc ~/foo.nc > ~/foo 2>&1
+nco757. Make sure above ncbo bug is not in ncflint
+nco759. Document --mmr_cln flag
+nco761. mpi: Merge timer srt/end calls to MPI codes
+nco763. Access IPCC AR4 database via OPeNDAP: http://www-pcmdi.llnl.gov/software-portal/esg_data_portal/dapserver
+	Sample datasets look like:
+        http://climate.llnl.gov/cgi-bin/dap-cgi.py/ipcc4/sresa1b/ncar_ccsm3_0/pcmdi.ipcc4.ncar_ccsm3_0.sresa1b.run1.atm.mo.xml.html
+        ncks -M -p http://zender:password@climate.llnl.gov/cgi-bin/dap-cgi.py/ipcc4/sresa1b/ncar_ccsm3_0 pcmdi.ipcc4.ncar_ccsm3_0.sresa1b.run1.atm.mo.xml
+	ncks -M -p http://dust.ess.uci.edu/cgi-bin/dods/nph-dods/dodsdata in.nc
+nco768. Change some common flags from toggles to hard-coded true/false
+        to avoid weird behavior when toggle switches accidentally passed twice,
+        e.g., ncks -O -O in.nc foo.nc
+nco772. ncpdq: fails MPI regression tests on pbs, possibly others
+nco776. ncecat: Minor, fixable memory leaks, fix with valgrind
+nco778. ncrename: allow renaming dimensions to existing dimensions so long as dimension size does not change. Problem is that netCDF nc_rename_dim() disallows this.
+	ncks -O -v lev,lat_grd -p ~/nco/data in.nc ~/foo.nc
+	ncrename -O -d lev,lat_grd ~/foo.nc ~/foo.nc
+nco779. rgr: Add non-record stride checks to regression tests e.g.,
+	ncks -O -v three_dmn_rec_var -d lon,,,2 -p ~/nco/data in.nc ~/foo.nc
+	ncrcat -O -v three_dmn_rec_var -d lon,,,2 -p ~/nco/data in.nc in.nc ~/foo.nc
+	ncks -C -v three_dmn_rec_var ~/foo.nc
+nco784. Build NCO on NMI test lab http://nmi.cs.wisc.edu/
+nco789. rgr: Add regression test for behavior when _FillValue defined and missing_value not	      
+	ncwa -O -a lon -v fll_val,mss_val ~/nco/data/in.nc ~/foo.nc
+        ncks -H -C ~/foo.nc
+nco794. Automagically use missing_value when _FillValue not present
+nco796. pgCC does not support exception handling with codes compiled with OpenMP (-mp) switch so ncap2/antlr files must be built serially
+nco799. Extend -n 3,4,1 NINTAP switch to handle regular expressions
+nco800. Extend -n 3,4,1 NINTAP switch to -n 3,4,1,offset to work with CCSM patterns
+nco803. prp: Link to UCSD proposal by Kraig Winters /data/zender/prp/prp_winters.pdf
+nco807. mpi: Merge ncra.c v.1.192-1.193 changes (per-file record limit checks) into mpncra.c
+nco808. ftr: Dave Allured request on 20070213 for nces to resolve hyperslab indices for all dimensions on each file so this works:
+        nces -d time,"2010-1-1 0:0:0","2020-12-31 0:0:0" run*.nc output.nc
+        nces -O -d time,"2010-1-1 0:0:0","2020-12-31 0:0:0" ~/giss*.nc ~/output.nc
+	nces -O -D 5 -v one_dmn_rec_var -d time,1.,5. -p ~/nco/data in.nc in.nc ~/foo.nc
+nco809. Implement --quiet option to suppress WARNINGs and INFOs
+nco814. rgr: Add regression test for forgiving exclusion list handling
+        ncks -O -D 2 -x -v not_present ~/nco/data/in.nc ~/foo.nc
+nco816. rgr: Add regression tests for rmssdn when N=0, N=1, N=2
+	ncra -O -y rmssdn -v '^rec_var_flt_mss_val_flt_all.?' ~/nco/data/in.nc ~/foo.nc
+	ncks -H -m ~/foo.nc
+nco817. Document how to work with 1D/2D coordinate grids
+	ncks -H -v '.?_[0-9]D.?' ~/nco/data/in.nc
+nco821. ncrename netCDF4 regression
+	cd ~/nco/bm;./nco_bm.pl --fl_fmt=netcdf4 --regress --udpreport ncks
+	ncks -O -C --fl_fmt=classic -v lat ~/nco/data/in.nc ~/foo.nc
+	ncrename -O -D 1 -d lat,new_lat -v lat,new_lat ~/foo.nc # works
+	ncks -O -C --fl_fmt=netcdf4 -v lat ~/nco/data/in.nc ~/foo.nc
+	ncrename -O -D 1 -d lat,new_lat -v lat,new_lat ~/foo.nc # fails
+nco822. ncap2 netCDF4 regressions with nco_bm.pl:
+	cd ~/nco/bm;./nco_bm.pl --fl_fmt=netcdf4 --regress --udpreport ncap2
+	ncap2 -O --fl_fmt=netcdf4 -D 5 -v -S ~/nco/data/ncap2.in ~/nco/data/in.nc ~/foo.nc # fails, causes ncap2 regression with nco_bm.pl
+	Script dies with:
+	ncap2: ERROR dimension lev is not in list of dimensions available to nco_var_fll()
+	ncap2: HINT This could be a symptom of TODO nco1045. Workaround is avoid use of append mode (i.e., -A switch) in ncap2.
+	ncap2: ERROR exiting through nco_exit() which will now call abort()
+	Abandon (core dumped)
+nco826. ncwa: optimization---do not allocate tally when var_sz=var_avg since this this always indicates a no-op, e.g., removing a degenerate dimension.
+nco828. ncks: returns file ID = 65536 = 2**16 on netCDF4 files: why?
+	ncks -O --fl_fmt=netcdf4 ~/nco/data/in.nc ~/nco/data/in_4.nc
+        ncks -m ~/nco/data/in_4.nc
+	od -An -c -N4 ~/nco/data/in_4.nc
+nco834. Add atomic type string NC_STRING to nco_c++ get/put var
+nco835. ncks: uint64_var(ULLONG_MAX) = int64_var(LLONG_MAX) (problem with libnetcdf4?) PBN4
+	ccc
+	ncks -v '.?_var$' ~/c++/foo.nc
+nco845. Add -Wno-switch to quiet GCC enum warnings on netCDF4 case labels?
+nco846. netCDF4: switch to long long array offsets everywhere? 
+        e.g., can long tally hold > 2 GB array?
+nco847. switch sz, tally to type (unsigned long), perhaps size_t, and perhaps (unsigned long long int)
+nco848. rgr: Add regression to demonstrate breakage on variables with 2--4 GB elements
+nco853. Enable arithmetic for NC_BYTE and NC_UBYTE everywhere?
+nco854. Use NC_BYTE instead of NC_SHORT for logical in ncap2?
+nco855. nco_netcdf.c netCDF4 forward compatibility stubs generate beaucoups 'unused parameter' warnings (only when compiled with netCDF3)
+nco865. Re-cast output variable to original type in ncbo.c (like in ncflint.c)?
+        ncbo -O -v '.?pck.?' -p ~/nco/data in.nc in.nc ~/foo.nc
+        ncbo -O -v rec_var_dbl_mss_val_dbl_pck -p ~/nco/data in.nc in.nc ~/foo.nc
+        ncks -O -C -d time,0,3 -v rec_var_dbl_mss_val_dbl_pck -p ~/nco/data in.nc
+	ncks ~/foo.nc
+nco866. Why don't ncra and ncwa make NC_BYTE etc. as fix var in var_lst_dvd()?
+nco871. rgr: Add compression regression test for compression
+	ncks -O --dfl_lvl=0 ~/nco/data/in.nc ~/foo.nc
+	ls -l ~/foo.nc
+	ncks -O --dfl_lvl=9 ~/nco/data/in.nc ~/foo.nc
+	ls -l ~/foo.nc
+	ncks -O -4 --dfl_lvl=0 ~/nco/data/in.nc ~/foo.nc
+	ls -l ~/foo.nc
+	ncks -O -4 --dfl_lvl=9 ~/nco/data/in.nc ~/foo.nc
+	ls -l ~/foo.nc
+	ncks -O -4 --dfl_lvl=9 -v one ~/nco/data/in.nc ~/foo.nc
+nco873. ncks remik bug: ncks BUG: coords are zero after 2 var ext 
+	intel compiler only, possibly only ia64
+	"superficially injecting "nc_sync(out_id);"
+	into ncks.c:559 at the end of the "Copy variable data" for-loop 
+        the output is correct, although this isn't a solution we'd want.
+nco874. Implement CDL abbreviations for netCDF4 atomic types (when known)
+nco875. Squelch compiler warnings like: 
+	../src/nco/nco_pck.c:819:39: warning: integer constant is so large that it is unsigned
+	that are triggered by OK statements like
+	case NC_UINT64: mss_val_dfl_dbl=NC_FILL_UINT64; break;
+nco880. ncpdq: netCDF4 problem _only_ with fll_val/mss_val variables: PBN4
+	ncpdq -O                     -D 4 ~/nco/data/in.nc ~/foo.nc # works fine
+	ncpdq -O       -C -v fll_val -D 4 ~/nco/data/in.nc ~/foo.nc # works fine
+	ncpdq -O -4 -x    -v fll_val -D 4 ~/nco/data/in.nc ~/foo.nc # borken
+	ncpdq -O -4    -C -v fll_val -D 4 ~/nco/data/in.nc ~/foo.nc # borken
+	nco_err_exit(): ERROR Short NCO-generated message (usually name of function that triggered error): nco_copy_att()
+	nco_err_exit(): ERROR Error code is -36. Translation into English with nc_strerror(-36) is "NetCDF: Invalid argument"
+nco885. ncpdq: netCDF4 problem with CAM datasets variable AERASM_v. AERASM_v does have a _FillValue attribute---is this a clue?
+	ncpdq -D 6 -4 -v AERASM_v -O sncpd05_ts_ANN.nc -p $DATA/anl_sncpd05 ~/foo_5.nc
+	nco_err_exit(): ERROR Short NCO-generated message (usually name of function that triggered error): nco_copy_att()
+	nco_err_exit(): ERROR Error code is -36. Translation into English with nc_strerror(-36) is "NetCDF: Invalid argument"
+nco886. ppr: Decide next project: SWAMP? paper on...ncap2? SWAMP? IPCC benchmarks?
+nco891. dbn: fix lintian RPATH messages like
+	Binary /usr/bin/ncwa compiled with an RPATH of /usr/lib/nco
+	libtool error: libtool --finish /usr/lib
+nco901. mss_val in code and comments now (usually) refers to _FillValue (except in nco_mss_val.c). Change mss_val to fll_val?
+nco905. TKN2SNG technique for "_FillValue" adds extra quotes in nco.h but not c.c! The work-around is an extra function of global scope (nco_mss_val_sng_get()) that is worth getting rid of.
+nco906. rgr: Add regression test for DAP via THREDDS server:
+	ncks -m http://eclipse.ncdc.noaa.gov:8080/thredds/dodsC/isccp-d1/2001/ISCCP.D1.1.GLOBAL.2001.01.01.0000.GPC
+nco911. Periods in attribute names choke OPeNDAP (had to remove att_nm.dot):
+	ncks -O -D 7 -v var_nm.dot -p ~/nco/data dap_dot_bug.nc ~/foo.nc # works fine
+	ncks -O -D 7 -v var_nm.dot -p http://dust.ess.uci.edu/cgi-bin/dods/nph-dods/dodsdata dap_dot_bug.nc ~/foo.nc # borken
+	nco_err_exit(): ERROR Short NCO-generated message (usually name of function that triggered error): nco_copy_att()
+	nco_err_exit(): ERROR Error code is -43. Translation into English with nc_strerror(-43) is "Attribute not found"
+nco912. ncks: print '_' or '_FillValue' instead of numeric values à la ncdump?
+nco913. nco_cmp_get() fails on _AIX with different compiler
+nco915. GCC OpenMP support in configure.ac
+nco917. GCC OpenMP with autoconf
+nco919. 'make check' (i.e., nco_bm.pl) breaks when ncap2 disabled (i.e., --disable-nco++) reported by Tim Hoar
+nco920. Add ncwa (ncks?) capability to remove all degenerate dimensions --delete-degenerate-dimensions (ncl-talk 20071205) (assign to hmb?)
+nco922. ncbo with OpenMP on netCDF4 files fails (not with netCDF3 in.nc):
+	ncbo -O -t 1 -D 4 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc # works
+	ncbo -O -t 2 -D 4 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc # works
+	ncbo -O -t 1 -D 4 -p ${HOME}/nco/data in_4.nc in_4.nc ~/foo.nc # works
+	ncbo -O -t 2 -D 4 -p ${HOME}/nco/data in_4.nc in_4.nc ~/foo.nc # fails
+	ncbo -O -t 1 -D 4 -p ${HOME}/aca swnb.nc swnb.nc ~/foo.nc # works
+	ncbo -O -t 2 -D 4 -p ${HOME}/aca swnb.nc swnb.nc ~/foo.nc # fails
+nco923. OPTS=D and OPTS=R should not do -O4 optimization on nco++
+nco924. Document ncks --msa_usr_rdr
+nco929. drop ncap, or, rather, link it to ncap2, next release ? 
+nco931. nco_c++ nc_put_var1_string wrapper currently kludged and untested
+nco932. ncwa and packed data: help forum 20080214: When using ncwa to calculate a weighted average from a packed file (NC_SHORT, scale_factor=0.1, _FillValue=32766), the data in the resulting file is in double precision. However, the _FillValue attribute is not changed to the double precision value (3276.6)....it is left at 32766. Shouldn't ncwa writeout the new _FillValue attribute?
+nco934. Add ncecat -M option (CPY_GLB_METADA) to other operators?
+nco935. Make single-file operators (SFOs) default out.nc to in.nc ?
+nco938. ncks -m problem: 
+	cd ~/Desktop;ncks -m NCEP-NAM-CONUS_80km_best.ncd.nc
+	nco_err_exit(): ERROR Short NCO-generated message (usually name of function that triggered error): nco_inq_varid_flg()
+	nco_err_exit(): ERROR Error code is -36. Translation into English with nc_strerror(-36) is "NetCDF: Invalid argument"
+	nco_err_exit(): ERROR NCO will now exit with system call abort()
+nco939. Enable netCDF4-NCO OpenMP iff HDF5 configured with --enable-threadsafe?
+nco941. ncra (now? when was regression?) tries to average NC_CHAR record variables:
+	Reported by Alberto Corbi Bello 
+  	ncra -O -v two_dmn_rec_var_sng ~/nco/data/in.nc ~/foo.nc;ncks -H ~/foo.nc
+	20080723: HMB kludged ncra to work for NC_CHAR
+	What about NC_STRING? that seems to be "handled" by ignoring it in nco_var_cnf_typ()...
+	What about other operators, e.g., nces?
+	Is better fix to never promote/demote to/from NC_CHAR? (like NC_STRING?)
+	That would move fix from ncra.c to nco_var_cnf_typ()
+	Would that break ncpdq packing to NC_CHAR?
+nco943. rgr: Add regression test for 
+	ncks -m -v cnv_CF_crd ~/nco/data/in.nc
+nco949. Make --no-clobber option for all operators
+nco953. ncatted: Add -v -C -c infrastructure to allow easy modification of attributes of variable lists, rather than all-or-nothing selections
+nco954. ncinsert functionality request posted to help forum 20081116
+nco960. Warn when attempted hyperslab on 2-D (or more) coordinates, e.g., https://sf.net/forum/message.php?msg_id=6282324
+nco969. nco: do not automatically try wget when DAP access fails ?
+nco970. nco: do not create really long paths with (especially failed) wget attempts
+nco971. wget: both following commands create and write mutilated directory
+	cd ~;ncks -M -R -p http://dust.ess.uci.edu/nco in.nc
+	cd ~;ncks -M -R http://dust.ess.uci.edu/nco/in.nc
+	ls -lR ~/nco/in.n
+	ncks: INFO Retrieved files will be stored in directory ./nco/in.n
+	stores correctly in local directory but also creates ./nco/in.n
+	/bin/rm -r ~/nco/in.n ~/nco/in.nc
+nco972. NC_STRINGs support: ncatted, nco_put_var_mem/nco_get_var_mem instead of memcpy, sort, ncatted
+nco973. ncks: allow for printing "units" attributes stored as NC_STRINGs
+nco975. add NCO global attribute to output files like
+       :NCO = "netCDF Operators version 1.1.1 (http://nco.sf.net)" ;
+nco976. clean-up mess caused by eliminating nco_dmn_lmt_mrg in ncra, ncecat, ncpdq, ncflint (but not (why?) ncap,ncbo,ncwa)!
+nco977. fix -d syntax spec or nco_lmt_prs() as per https://sf.net/forum/message.php?msg_id=7486118 ?
+nco979. UDUnits1: time zone at end of user-specified limit string is ignored (bad)
+        but time zone within units attribute of variable is parsed (good)
+	UDUnits2: handles time zone correctly in both locations (good)
+nco980. UDUnits: offsets/scalefactors in re-basing to handle differences between files like  "hours since 1965-010-01 12:00" and "minutes  since 1968-02-01 12:32"
+nco983. change default to netCDF3 64bit? or compile-time option to do so ?
+nco991. ncap2 functions to return all variable and dimension names
+nco995. chunking in ncap2
+nco999. nco: replace a character array without RHS padding?
+        ncks -v fl_nm ~/nco/data/in.nc
+        ncap2 -O -s 'fl_nm(:)="01234567890123456789012345678901234567890123456789012345678901234567890123456789"' ~/nco/data/in.nc ~/foo.nc
+	ncap2 -O -s 'fl_nm[char_dmn_lng80]="01234567890123456789012345678901234567890123456789012345678901234567890123456789"' ~/nco/data/in.nc ~/foo.nc
+	ncap2 -O -s 'fl_nm(0:8)="Hi Dennis"' ~/nco/data/in.nc ~/foo.nc
+	ncap2 -O -s 'fl_nm(0:actual_len-1)="01234567890123456789012345678901234567"' ~/nco/data/in.nc ~/foo.nc
+	ncap2 -O -s 'defdim("string_size",10);fl_nm2[$string_size]="0123456789"' ~/nco/data/in.nc ~/foo.nc
+	ncap2 -O -s 'fl_nm="new string"' ~/nco/data/in.nc ~/foo.nc
+	ncks -v fl_nm ~/foo.nc
+nco1000. mpi: build/test mpi executables again
+	 cd ~/nco/bld;make MPI=Y
+nco1001. ncpdq packing _FillValue
+	 cat > ~/foo.cdl << EOF
+	 netcdf foo { dimensions: dmn = 4 ; variables: float var(dmn) ; var:_FillValue = 1.0e36f ; data: var = -1, 0, 1, 1.0e36 ; }
+EOF
+	 cat > ~/foo.cdl << EOF
+	 netcdf foo { dimensions: dmn = 4 ; variables: float var(dmn) ; var:_FillValue = -999s ; data: var = -1, 0, 1, -999 ; }
+EOF
+	 ncgen -b -o ~/foo.nc ~/foo.cdl
+	 ncks -m -H ~/foo.nc
+	 ncpdq -D 1 -O ~/foo.nc ~/foo_pck.nc
+	 ncks -m -H ~/foo_pck.nc
+	 ncpdq -O -U ~/foo_pck.nc ~/foo_upk.nc
+	 ncks -m -H ~/foo_upk.nc
+nco1002. andx (from ARM) does ncks-like multiple column printing (window$ only? needs "dislin" package)
+	 http://science.arm.gov/~cflynn/ARM_Tested_Tools/html/alltools.html#andx
+	 http://science.arm.gov/~cflynn/ARM_Tested_Tools/src/andx.tar
+	 andx ~/nco/data/in.nc -o ASCII -delim TAB -time Hh two_dmn_rec_var -zf 2 tz
+nco1004. nco: ncpdq force _FillValue to be inside range of packed type ?
+nco1008. nco: ncap2 ismissing() and isvalid() methods
+nco1009. nco: replace allocations of NC_MAX_NAME by NC_MAX_NAME+1 to allow for NUL character
+nco1010. nco: support degenerate auxiliary hyperslabs. Related to nco1007 posted by Jeff Daily. Requires lots of code to compute minimum distance of each point to specified point. And what if both lat and lon are degenerate? PITA
+	 ncks -O -v gds_3dvar -X 0.,180.,20.,20. ~/nco/data/in.nc ~/foo.nc # broken---exits with domain error but should return only value nearest lat=20
+	 ncks -H ~/foo.nc
+nco1012. nco: nco_aed_prc() is called (too?) often (by nco_att_cpy()) to copy _FillValue attributes
+	 ncks -O -D 5 ~/nco/data/in.nc ~/foo.nc
+nco1020. nco: re-base record bounds variables (e.g., time_bnds) in ncrcat
+nco1021. nco: use owner axes for printing CF-time in bounds attributes 
+nco1023. nco: ncap2 overwrites arrays with scalars (and changes type!) without asking, e.g.,
+	 ncap2 -O -v -s 'one_dmn_rec_var=0' ~/nco/data/in.nc ~/foo.nc
+	 ncks -v one_dmn_rec_var -C -m -H ~/foo.nc
+nco222.  nco: Warn when nces/ncra operate on scaled variables ("Results will be meaningless if scale_factor and add_offset are not identical in each file")
+nco1025. nco: ncrcat/ncecat warn/die when concatenating files with different scale factors
+nco1028. ncap2: create maintainable list of reserved words and put in manual
+nco1033. ncrcat: warn when first file has more variables than subsequent files
+nco1035. rewrite nco_var_cnf_typ() to use default rather than truncated missing values
+nco1036. ncks: implement rew's copy workaround in nco_cpy_var_val()
+nco1037. nco: support NaN's in math, comparison, averagers following template in NC_FLOAT in nco_var_avg() using isfinite()
+         ncwa -O -v nan_arr ~/nco/data/in.nc ~/foo.nc;ncks -C -m -H -v nan_arr ~/foo.nc
+         ncatted -O -D 3 -a _FillValue,nan_arr,o,f,1.0e36 ~/nco/data/in.nc ~/foo.nc;ncks -C -m -H -v nan_arr ~/foo.nc
+         ncks -C -H -v nan_arr,nan_scl ~/nco/data/in.nc
+nco1041. nc__open() with NC_SIZEHINT_DEFAULT for MM3 problems or general switch?
+nco1043. Modify nco.spec to build on RHEL and Fedora
+nco1048. ncrcat Generates warnings like "ERROR: Conversion between user specified unit "days" and file units "" is meaningless" test case in crr.txt
+nco1053. nco: ncap2 rgr 10 Casting variable with same name as dimension (failure expected on netcdf4 ncap81) works for Henry not me. OS version related? e.g., app-armor-triggered? 
+	 ncap2 -O -C -v -s 'defdim("a",3);defdim("b",4); a[$a,$b]=10;c=a(1,1);' ~/nco/data/in.nc ~/foo.nc
+nco1054. nco: ncap2 rgr 11 Casting variable with a single dim of sz=1. works for Henry not me. OS version related? e.g., app-armor-triggered? 
+	 ncap2 -O -C -v -s 'defdim("a",1);b[$a]=10;c=b(0:0);' ~/nco/data/in.nc ~/foo.nc
+nco1014. nco: option to eliminate ncap2 intermediate tmp file writing
+	 ncap2 -s 'time=time+999999' ~/nco/data/in.nc
+nco1059. nco: ncatted keep type same by default when modifying/overwriting attribute
+nco1063. use '--with-nc-config=path' in configure when possible (rich signell idea) 
+nco1065. ncra2.c move input_complete break to precede record loop but remember to close open filehandles
+nco1067. stat() fails on ~30 GB file on windows? fix workaround
+nco1068. nco: optimize so ncra writes straight to output when ssc==1, MRO=Yes (i.e., no nrm) maybe not, what about rms? verify
+	 ncra2 -O -C -d time,0,,1,1 --mro -v time -p ~/nco/data in.nc in.nc ~/foo.nc # 
+nco1070. nco: rx add windows equivalent to variable wildcarding regex.h
+nco1071. nco: rx add windows equivalent to filename expansion (globbing) 
+nco1072. nco: clang breaks (gcc is fine) on ncra rgr #20 record average of cell-based geodesic data
+	 Problem also that ddd does not work with clang. Try qt debugger?
+	 ncra -D 5 -O -X 0.,180.,-30.,30. -v gds_3dvar -p ~/nco/data in.nc ~/foo.nc
+	 ncks -C -H -s '%8.1f' -v gds_3dvar ~/foo.nc
+nco1074. nco: wget: add -p option to enable clobber?
+nco1076. ncpdq: change number of dimensions by unrolling 
+	 ncpdq --unroll lat,lon # Unroll lat and lon in all multi-dimensional (R > 1) arrays
+nco1077. wnd: utilize netCDF CMake for linking so DAP/UDUNITS support is automatic
+nco1079. ncap2: add option to return index of max/min/etc. kevin raeder suggestion
+nco1084. ncks feature: allow multiple specifications of mk_rec_dmn and fix_rec_dmn
+nco1093. ncks: print attribute function lynnes (NB: windows does not use filters)
+	 ncks -v var_lst -a att_lst (--abc=abc_md  --alphabetize=abc_md) in.nc
+nco1097. ncatted: rx attributes lynnes and 1 other 20130702 and 1 other 20150625
+nco1094. ncks: print statistics function lynnes (NB: windows does not use filters)
+nco1095. ncap2: user-defined functions (UDFs) lynnes
+nco1096. ncecat: --playnice, recognize, e.g., "latitude" variants lynnes
+nco1099. ncflint: make following statement true
+A. ncflint now always works when input files are interchanged, i.e.,
+   (ncflint -w 0.5 fl_1.nc fl_2.nc) = (ncflint -w 0.5 fl_2.nc fl_1.nc).
+   Formerly, ncflint broadcast variables in fl_2 to match the rank of
+   variables in fl_1 when necessary, but would fail rather than 
+   broadcast in the opposite direction. Hence one could interpolate
+   zonal averages, e.g., to full fields but not the reverse. Now
+   ncflint broadcasts variables both ways. If v1 is larger rank in
+   fl_1 than in fl_2 then both these work:
+   ncflint -v v1 -w 0.5 fl_1.nc fl_2.nc out.nc # Now works too!
+   ncflint -v v1 -w 0.5 fl_2.nc fl_1.nc out.nc # Always worked
+nco1102. ncatted handle arrays of NC_STRINGs with embedded delimiters
+	 ncatted -D 5 -O -a new_string_att,att_var,c,sng,"list","of","str,ings" ~/nco/data/in_4.nc ~/foo.nc
+nco1104. ncrename and ncatted copy through API with --hdf4
+nco1106. autoconvert netCDF4 string variable to netCDF3 nc_char type. requires dummy dimension for NC_CHAR array length
+         ncks -O -G : -g /g11/ -v string_var -3 ~/nco/data/in_grp.nc ~/foo.nc
+nco1109. broadcast degenerate dimensions in nco_var_cnf_dmn()/ncap_var_cnf_dmn(): helps ncap/ncwa/ncbo/ncflint
+nco1110. ncap2: allow type specification as per christine smit (GSFC) request 20140407
+nco1111. ncrcat/ncecat check consistency of packing attributes across files (requested by ocehugo 20140522)
+nco1112. nco: nintap double iterator rqs by dave allured 20140813
+nco1113. nco: rsp parker norton help srd slowdown issue help 20140718 completely fixed 201411
+      Slowdown occurs only when using srd
+      time ncks -O ~/ET_2000-01_2001-12.nc ~/foo.nc # works 1m38s
+      time ncks -O -d time,0 ~/ET_2000-01_2001-12.nc ~/foo.nc # works 0m03s
+      time ncks -O -d time,0,0,12 ~/ET_2000-01_2001-12.nc ~/foo.nc # borken after 6m13s, numerous HDF Errors
+      time ncks -O -L 0 -d time,0,0,12 ~/ET_2000-01_2001-12.nc ~/foo.nc # borken after 6m13s, numerous HDF Errors
+      time ncks -O -d time,0,,12 ~/ET_2000-01_2001-12.nc ~/foo.nc # borken after 6m13s, numerous HDF Errors
+nco1114. ncrcat fails when single record dimension is not first dimension
+nco1116. --add_bnds for creating bounds variables
+nco1117. ncks human-readable times
+nco1120. brendan discussion 20150312 autoconf requires both --enable-netcdf4=no --and enable-netcdf-4=no to get "ENABLE_NETCDF4....... no" and avoid the "configure: Bad news: Simple program does not compile and link with netCDF4 library" message.
+nco1121. ncap2 attribute propagation occurs for re-defined input variables Christine Smit https://sourceforge.net/p/nco/discussion/9829/thread/142457da/?limit=25
+nco1122. cnk slowdown Barry McInnes 3/9
+      # Severe slowdown in record loop of nco_cpy_rec_var_val() (MM3 workaround) for cnk_sz time != 1
+      ncks -O -v huss --fl_fmt=netcdf4_classic -L 5 ${DATA}/hdf/huss_Amon_ACCESS1-0_historical_r1i1p1_185001-200512.nc ~/foo.nc # hangs
+      ncks -O -v huss --cnk_plc=r1d --fl_fmt=netcdf4_classic -L 5 ${DATA}/hdf/huss_Amon_ACCESS1-0_historical_r1i1p1_185001-200512.nc ~/foo.nc # works
+nco1123. ESGF access
+      ncks -M http://esgf-data2.ceda.ac.uk/thredds/dodsC/cmip5.output1.MOHC.HadGEM2-ES.rcp85.mon.ocean.Omon.r1i1p1.uo.20111014.aggregation.1
+nco1124. ncra fix ncra --wgt_nm to work (i.e., correctly normalize) with missing values
+nco1125. ncpdq add option for user-specified scale_factor/add_offset
+nco1126. ncra segfault with MSA christine smit regardless of presence of scale_factor, add_offset. appears that ncra does not play well with MSA on record dimension. leads to free() error.
+      ncra -O -d time,1,1 -d time,3,3 ~/christine.nc ~/foo.nc # borken
+      ncra -O -C -v one_dmn_rec_var -d time,0,0 -d time,2,2 ~/nco/data/in.nc ~/foo.nc # borken
+      ncra -O -C -v one_dmn_rec_var -d time,0,0 -d time,1,1 ~/nco/data/in.nc ~/foo.nc # works
+nco1127. nco: replicate nco_var_dpl() method of deep-copying NC_STRING in nco_var_avg() so nco_var_free() can correctly free() var_sct for NC_STRING
+nco1128. nco: ncrename --lowercase --uppercase options? MERRA2 merra
+       ncrename -v all,lowercase in.nc out.nc
+       ncrename --lowercase --var .ONE,.TWO,... in.nc out.nc
+nco1129. ncks allow --mk_rec_dmn to change multiple dimensions at one time
+       ncks -O --mk_rec_dmn lat,lon ~/nco/data/in_grp.nc ~/foo.nc
+nco1130. ncatted support for '.' (dot) in names (reported by emontgomery 20170726)
+       ncatted treats dot.name as rx then fails to find match
+       ncatted -O -a dot.name,global,o,c,value ~/nco/data/in.nc ~/foo.nc
+nco1131. 
+qrk
+************************************************************************
+End ncoXXX TODOs
+************************************************************************
+
+************************************************************************
+Begin bug examples
+************************************************************************
+Sent 20120709:
+What I find is that the first command below succeeds and the second fails:
+
+ncap2 -v -O -s 'valid=0*time;where(time<  7) valid=time;' \
+~/nco/data/in.nc ~/foo.nc # works
+ncap2 -v -O -s 'valid=0*time;time2=time;where(time2<  7) valid=time;' \
+~/nco/data/in.nc ~/foo.nc # fails
+
+Can you please verify this and explain why the second command fails?
+Is it not possible to use "new" variables in the masking condition
+for the where() statement?
+
+Sent 20120209:
+Hi Henry,
+
+Is there an overloaded version of array() that works on
+multi-dimensional arrays? The first array() call below
+works for 1-D, and the next two fail for the 3-D case.
+If array() were defined to populate the multi-dimensional
+output as if it were an unfolded 1-D array, then it would
+be more useful.
+
+cat > ~/ncap2_foo.nco << 'EOF'
+//var_out=array(1,1,$time); // 1,2,3,4,5,6,7,8,9,10
+var_out=array(1,1,$time,$lat,$lon);
+var_out=array(1,1,&three_dmn_var);
+print(var_out);
+EOF
+ncap2 -O -v -S ~/ncap2_foo.nco ~/nco/data/in.nc ~/foo.nc
+
+Sent 20120209:
+Hi Henry,
+
+Any idea why running the first script below works fine and the second
+script fails yet the only difference is an extra print statement?
+
+cat > ~/ncap2_foo.nco << 'EOF'
+time=10.0*gsl_rng_uniform(time); // Replace time coordinate with random values
+var_rnd[$time,$lat,$lon]=0.0; // Initialize multi-dimensional array
+print(time);
+EOF
+ncap2 -O -v -S ~/ncap2_foo.nco ~/nco/data/in.nc ~/foo.nc
+
+cat > ~/ncap2_foo.nco << 'EOF'
+print(time);
+time=10.0*gsl_rng_uniform(time); // Replace time coordinate with random values
+print(time);
+var_rnd[$time,$lat,$lon]=0.0; // Initialize multi-dimensional array
+EOF
+ncap2 -O -v -S ~/ncap2_foo.nco ~/nco/data/in.nc ~/foo.nc
+
+Thanks!
+c
+************************************************************************
+End bug examples
+************************************************************************
+
+************************************************************************
+Begin valgrind section
+************************************************************************
+Valgrind: Archive of valgrind tests which are memory-error and leak-free
+vg1. ncap
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncap -O -S ${HOME}/nco/data/ncap.in -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+     ncap2
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncap2 -O -D 1 -S ~/nco/data/ncap2_tst.nco ~/nco/data/in.nc ~/foo.nc > ~/foo 2>&1
+vg2. ncbo
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncbo -t 2 -O -C -d lon,1 -p ${HOME}/nco/data -l /tmp in.nc in.nc ~/foo.nc > ~/foo 2>&1
+vg3. nces
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck nces -t 2 -O -C -D 3 -d lon,1 -n 3,4,1 -v one -p ${HOME}/nco/data -l ${HOME}/nco/data h0001.nc ~/foo.nc > ~/foo 2>&1
+vg4. ncecat
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncecat -t 2 -O -C -D 3 -d lon,1 -n 3,4,1 -p ${HOME}/nco/data -l ${HOME}/nco/data h0001.nc ~/foo.nc > ~/foo 2>&1
+vg5. ncflint
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncflint -t 2 -O -C -d lon,1 -p ${HOME}/nco/data -l /tmp in.nc in.nc ~/foo.nc > ~/foo 2>&1
+vg6. ncks
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncks -O -C -d lat,1,1 -d lev,2,2 -d lon,0,3 -d lon,1,3 -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+vg7. ncpdq (re-order)
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncpdq -t 2 -O -D 3 -a lat,lev,lon -v three_dmn_var ~/nco/data/in.nc ~/foo.nc > ~/foo 2>&1
+vg8. ncpdq (pack)
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncpdq -t 2 -O -D 3 -P all_new -v three_dmn_var ~/nco/data/in.nc ~/foo.nc > ~/foo 2>&1
+vg9. ncra
+   valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncra -t 2 -O -C -D 3 -d lon,1 -n 3,4,1 -v one_dmn_rec_var_sng -p ${HOME}/nco/data -l ${HOME}/nco/data h0001.nc ~/foo.nc > ~/foo 2>&1
+vg10. ncrcat
+    valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncrcat -t 2 -O -C -D 3 -d lon,1 -n 3,4,1 -v one_dmn_rec_var_sng -p ${HOME}/nco/data -l ${HOME}/nco/data h0001.nc ~/foo.nc > ~/foo 2>&1
+vg11. ncrename
+    valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncrename -O -D 3 -d lon,new_lon -v scalar_var,new_scalar_var -a long_name,new_long_name -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+vg12. ncwa
+    valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck ncwa -D 3 -t 2 -O -C -a lat,lon,time -w gw -m gw -v PS -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+    callgrind ncwa -D 3 -t 2 -O -C -w gw -m gw -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+    valgrind --suppressions=${HOME}/nco/doc/valgrind.txt --tool=callgrind ncwa -D 3 -t 2 -O -C -a lat,lon,time -w gw -m gw -v PS -p ${HOME}/nco/data -l /tmp in.nc ~/foo.nc > ~/foo 2>&1
+    kcachegrind ncwa &
+************************************************************************
+End valgrind section
+************************************************************************
+
+************************************************************************
+Begin MPI section
+************************************************************************
+MPI: Archive of quickie MPI tests
+NB: mpirun requires explicit path to executable
+Status 20050920: 
+1. LAM-MPI, MPICH, MPICH2 all work fine
+   Currently recommend running with MPICH2, though LAM is easier since it's in Ubuntu
+   See ~/doc/mpi.txt for installation details.
+2. Charlie's default compilation/testing environments:
+   ashes: Ubuntu, x86, LAM-MPI, gcc-4.0
+   elnino: Libranet, x86, MPICH2, icc-9.0
+   sand: Ubuntu, dual x86_64, LAM-MPI, gcc-4.0
+
+0. MPI with valgrind example
+   mpirun -np 3 /usr/bin/valgrind --leak-check=yes --show-reachable=yes --suppressions=${HOME}/nco/doc/valgrind.txt --tool=memcheck mpirun -np 3 ${MY_BIN_DIR}/mpncbo -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+1. mpncbo
+   mpirun -np 3 ${MY_BIN_DIR}/mpncbo -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+2. mpnces
+   mpirun -np 3 ${MY_BIN_DIR}/mpnces -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+3. mpncecat
+   mpirun -np 3 ${MY_BIN_DIR}/mpncecat -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+4. mpncpdq
+   mpirun -np 3 ${MY_BIN_DIR}/mpncpdq -O -D 3 -a lat,lev,lon -p ${HOME}/nco/data in.nc ~/foo.nc > ~/foo 2>&1
+   mpirun -np 3 ${MY_BIN_DIR}/mpncpdq -O -D 3 -P all_new -p ${HOME}/nco/data in.nc ~/foo.nc > ~/foo 2>&1
+5. mpncra
+   mpirun -np 3 ${MY_BIN_DIR}/mpncra -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+6. mpncrcat (hangs just before write)
+   mpirun -np 3 ${MY_BIN_DIR}/mpncrcat -O -D 3 -p ${HOME}/nco/data in.nc in.nc ~/foo.nc > ~/foo 2>&1
+7. mpncwa
+   mpirun -np 3 ${MY_BIN_DIR}/mpncwa -O -D 3 -p ${HOME}/nco/data in.nc ~/foo.nc > ~/foo 2>&1
+************************************************************************
+End MPI section
+************************************************************************
+
+************************************************************************
+Begin OPeNDAP section
+************************************************************************
+OPeNDAP: Archive of quickie DAP tests:
+ncks -p http://dust.ess.uci.edu/cgi-bin/dods/nph-dods/dodsdata -l . in.nc
+ncks -p https://srb.npaci.edu/mysrb331all.shtml/home/zender.uci-esmf/zender/nco/data -l . in.nc
+http://sasa.sdsc.edu:8003/cgi-bin/nph-dods/data/nccoos-duck-codar-latest.nc.html
+http://orion.sdsc.edu:8003/cgi-bin/nph-dods/data/nccoos-duck-codar-latest.nc.html
+************************************************************************
+End OPeNDAP section
+************************************************************************
+
+************************************************************************
+Begin hpctoolkit section
+************************************************************************
+/bin/rm -r ~/nco/bm/hpctoolkit # Remove old profiles
+mkdir -p ~/nco/bm/hpctoolkit
+lsmod | grep oprofile # Make sure oprofile module is not loaded
+sudo opcontrol --deinit # Unload oprofile iff it is loaded
+modprobe perfctr # Load perfctr module
+# Do not monitor more than one function per hardware counter, e.g., PAPI_FP_OPS and PAPI_FP_OPS
+
+cat > ~/nco/bm/prf_ncbo.sh << EOF
+cd ~/nco/bm/hpctoolkit
+hpcrun -r -o ~/nco/bm/hpctoolkit -e PAPI_TOT_CYC:32767 -e PAPI_FP_OPS:32767 -e PAPI_TOT_INS:32767 -e PAPI_L2_DCM:32767 -- ${MY_BIN_DIR}/ncbo -O --op_typ='-' -p ${DATA}/nco_bm stl_5km.nc stl_5km.nc ${DATA}/nco_bm/prf_ncbo.nc
+EOF
+chmod a+x ~/nco/bm/prf_ncbo.sh
+~/nco/bm/prf_ncbo.sh
+
+hpcquick -I ~/nco/src/nco -P ~/nco/bm/hpctoolkit/ncbo.PAPI_TOT_CYC-etc.clay.ess.uci.edu.14169.0
+hpcviewer ~/nco/bm/hpctoolkit/hpcquick.db/hpcquick.hpcviewer &
+************************************************************************
+End hpctoolkit section
+************************************************************************
+
+************************************************************************
+Begin oprofile section
+************************************************************************
+cd ~/nco/bm
+xosview &
+# To enable idle cycle counts, add 'idle=poll' to kernel spec in /boot/grub/menu.lst:
+# kernel          /boot/vmlinuz.old root=/dev/hda1 ro console=tty0 idle=poll quiet splash
+sudo opcontrol --vmlinux=/usr/src/linux-2.6.11/vmlinux # 
+sudo opcontrol --separate=cpu # Use this on SMP machines
+sudo opcontrol --start # Start profiling
+sudo opcontrol --shutdown
+
+cat > ~/nco/bm/prf_ncbo.sh << EOF
+cd ${DATA}/nco_bm
+sudo opcontrol --reset
+time ${MY_BIN_DIR}/ncbo -O --op_typ='-' -p ${DATA}/nco_bm gcm_T85.nc gcm_T85_00.nc ${DATA}/nco_bm/prf_ncbo.nc
+opreport --demangle=smart --exclude-dependent --symbols > ~/nco/bm/prf_ncbo.txt
+EOF
+chmod a+x ~/nco/bm/prf_ncbo.sh
+~/nco/bm/prf_ncbo.sh
+
+cat > ~/nco/bm/prf_ncwa.sh << EOF
+cd ${DATA}/nco_bm
+sudo opcontrol --reset
+time ${MY_BIN_DIR}/ncwa -O -a lat,lon,lev,time -w lat -p ${DATA}/nco_bm gcm_T85.nc ${DATA}/nco_bm/prf_ncwa.nc
+opreport --demangle=smart --exclude-dependent --symbols > ~/nco/bm/prf_ncwa_avgall.txt
+EOF
+chmod a+x ~/nco/bm/prf_ncwa.sh
+~/nco/bm/prf_ncwa.sh
+
+cat > ~/nco/bm/prf_ncwa.sh << EOF
+cd ${DATA}/nco_bm
+sudo opcontrol --reset
+time ${MY_BIN_DIR}/ncwa -O -a lat,lon,lev,time -w lat -z "lat!=1.0" -p ${DATA}/nco_bm gcm_T85.nc ${DATA}/nco_bm/prf_ncwa.nc
+opreport --demangle=smart --exclude-dependent --symbols > ~/nco/bm/prf_ncwa_avgall_msk.txt
+EOF
+chmod a+x ~/nco/bm/prf_ncwa.sh
+~/nco/bm/prf_ncwa.sh
+
+cat > ~/nco/bm/prf_ncwa.sh << EOF
+cd ${DATA}/nco_bm
+sudo opcontrol --reset
+time ${MY_BIN_DIR}/ncwa -O -F -d lat,,64 -d lon,,128 -d lev,,16 -d time,,4 -a lat,lon,lev,time -w lat -p ${DATA}/nco_bm gcm_T85.nc ${DATA}/nco_bm/prf_ncwa.nc
+opreport --demangle=smart --exclude-dependent --symbols > ~/nco/bm/prf_ncwa_hlf.txt
+EOF
+chmod a+x ~/nco/bm/prf_ncwa.sh
+~/nco/bm/prf_ncwa.sh
+************************************************************************
+End oprofile section
+************************************************************************
+
+************************************************************************
+Begin ncapXXX TODOs
+************************************************************************
+ncap-specific items:
+ncap07. Combine binary operations into binary_op_var_var and binary_op_var_att types to reduce number of functions
+ncap09. Add outer loop over files so script may apply to each file
+ncap12. Ensure lexer does not perform un-necessary work during initial_scan (e.g., LHS casting...)
+ncap13. Test that LHS casting works regardless of value of LHS template. If true, remove value initialization block
+ncap15. Link to GSL functions, especially gsl_sf_* (special functions)
+ncap16. Get ncap build working with pure_parser turned off so lex/yacc builds work
+ncap17. Start in console mode if no script and no output file specified, e.g., nco> 
+ncap19. Make all binary operators handle ordering of operands consistently, e.g., divide(1,2)=1/2 not 2/1
+ncap20. Print out contents of each non-comment statement when nco_dbg_lvl==1
+ncap21. Add two-argument functions like fmodf to ncap_sym_init() (using va_args?)
+ncap25. Turn arbitrarily fixed size array tokens NCAP_ATT_LST_NBR_MAX, NCAP_SPT_NBR_MAX into dynamically allocatable arrays
+ncap26. Make sym_tbl_nbr dynamic by implementing sym_add(), sym_rm() functions or linked list
+ncap28. Make provision for pack() and unpack() to copy all attributes except scale_factor and add_offset from disk into new variable on disk?
+ncap29. Rewrite nco_var_pck() to use var_scv() arithmetic operations rather than more complex var_var() operations
+ncap30. Allow -S to specify multiple input scripts to be sequentially parsed
+ncap31. Put globals fl_spt_crr,ncl_dpt_crr,ln_nbr_crr in prs_arg or remove fl_spt from it
+ncap32. Need filename expander and $NCO_DATA_PATH handling so #include's may be generic
+ncap34. Make parse errors always print current line to terminal rather than silently failing
+ncap36. cygwin builds of ncap.l and netCDF fail because of dependence on syslimits.h. non-kludge fix may require updated gcc and mingw packages
+ncap37. Implement float function definitions in nco_rth_flt.c as inline to improve speed for MACOSX builds (inline is OK in C99 but will it break C89?) using AC_C_INLINE
+ncap38. Finish dimension-reducing operations (min/max/avg)
+ncap41. Make ncap function prototypes consistent with rest of NCO (ncap.h mainly)
+ncap42. Add switch allowing derived variable to take on all attributes of specified variable
+ncap43. Alphabetize ncap function list prior to printing it with -f
+ncap46. Define YYMALLOC/FREE/REALLOC etc so lexer/parser use nco_malloc() etc.
+ncap48. Search ncap_yacc.y for non-symmetric arithmetic operations, implement symmetric operations
+ncap49. Cause "**" in arithmetic context to cause error, print HINT to Fortran syntax users
+ncap52. Combine pow() with ^ parsing in parser ncap_yacc.y 
+ncap53. Bug in ncap pack() on Alpha/Tru64: ncap -O -D 10 -s 'hsig=pack(hsig)' foo.nc foo2.nc details on sourceforge
+ncap54. Add option (true by default?) to retain variable attributes when variable re-defined or defined in terms of single other variable or perhaps always retain attributes of left-most variable on RHS of definition?
+        ncap -v -O -s "one=one*1" -s "two=one*2" -s "pck=pack(upk)" ~/nco/data/in.nc ~/foo.nc
+        ncks -m -H -v one,two,pck ~/foo.nc
+ncap55. Add pre-defined named_constants, e.g., nco_pi, nco_e, to make math easier
+ncap56. Introduce way of making function synonyms, e.g., ln=log, without growing symbol table?
+ncap57. Raising transcendental functions of NC_FLOATs to powers fails on AIX
+AIX thinks it has the trancendental float functions, so NCO uses system-supplied versions.
+Symptoms are consistent with breakage of system-supplied logf, sinf, etc.
+# Fails on AIX
+ncap -D 1 -O -v -s "foo=log(e_flt)^1" ~/nco/data/in.nc ~/foo.nc
+ncap -D 1 -O -v -s "foo=sin(e_flt)^1" ~/nco/data/in.nc ~/foo.nc
+ncap -D 1 -O -v -s "foo=log(e_flt+0.01f)^1" ~/nco/data/in.nc ~/foo.nc
+# Works on AIX
+ncap -D 1 -O -v -s "foo=log(e_dbl)^1" ~/nco/data/in.nc ~/foo.nc
+ncap -D 1 -O -v -s "foo=sin(e_dbl)^1" ~/nco/data/in.nc ~/foo.nc
+ncap59. ncap always gives points in first quadrant for
+ncap -O -v -s 'water_dir=(180/4*atan(1))*(atan(water_v/water_u) + 4 * atan(1) * ((water_u-abs(water_u))/(-2*water_u)))'
+ncap60. Add capability to create character string variables that contain any string, given only a pre-existing dimension size capable of holding the string
+ncap66. make ncap errors fatal, either in yyerror(), or call nco_error_exit()
+ncap70. gamma() function broken on AIX
+ncap71. Remove erf and gamma functions from AIX build
+ncap72. Stop linking to -lC on AIX. Get all float math functions by casting double versions
+ncap79. make abs() synonym for fabs() and pow() and ** synonyms for ^
+ncap80. ncap2+openmp+netCDF4 - script only works with threads>1 if there are no atts in input file
+ncap81. (20150616: fixed by netCDF4.3.x) script 'defdim("a",3);defdim("b",4);a[$a,$b]=10;' works on netCDF3 not netCDF4. Known bug with netCDF4. (Why? what causes it?) 
+ncap82. Unable to average single/multi dimensional var of total size 1 var in ncap2 
+e.g., defdim("X",10);defdim("Y",1); m[X,Y]=10; m.avg();- fails with seg fault  
+************************************************************************
+End ncapXXX TODOs
+************************************************************************
+
+************************************************************************
+Begin bldXXX TODOs
+************************************************************************
+Build items:
+bld14. Replace #ifdef tokens in NCO code with autoconf-style tokens, e.g., #ifdef HDF5 -> #ifdef HAVE_HDF5, etc. Other tokens to consider are WIN32, _OPENMP, USE_FORTRAN_ARITHMETIC (deprecated). Of course must modify bld/Makefile to pass these style tokens as well so that config.h is not _required_, and that token use is consistent.
+bld23. Implement ncra i18n support I18N with autotools: Add .po files, update doc/i18n.txt
+bld30. Search for libstdc++ with AIX/DODS/GCC breaks NCO build
+bld32. Why have --enable-shared and --enable-static both default true? override one?
+bld33. Use PACKAGE_BUGREPORT, PACKAGE_NAME, PACKAGE_STRING, PACKAGE_TARNAME, PACKAGE_VERSION?
+bld35. Add pgcc, pgCC switches to configure.ac 
+bld36. Improve precision/wording of nco_ctl.c tokens on shared/static libraries
+bld37. Ensure C99 used by compilers with AX_CFLAGS_SUN_OPTION AX_CFLAGS_HPUX_OPTION AX_CFLAGS_AIX_OPTION AX_CFLAGS_IRIX_OPTION
+bld38. Use OPeNDAP opendap-config script to ease build process, e.g., `opendap-config --cxx --cflags --libs` -o sample sample.c
+bld39. Fix autoconf build warnings (from including ncap_yacc in ncwa?):
+       Makefile:472: warning: overriding commands for target `ncap_yacc.h'
+       Makefile:440: warning: ignoring old commands for target `ncap_yacc.h'
+bld40. Automate splicing trailer ~/nco/doc/man_end.txt to man pages
+bld41. Add configure check for libssl functionality, if not found (Fedora) to explicitly adding libssl
+bld42. Adopt orphaned Debian NCO http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=273322
+bld43. Implement Martin Schmidt's suggestion for AIX autoconf builds posted to developer's forum 20050201: {$CC} is not tested for xlc* but for (arbitrary_path/xlc*)
+bld44. Add support for autopackage format? http://www.wildgardenseed.com/apkg/
+bld45. Replace ENABLE_LARGEFILE with test for 64-bit offset support (i.e., netCDF 3.6) in configure.ac and nco_ctl.c
+bld47. Add regression test for 64bit file format capability
+bld61. Verify netCDF4 benchmarks work for Ed Hartnett
+bld70. hjm nco_c++ on Mac OS X: Get "make check" working (add -lstdc++, remove -lnco)
+bld74. hjm Do not pass -std=c99 unless GCC=gcc rather than g++
+bld76. Add SMP support switches to configure.ac for pathcc, pgicc, icc
+bld77. Make sure C99 switches like -std=c99 do not get passed to CXX
+bld78. Fix CXXFLAGS for icc enable-custom-optimize
+bld79. 
+************************************************************************
+End bldXXX TODOs
+************************************************************************
+
+************************************************************************
+Begin bnchXXX TODOs - benchmarking & analysis/presentation of same
+************************************************************************
+Benchmark items:
+bnch01. hjm make benchmark script return remote benchmark data as netcdf 
+	data, or re-write server side to convert returned data into netcdf
+	variables and append to a netcdf file.
+bnch02. hjm add code to analysis/plotting script (at least until bnch01 is
+	ready) to filter data points that vary more than 1 SD from mean to remove
+	bad data.
+bnch03. hjm should plotting script use linear regression or a log()
+	transform to analyze the relationship?  Check with other MPI analyses.
+
+************************************************************************
+End bnchXXX TODOs
+************************************************************************
+
+************************************************************************
+Begin dlwXXX plan
+************************************************************************
+1. one or two operator complete server side DAP script server side only
+2. CVS. write client wrapper script which parses regular command
+   line(s) and feeds complex script to server (shell)
+         
+    wrapper_script ncra -n 100,1,2 model_01.nc model_avg.nc
+
+3. Complete SS CGI script to work with all operators 
+4. Complete client side to work with all operators
+5. Make sure wildcards/globbing works
+
+Milestone: regression tests can work in nco_bm.pl
+           Check if design decisions/interfaces seem good
+           ncra -n 100,1,2 -p http://server/foo/model_01.nc model_avg.nc
+Goal: end of February
+
+6. Multiple sequential commands with SS intermediate output files and one
+   output file to client
+7. SS intermediate filename magic allow deterministic chaining of
+   output files so sequential command may depend on previous commands
+8. SS and client side mods to send back multiple output files
+8.1 db-backed job control
+8.1a. client-side multi-file wrapper first iteration
+8.1b. server-side file-waiting (block-until-send) first iteration
+8.1c. client-side real async: job status, etc.
+8.1d. server-side wakeup/signalling for scalability
+
+
+Milestone: Mark's climate model analysis script "works"
+           Check if design decisions/interfaces/initial parser seems good 
+           
+9. SS understand dependencies (i.e., dependence of commands within script)
+10. Smarter scheduling of operations (i.e., non-sequential script execution)
+11. Basic security: file path validator (configurable?)
+12. Basic security: argument validator (watch for backticks, pipes and other shell constructs)
+13. Docs about security concerns
+14. Charlie xml filefetch test.
+
+Random cleanup items:
+1. Rework/consolidate tests in src/ssdap for less redundancy, less clutter, 
+   more simplicity, and understandability.  
+2. Create simple SSDAP functionality test so a user can verify the ability to 
+   use SSDAP scripts. Want to call this script from the bm script during 
+   regression testing.
+3. Modularize parser (clear place to add new operators)
+4. Modularize executor (clear interface to build new frontend)
+
+************************************************************************
+End dlwXXX plan
+************************************************************************
+
+
+************************************************************************
+End NCO Wish list
+************************************************************************
+

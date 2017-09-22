@@ -1,0 +1,18 @@
+/.gitignore/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeLists.txt/1.1.1.4/Mon Aug  8 13:52:25 2016/-kk/TGMAO-Baselibs-4_0_8
+/COPYRIGHT/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/ChangeLog/1.1.1.4/Mon Aug  8 13:52:25 2016/-kk/TGMAO-Baselibs-4_0_8
+/Copyright.txt/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/GNUmakefile/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/LICENSE/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/README-INSTALL/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/README-RELEASE-CHECKLIST/1.1.1.1/Fri Apr 22 18:01:03 2016/-kk/TGMAO-Baselibs-4_0_8
+/VERSION/1.1.1.5/Mon Aug  8 13:52:25 2016/-kk/TGMAO-Baselibs-4_0_8
+D/Examples////
+D/bin////
+D/cmake////
+D/documentation////
+D/include////
+D/source////
+D/tests////
+D/tools////

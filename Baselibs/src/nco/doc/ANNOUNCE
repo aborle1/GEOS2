@@ -1,0 +1,193 @@
+$Header$ -*-text-*-
+
+The netCDF Operators NCO version 4.6.1 are ready. 
+
+http://nco.sf.net (Homepage, Mailing lists)
+http://github.com/nco (Source Code, Releases, Developers)
+
+What's new?
+
+4.6.1 ...
+
+As usual, ncremap continues to accrue useful features, the most
+notable of which is ...
+
+Work on NCO 4.6.2 has commenced and will better support regridding
+variables whose horizontal dimensions are not most-rapidly-varying.  
+
+Enjoy,
+Charlie
+
+NEW FEATURES (full details always in ChangeLog):
+
+A. ncks supports new provenance features released in netCDF-4.4.1.
+   These provenance (and other) metadata are revealed by the --hdn (or
+   --hidden) switch when dumping global metadata from a netCDF4 file:
+   ncks --cdl --hdn -M ~/nco/data/in_grp.nc
+
+A. Wenshan Wang of UCI contributed a Quick Reference Card suitable
+   for printing. Thanks, Wenshan!
+   http://nco.sf.net/nco_rfr_crd.pdf
+
+A. Add ncflint -N, --nrm, --normalize option so w1:=w1/(w1+w2), w2:=w2/(w1+w2)
+
+A. ncap2's array() function can now take a dimension list as the
+   third argument, e.g., n2=array(1.0,2.0,/$time,$lat,$lon/)
+   http://nco.sf.net/nco.html#ncap2
+
+A. ncclimo produces climatological monthly means, seasonal means, 
+   annual mean, and optionally regrids all these files. Like ncremap,
+   ncclimo is actually a front-end script to manage the complexity
+   of invoking the underlying operators (ncks for ncremap and ncra for
+   ncclimo). ncclimo produces climatologies starting from monthly-mean
+   files of most CESM-like model and observational data formats.
+   Invoke ncclimo with, e.g.,
+   ncclimo -s start_yr -e end_yr -c run_id -i drc_in -o drc_out
+   ncclimo -s 5 -e 10 -c hist -m ocn -i drc_in -o drc_out
+   ncclimo -s 1980 -e 2016 -c merra2_198001.nc -i drc_in -o drc_out
+   ncclimo has sophisticated parallelism and regridding options.
+   Datasets tested include ALM, CAM, CLM, CICE, CISM, CLM, MPAS-I,
+   MPAS-O, and POP. ncclimo resulted from work with the DOE ACME
+   project, and we are grateful for their support.
+   http://nco.sf.net/nco.html#ncclimo
+   http://nco.sf.net/nco.html#merra2
+
+A. ncap2 now works with pointers to variables and attributes.
+   This allows, e.g., loops over arbitrary sets of variables, and
+   make creating aggregations of variables much simpler. An ncap2
+   script that converts all float variables to double precision:
+   @all=get_vars_in();
+   *sz=@all.size();
+   for(idx=0;idx<sz;idx++){
+     @var_nm=sprint(@all(idx));
+     if(*@var_nm.type() == NC_FLOAT) *@var_nm=*@var_nm.double();
+   }
+   Congratulations Henry for finishing this impressive functionality! 
+   More documentation will be added in the coming weeks. For now,      
+   http://nco.sf.net/nco.html#ncap2
+
+BUG FIXES:
+
+A. ncatted now allows special characters in attribute and variable
+   names. Previously, ncatted interpreted most special characters
+   as indicating a regular expression. Now ncatted first tries to
+   interpret most special characters as literals, and if that does
+   not work, then it interprets them as a regular expression.
+   Thanks to emontgomery for reporting the problem.
+
+A. ncap2 fixed handling of implicit array bounds for slabs of form
+   var(3:). Previously ncap2 would exit with an error.
+   http://nco.sf.net/nco.html#ncap2
+
+A. When inferring grid coordinates from 2D files, ncremap in 4.6.0
+   sometimes would confuse dimension names with coordinate names.
+   This has been fixed. The workaround is to downgrade to 4.5.6 or
+   upgrade to 4.6.1.
+
+A. ncremap now automatically chooses distinct output spatial and
+   temporal bounds names when for non-rectangular output datasets.
+   Previously ncremap might use, e.g., "nbnd" for both. This failed
+   for curvilinear datasets.
+
+KNOWN PROBLEMS DUE TO NCO:
+
+   This section of ANNOUNCE reports and reminds users of the
+   existence and severity of known, not yet fixed, problems. 
+   These problems occur with NCO 4.6.1 built/tested under
+   MacOS with netCDF 4.3.3.1 on HDF5 1.8.16 and with
+   Linux with netCDF 4.4.1-development (20160212) on HDF5 1.8.13.
+
+A. NOT YET FIXED (NCO problem)
+   Correctly read arrays of NC_STRING with embedded delimiters in ncatted arguments
+
+   Demonstration:
+   ncatted -D 5 -O -a new_string_att,att_var,c,sng,"list","of","str,ings" ~/nco/data/in_4.nc ~/foo.nc
+   ncks -m -C -v att_var ~/foo.nc
+
+   20130724: Verified problem still exists
+   TODO nco1102
+   Cause: NCO parsing of ncatted arguments is not sophisticated
+   enough to handle arrays of NC_STRINGS with embedded delimiters.
+
+B. NOT YET FIXED (NCO problem?)
+   ncra/ncrcat (not ncks) hyperslabbing can fail on variables with multiple record dimensions
+
+   Demonstration:
+   ncrcat -O -d time,0 ~/nco/data/mrd.nc ~/foo.nc
+
+   20140826: Verified problem still exists
+   20140619: Problem reported by rmla
+   Cause: Unsure. Maybe ncra.c loop structure not amenable to MRD?
+   Workaround: Convert to fixed dimensions then hyperslab
+
+KNOWN PROBLEMS DUE TO BASE LIBRARIES/PROTOCOLS:
+
+A. NOT YET FIXED (netCDF4 or HDF5 problem?)
+   Specifying strided hyperslab on large netCDF4 datasets leads
+   to slowdown or failure with recent netCDF versions.
+
+   Demonstration with NCO <= 4.4.5:
+   time ncks -O -d time,0,,12 ~/ET_2000-01_2001-12.nc ~/foo.nc
+   Demonstration with NCL:
+   time ncl < ~/nco/data/ncl.ncl   
+   20140718: Problem reported by Parker Norton
+   20140826: Verified problem still exists
+   20140930: Finish NCO workaround for problem
+   Cause: Slow algorithm in nc_var_gets()?
+   Workaround #1: Use NCO 4.4.6 or later (avoids nc_var_gets())
+   Workaround #2: Convert file to netCDF3 first, then use stride
+
+B. NOT YET FIXED (netCDF4 library bug)
+   Simultaneously renaming multiple dimensions in netCDF4 file can corrupt output
+
+   Demonstration:
+   ncrename -O -d lev,z -d lat,y -d lon,x ~/nco/data/in_grp.nc ~/foo.nc # Completes but file is unreadable
+   ncks -v one ~/foo.nc
+
+   20150922: Confirmed problem reported by Isabelle Dast, reported to Unidata
+   20150924: Unidata confirmed problem
+   20160212: Verified problem still exists in netCDF library
+   20160512: Ditto
+
+   Bug tracking: https://www.unidata.ucar.edu/jira/browse/fxm
+   More details: http://nco.sf.net/nco.html#ncrename_crd
+
+C. NOT YET FIXED (would require DAP protocol change?)
+   Unable to retrieve contents of variables including period '.' in name
+   Periods are legal characters in netCDF variable names.
+   Metadata are returned successfully, data are not.
+   DAP non-transparency: Works locally, fails through DAP server.
+
+   Demonstration:
+   ncks -O -C -D 3 -v var_nm.dot -p http://thredds-test.ucar.edu/thredds/dodsC/testdods in.nc # Fails to find variable
+
+   20130724: Verified problem still exists. 
+   Stopped testing because inclusion of var_nm.dot broke all test scripts.
+   NB: Hard to fix since DAP interprets '.' as structure delimiter in HTTP query string.
+
+   Bug tracking: https://www.unidata.ucar.edu/jira/browse/NCF-47
+
+D. NOT YET FIXED (would require DAP protocol change)
+   Correctly read scalar characters over DAP.
+   DAP non-transparency: Works locally, fails through DAP server.
+   Problem, IMHO, is with DAP definition/protocol
+
+   Demonstration:
+   ncks -O -D 1 -H -C -m --md5_dgs -v md5_a -p http://thredds-test.ucar.edu/thredds/dodsC/testdods in.nc
+
+   20120801: Verified problem still exists
+   Bug report not filed
+   Cause: DAP translates scalar characters into 64-element (this
+   dimension is user-configurable, but still...), NUL-terminated
+   strings so MD5 agreement fails 
+
+"Sticky" reminders:
+
+A. Reminder that NCO works on most HDF4 and HDF5 datasets, e.g., 
+   HDF4: AMSR MERRA MODIS ...
+   HDF5: GLAS ICESat Mabel SBUV ...
+   HDF-EOS5: AURA HIRDLS OMI ...
+
+B. Pre-built executables for many OS's at:
+   http://nco.sf.net#bnr
+

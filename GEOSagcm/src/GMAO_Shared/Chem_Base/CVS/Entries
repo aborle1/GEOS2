@@ -1,0 +1,62 @@
+D/CMIP////
+D/MERRA2////
+D/MERRA2-DD////
+D/NR////
+D/PIESA////
+D/CCMI_REF-C1////
+D/CCMI_REF-C2////
+/Aod-550nm_Registry.rc/1.18/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod3d_1064nm.rc/1.16/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod3d_355nm.rc/1.16/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod3d_532nm.rc/1.16/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/AodBands_Registry.rc/1.17/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod_CALIPSO.rc/1.19/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod_EOS.rc/1.18/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod_MODIS.rc/1.19/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Aod_Registry.rc/1.20/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_AerRegistry.rc/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Aod.F90/1.32.136.2/Thu May 11 12:02:31 2017/-kk/TIcarus-1_0_p1
+/Chem_Aod3d.F90/1.33.46.1/Thu May 11 12:06:19 2017/-kk/TIcarus-1_0_p1
+/Chem_AodMod.F90/1.19/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_ArrayMod.F90/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_BundleMod.F90/1.43/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_BundleToG5rs.F90/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Ext3d.rc/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_ExtRegistry.rc/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Init.F90/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Init.rc/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_InitMod.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Mie-550nm.rc/1.11/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Mie.F90/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Mie.rc/1.16/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_MieMod.F90/1.51.28.1/Thu May 11 12:06:19 2017/-kk/TIcarus-1_0_p1
+/Chem_MieRegistry.rc/1.14/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_MieTableMod.F90/1.15.10.1.84.1/Thu May 11 12:06:19 2017/-kk/TIcarus-1_0_p1
+/Chem_Mod.F90/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_Registry.rc/1.63.6.2/Thu May 11 12:02:31 2017/-kk/TIcarus-1_0_p1
+/Chem_RegistryMod---stub.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_RegistryMod.F90/1.26/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/Chem_SimpleBundleMod.F90/1.7/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/GNUmakefile/1.62.38.1/Thu May 11 12:02:31 2017/-kk/TIcarus-1_0_p1
+/HOWTO_ChemRestarts.txt/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/MieObs_py.F90/1.3/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/SCChem_Init.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/backscatter_calculator.csh/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ctl_crst.F90/1.9/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/edit_crst.F90/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ext.rc/1.10/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ext_calculator.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ext_calculator.py/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ext_sampler.py/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/extinction_calculator.csh/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/gogo.F90/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/merge_crst.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/mieobs.py/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/reff.py/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/reff.rc/1.10/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/reff_calculator.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/reloc_crst.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/tavg3d_ext_p.rc/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ut_Bundle.f90/1.5/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ut_Mie.F90/1.5/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/ut_Registry.f90/1.5/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1

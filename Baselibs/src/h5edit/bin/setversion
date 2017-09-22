@@ -1,0 +1,168 @@
+#!/bin/sh
+
+# This sets the version information of h5edit in all related files.
+# Usage: setversion [-r] <version>
+#    <version> is the new version number in the form of M.m.R-relstr where
+#         M is major, m is minor, R is release and -relstr is the
+#         optional subrelease.
+#    -r is the optional release mode.
+#         When given, all the files are set for release by adding today's
+#         date as the release date. The default is development mode which
+#         sets all version information files with the
+#         "currently under development" notice.
+
+# Function definitions
+USAGE()
+{
+    echo "Usage: $0 [-r] <M.m.R-relstr>"
+}
+
+# Print Debug output. Activate this by removing the leading colon.
+# With a leading colon, it is a label, effectively a noop.
+DPRINT()
+{
+    : echo $@
+}
+
+# Show a banner for message given as $*
+# Need to quote $* to allow metacharacters in the message.
+BANNER()
+{
+	echo ""
+	echo "=================================================="
+	echo "$*"
+	echo "=================================================="
+}
+
+# Main body
+# Check command arguments
+if [ "$1" = "-r" ]; then
+    # Release mode
+    ReleaseDate="released on "`date +%F`
+    shift
+else
+    ReleaseDate="currently under development"
+fi
+
+if [ $# -ne 1 ]; then
+    USAGE
+    exit 1
+fi
+
+arg=$1
+DPRINT "====== arg=$arg ============"
+
+# Verify given arg is the correct format and pull out the optional release
+# string.
+case "$arg" in
+    [0-9]*.[0-9]*.[0-9]*-* )
+	# pull out the release string
+	Vrelstr=`echo $arg | cut -d- -f2`
+	# trim the release string.
+	Versions=`echo $arg | cut -d- -f1`
+	;;
+    [0-9]*.[0-9]*.[0-9]* )
+	Versions=$arg
+	;;
+    *)
+	echo "Bad argument $arg"
+	USAGE
+	exit 1
+	;;
+esac
+
+# Parse the Version argument into different parts
+Vmajor=`echo $Versions | cut -d. -f1`
+Vminor=`echo $Versions | cut -d. -f2`
+Vrelease=`echo $Versions | cut -d. -f3`
+Vinfo="H5edit version $arg, $ReleaseDate"
+
+DPRINT "Vrelstr=$Vrelstr; Versions=$Versions;"
+DPRINT "Major=$Vmajor; minor=$Vminor; Release=$Vrelease;"
+
+BANNER Update files with new version information $arg $ReleaseDate
+# Update configure.ac by fixing the AC_INIT statement and run bin/reconfigure
+f=configure.ac
+echo Update ${f} ...
+if [ -w $f ]; then
+ed - $f <<EOF
+/AC_INIT/s/, \[[^]]*/, [$arg/
+w
+q
+EOF
+    echo running reconfigure ...
+    bin/reconfigure
+else
+    echo $f is not writable
+    USAGE
+    exit 1
+fi
+
+# Update src/h5edit.h by fixing the version information macros.
+# The "$" is needed so that the "5" in H5EDIT is not replaced.
+f=src/h5edit.h
+echo Update ${f} ...
+if [ -w $f ]; then
+ed - $f <<EOF
+/define H5EDIT_VER_MAJOR/s/[0-9][0-9]*$/$Vmajor/
+/define H5EDIT_VER_MINOR/s/[0-9][0-9]*$/$Vminor/
+/define H5EDIT_VER_RELEASE/s/[0-9][0-9]*$/$Vrelease/
+/define H5EDIT_VER_SUBRELEASE/s/".*"/"$Vrelstr"/
+/define H5EDIT_VER_INFO/s/".*"/"$Vinfo"/
+w
+q
+EOF
+else
+    echo $f is not writable
+    USAGE
+    exit 1
+fi
+
+
+# Update README and doc/RELEASE.txt by fixing the version information in the
+# header line at the beginning.
+for f in README doc/RELEASE.txt; do
+    echo Update ${f} ...
+    if [ -w $f ]; then
+ed - $f <<EOF
+/^H5edit version/s/.*/H5edit version $arg $ReleaseDate./
+w
+q
+EOF
+    else
+	echo $f is not writable
+	USAGE
+	exit 1
+    fi
+done
+
+BANNER Files require manual update
+# The following are not automized yet and should be done by hand.
+echo you need to update the following files:
+echo doc/h5edit.docx:
+echo doc/h5edit-Command-Language-Defininition.docx:
+echo doc/H5edit_User_Guide.docx:
+echo "   The version in the footer and last edit date"
+echo "   Then regenerate the corresponding .pdf and .htm files"
+
+
+BANNER Reminder of post-release tasks
+# Post-release cleanup and reset for next release. Docuement here temporary.
+# Should be moved to a permenant spot later.
+cat <<EOF
+Reminder:
+Generate the release tarball by
+$ svn export http://svn.hdfgroup.uiuc.edu/h5edit/trunk h5edit-<version>
+  E.g., svn export http://svn.hdfgroup.uiuc.edu/h5edit/trunk h5edit-1.1.0
+$ tar zcf h5edit-<version>.tar.gz h5edit-<version>
+  E.g., tar zcf h5edit-1.1.0.tar.gz h5edit-1.1.0
+
+After release tarball is generated, you need to tag the released version by:
+$ svn copy http://svn.hdfgroup.uiuc.edu/h5edit/trunk http://svn.hdfgroup.uiuc.edu/h5edit/tags/<version>
+  E.g., svn copy http://svn.hdfgroup.uiuc.edu/h5edit/trunk http://svn.hdfgroup.uiuc.edu/h5edit/tags/h5edit_1_1_0
+Then in doc,
+1. archive RELEASE.txt to History
+2. empty the "Changes since ...<version>" section.
+3. reset version in the header
+
+EOF

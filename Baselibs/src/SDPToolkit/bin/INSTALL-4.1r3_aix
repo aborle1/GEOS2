@@ -1,0 +1,235 @@
+#! /bin/sh
+#-----------------------------------------------------------------------------
+# filename:
+# 	INSTALL-4.1r3.aix
+#
+# description:
+# 	Installation script module for installing HDF 4.1 release 1
+# 	for the SDP (PGS) Toolkit.  It implements patches to the NCSA 
+# 	installation procedure to allow for trouble-free installation on
+# 	the platforms supported by the SDP (PGS) Toolkit.
+#
+# usage:
+# 	Called from INSTALL-HDF
+#
+# 	INSTALL-HDF4.1r1 [-dbug]
+# 	INSTALL-HDF4.1r1 -h[elp]
+#
+# 	  -h      : display this help message and exit
+# 	  -dbug   : install debug version of HDF
+#
+# notes:
+# 	This is NOT a standalone script.  It is only intended to be run
+# 	by INSTALL-HDF, the HDF installation script.
+# 
+# author:
+#        Mike Sucher / Applied Research Corp.
+#
+# history:
+#       23-Apr-1996 MES Initial version (file: INSTALL-HDF4.0r1)
+# 	26-Apr-1996 MES Updated PreConfigure compiler logic.
+# 	02-Jul-1996 MES Updated to handle SunOS 5.5
+# 	19-Aug-1996 MES Updated for HDF4.0r2 (file: INSTALL-HDF4.0r2)
+# 	23-Sep-1996 MES Added patch to hdfi.h on dec to avoid potential
+# 			conflict with <rpc/types.h>.
+#       21-Jul-199s96 MEDS created script for aix version of HDF4.1r3 
+#-----------------------------------------------------------------------------
+
+
+#
+# Save starting directory, path
+# Create error message header
+#
+
+start_dir=`pwd`
+start_path=$PATH
+this_script="`basename $0`"
+script_error="$this_script: Error:"
+
+#
+# Get absolute pathname where this script is located
+# This allows the script to locate any needed auxilliary files
+#
+
+script_dir="`dirname $0`"
+abs="`echo $script_dir | cut -c1`"
+if [ "$abs" != "/" ] ; then
+    script_dir=`cd $script_dir;pwd`
+fi
+
+
+#****************************************************************
+#                                                               *
+#                   * * * Functions  * * *                      *
+#                                                               *
+#****************************************************************
+
+#
+# Function to output error message
+#
+
+WriteError()
+{
+    echo ""
+    echo "${this_script}: Error: $*"  >&2
+}
+
+
+#
+# Function to output message to logfile and console
+#
+
+EchoAndLog()
+{
+    if [ "$1" = "-n" ] ; then		# -n: suppress leading blank line
+        shift
+    else
+        echo ""
+        if [ "$log_file" != "" ] ; then
+            echo "" >> $log_file
+        fi
+    fi
+    
+    echo "$*"
+    if [ "$log_file" != "" ] ; then
+         echo "$*" >> $log_file
+    fi
+}
+
+
+#
+# Function to prompt for user response
+#
+
+UserPrompt()
+{
+    if [ "$BRAND" = "linux" ] ; then
+	/bin/echo "$* \c" > /dev/tty
+    else
+	echo "$* \\c" > /dev/tty
+    fi
+    read user_response
+}
+
+
+#
+# Function to output help message and exit
+#
+
+Help()
+{
+    sed -n '/filename:/,/author:/p' $0 | grep -v "author:" | cut -c3-300 | more
+    #this line must be here because it contains the string: "author:"
+    exit
+}
+
+
+#
+# Function to silently emulate the 'which' command 
+#
+
+Which()
+{
+    if [ "$1" = "" ] ; then 
+        WriteError "Which() : Too few arguments." 
+        exit 1 
+    fi
+
+    saveifs="$IFS"
+    IFS=:
+    which_result=0
+    which_cmd=""
+    
+    for dir in $PATH;  do 
+        if [ -x $dir/$1 ] ; then 
+            which_result=1 
+            which_cmd=$dir/$1
+            break 
+        fi 
+    done
+    
+    IFS="$saveifs"
+}
+
+#****************************************************************
+#                                                               *
+#                  * * * Main Program  * * *                    *
+#                                                               *
+#****************************************************************
+
+#
+# Get arguments from command line
+#
+
+set_compilers=0
+config_flags=""
+dbug=0
+
+while [ "$1" != "" ] ; do 
+
+    case "$1" in
+
+      -h | help ) Help ;;
+
+      -set_compilers ) set_compilers=1 ;;
+
+      -dbug ) dbug=1 ;;
+
+      -start_dir ) 
+          if [ "$2" != "" ] ; then
+              start_dir=$2
+              shift
+          else
+              WriteError "No installation directory specified with -start_dir switch."
+              Help
+          fi
+        ;;
+
+
+      * ) echo "$script_error invalid argument '$1'" ; Help ;;
+
+    esac
+
+    shift
+
+done
+
+
+#
+# Make sure we're not running standalone
+#
+
+if [ "$hdf_install_caller" = "" ] ; then
+
+    WriteError "This script can only be run from INSTALL-HDF."
+    Help
+
+else
+
+    # Here we set up the HDF installation directory,
+    # for use by the configure script.  
+    # 
+    # With this release of HDF, we abandon the convention of setting the
+    # installation directory to $HDFHOME/hdf, which was formerly done for
+    # backwards compatibility with the installed HDF directory structure 
+    # that the toolkit was using with the 3.3r4 version of HDF.
+    # 
+    # New releases of the SDP Toolkit have been updated to handle this
+    # directory change
+
+    install_dir="$HDFHOME"
+
+    if [ ! -d "$install_dir" ] ; then 	# create the install dir, if needed.
+        mkdir $install_dir
+    fi
+
+fi
+
+
+
+#
+# Announce
+#
+
+EchoAndLog "Running $this_script"
+

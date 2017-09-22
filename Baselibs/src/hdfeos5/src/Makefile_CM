@@ -1,0 +1,79 @@
+
+# Copyright (C) 1996 Hughes and Applied Research Corporation
+#
+# Permission to use, modify, and distribute this software and its documentation 
+# for any purpose without fee is hereby granted, provided that the above 
+# copyright notice appear in all copies and that both that copyright notice and 
+# this permission notice appear in supporting documentation.
+#
+## Template Makefile. See instructions in Makefile.instr ##
+ 
+CSCI    =   hdfeos5
+ 
+include $(SUBSYSTOP)/make/make.options
+ 
+ 
+##############CUSTOM DEFINITIONS ########################################
+ 
+ 
+##############END OF CUSTOM DEFINITIONS##################################
+ 
+CXXSRCFILES     =
+ 
+CSRCFILES       = EHapi.c PTapi.c TSapi.c SWapi.c GDapi.c ZAapi.c
+ 
+HFILES          = HE5_HdfEosDef.h cfortHdf.h
+ 
+OBJFILES        = EHapi.o PTapi.o TSapi.o SWapi.o GDapi.o ZAapi.o
+ 
+LIBFILES        = $(LIBDIR)/libhe5_hdfeos.a
+ 
+BINFILES        =
+ 
+ 
+all: libhe5_hdfeos.a
+
+libhe5_hdfeos.a:	EHapi.o TSapi.o PTapi.o SWapi.o GDapi.o ZAapi.o
+	${AR} $@ $?
+
+EHapi.o	: EHapi.c
+	${CC} ${INCLUDE} -c Ehapi.c -o EHapi.o
+
+TSapi.o	: TSapi.c
+	${CC} ${INCLUDE} -c TSapi.c -o TSapi.o
+
+PTapi.o	: PTapi.c
+	${CC} ${INCLUDE} -c PTapi.c -o PTapi.o
+
+SWapi.o	: SWapi.c
+	${CC} ${INCLUDE} -c SWapi.c -o SWapi.o
+
+GDapi.o	: GDapi.c
+	${CC} ${INCLUDE} -c GDapi.c -o GDapi.o
+
+ZAapi.o : ZAapi.c
+        ${CC} ${INCLUDE} -c ZAapi.c -o ZAapi.o
+
+ 
+ 
+ 
+##############End of build target definitions############################
+ 
+ 
+CLEANFILES      = $(OBJFILES) $(LIBFILES) $(BINFILES)
+ 
+INSHFILES       = $(HFILES)
+ 
+INSLIBFILES     = $(LIBFILES)
+ 
+INSBINFILES     =
+ 
+LABELFILES      = $(LIBFILES)
+ 
+TESTSUBDIRS     = test
+ 
+include $(SUBSYSTOP)/make/make.targets
+
+
+
+

@@ -1,0 +1,18 @@
+ut_free_system.lo: ut_free_system.c /usr/include/stdc-predef.h udunits2.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h converter.h \
+ idToUnitMap.h unitToIdMap.h
+
+/usr/include/stdc-predef.h:
+
+udunits2.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h:
+
+converter.h:
+
+idToUnitMap.h:
+
+unitToIdMap.h:

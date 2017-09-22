@@ -1,0 +1,445 @@
+<!-- $Header$
+
+Purpose: NCO news archive
+
+Usage:
+http://www.cgd.ucar.edu/cms/nco/nco_news.shtml
+file:/home/zender/nco/doc/nco_news.shtml
+/bin/cp -f ~/nco/doc/nco_news.shtml /web/web-data/cms/nco/nco_news.shtml
+
+scp -p ~/nco/doc/nco_news.shtml dust.ess.uci.edu:/var/www/html/nco/nco_news.shtml
+scp -p ~/nco/doc/nco_news.shtml nco.sf.net:/home/project-web/nco/htdocs/nco_news.shtml
+-->
+
+<!doctype html public "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+   <title>NCO Homepage</title>
+   <meta name="GENERATOR" content="Mozilla/3.04Gold (X11; I; Linux 2.0.0 i686) [Netscape]">
+   <meta name="Author" content="Charles S. Zender">
+   <meta name="Keywords" content="NCO Homepage, netCDF, netCDF
+   operator, GCM, HDF, scientific data">
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#008080" alink="#FF0000">
+
+<dt><a name="News"></a></dt>
+<h2>NCO News and Announcements from 20030624 (version 2.8.3) and earlier</h2>
+
+<a name="20030624"></a>
+<p>2003/06/24: A potpurri of old news which is no longer needed on the homepage
+<ul>
+<li>As of version&nbsp;2.8.3, <a href="./nco.html#ncap"><tt>ncap</tt></a> consumes significantly less memory than before.
+<li>New &ldquo;binary&rdquo; operator <a href="./nco.html#ncbo"><tt>ncbo</tt></a> does file addition, subtraction, multiplication, and division
+<li><tt>ncap</tt> adds user-invokable type conversion functions <tt>char()</tt>, <tt>short()</tt>, <tt>int()</tt>, <tt>float()</tt>, <tt>double()</tt>.</li>
+<li><tt>libnco_c++</tt> reads into and writes from type <tt>long double</tt></li>
+<li>Developer code has fully integrated <tt>autoconf</tt>/<tt>libtool</tt>
+build procedure</li>
+<li>NCO allows <tt>ncap</tt> to unpack variables stored
+with <tt>scale_factor</tt> and <tt>add_offset</tt> convention</li>
+<li>NCO includes <tt>ncap</tt>, a scriptable operator
+capable of performing arbitrary arithmetic operations</li>
+<li>NCO code includes libnco_c++, a new C++ interface to netCDF</li>
+<li>NCO now supports multithreading with OpenMP-compliant compilers</li>
+<li>NCO code contains working packing and unpacking primitives</li>
+</ul>
+
+<a name="20020203"></a>
+<p>2002/02/03: 
+NCO version 2.2 is released.
+Differences with version 2.0
+<ul>
+<li><tt>ncap</tt>, the netCDF Arithmetic Processor</li>
+<li><tt>libnco_c++</tt>, a C++ API for libnetcdf</li>
+<li>Various minor bugfixes introduced in 2.X releases</li>
+</ul>
+
+<a name="20010507"></a>
+<p>2001/05/07: 
+NCO version 2.0 is released.
+Differences with version 1.2.2 are completely internal and oriented
+toward enhancing I/O performance and modernizing the NCO API:
+<ul>
+<li>NCO 2.x is now completely based on the netCDF 3.x API.
+NCO 1.2.x will continue to be maintained for its 
+ability to work with HDF4 files, but no new features
+will be added.</li>
+</ul>
+
+<a name="20010211"></a>
+<p>2001/02/11: 
+NCO version 1.2.2 is released.
+Differences with version 1.2.1 include three new features and one bugfix:
+<ul>
+<li>Weights are allowed with <tt>ncwa</tt> in min/max/ttl operations.
+New "var:att" syntax allows <tt>ncrename</tt> to rename attributes for
+specific variables rather than whole file, e.g.,<br>
+<pre>ncrename -a os_name:eunuchs,unix in.nc out.nc</pre>
+Previously, <tt>ncrename</tt> would rename the same attribute for all
+variables in a file.</li>
+
+<li><tt>ncks</tt> has new <tt>-q</tt> option to allow for printing
+arrays without printing associated dimensions
+
+<li>The build system has been modified so that 
+<tt>make HDF4=Y</tt> will build NCO with HDF4 compatibility 
+(previously this had to be done by hand).</li>
+
+<li>The internal representations of <tt>NC_CHAR</tt> and
+<tt>NC_BYTE</tt> data have been swapped in order to agree with the
+netCDF standard.  
+The effects of this last change should not be visible to the user.</li>
+</ul>
+
+<a name="20000828"></a>
+<p>2000/08/28: 
+NCO version 1.2.1 is released.
+Differences with version 1.2 include one new feature and one bugfix.
+
+<p>1. Operators now perform automatic type conversion of integers to
+doubles before arithmetic. 
+This feature allows <tt>ncwa</tt>, <tt>ncra</tt>, and <tt>ncea</tt>
+to handle averaging of longs, shorts, bytes, and chars in a more
+satisfactory manner.
+One immediate benefit is that <tt>ncwa</tt> no longer 
+complains when user's try to apply weights (e.g., gaussian weights)
+all less than one to the averaging of an integer (e.g., <tt>nlons</tt>).
+Formerly <tt>ncwa</tt> would issue a warning, a workaround, and then
+dump core (because weights converted to integers were all zeros). 
+Now that arithmetic is performed in double precision (rather than  
+in the precision of the variable), <tt>ncwa</tt> handles this
+situation correctly.
+
+<p>2. A bug introduced in NCO 1.2 which broke the <tt>-x</tt> switch has been fixed
+
+<p>3. Thanks to Henry Butowsky for implementing the type conversion feature
+<br>Thanks to Ethan Davis for improving the build procedure
+
+<a name="20000730"></a>
+<p>2000/07/30: 
+nco-1.2 is released. 
+Summary of new features and user-visible changes:
+<ul>
+<li>The names of three of the operators have been made somewhat obsolete
+because they are no longer just arithmetic averagers.
+<b>ncra</b>, <b>ncea</b>, and <b>ncwa</b> have all been given
+brain transplants so that the type of operation they perform may be
+specified on the command line. 
+The following operations are now supported by the new 
+<tt>-y</tt> switch: average (default), total, minimum, maximum,
+root-mean-square, square of the mean, mean of the squares, square
+root.
+For example,
+<pre>
+ncra -O -y rms -n 12,4,1 h0001.nc 2000_rms.nc # Root-mean-square
+ncea -O -y min -n 12,4,1 h0001.nc 2000_min.nc # Minimum
+ncwa -O -y max -a lon,lat h0001.nc 200001_max_x.nc # Maxima
+</pre>
+Averaging is still the default so no existing usage needs to be modified.
+It is also possible to compute spatial and temporal variances and
+standard deviations using a combination of three or four NCO commands.</li>
+
+<li>All operators may now be 
+<a href="http://www.unidata.ucar.edu/packages/dods">DODS</a></dd> clients.
+DODS enables network transparent data access to any DODS server.
+Thus DODS-enabled NCO can operate on remote files accessible through
+any DODS server without transferring the files.
+Only the required data (e.g., the variable or hyperslab specified) are
+transferred.
+See the <a href="./nco.html">User's Guide</a> for complete details.</li>
+
+<li>Fortran compatibility has been dropped.
+If a volunteer wants to continue to maintain the option to perform
+arithmetic in Fortran for reasons of speed, contact the project.</li>
+</ul>
+
+Summary of administrative changes:
+<ul>
+<li>NCO is now an Open Source project licensed under the GPL.
+These new capabilities are the result of contributions from Henry
+Butowski, Bill Kocik, and Roland Schweitzer.
+For more information on how to contribute to NCO,
+visit the <a href="http://sf.net/projects/nco">NCO
+administration homepage</a>.</li>
+
+<li>New NCO releases and important announcements will be made on the
+netCDF list and on the new 
+<a href="http://lists.sf.net/mailman/listinfo/nco-announce"><tt>nco-announce</tt></a>
+mailing list.</li>  
+
+<li>Questions, suggestions, ideas, and pleas for help should be posted to 
+the appropriate discussion forum at the NCO administration site.
+NCO developers monitor these open forums, and your message will get a
+quicker response if it is posted on one of these forums:
+<ul>
+<li><a href="http://sf.net/forum/forum.php?forum_id=9829">Open
+Discussion Forum</a>: General discussion, discussion of tips, tricks,
+future directions for NCO.</li>
+<li><a href="http://sf.net/forum/forum.php?forum_id=9830">Help
+Forum</a>: Installation problems, user's questions (e.g., "How do I
+average x and y...?")</li>
+<li><a href="https://sf.net/p/nco/discussion/9831">Developers
+forum</a>: Discussion of patches, technical questions related to
+modifying NCO, and discussion of specific items on the 
+<a href="./TODO">TODO list</a> and how best to address them</li>  
+</ul></li>
+</ul>
+Note: You must first 
+<a href="https://sf.net/account/register.php">register</a> 
+in order to post to these forums.
+Once registered you may choose to "monitor" the forums and to receive
+email when there are any postings.
+
+<a name="20000515"></a>
+<p>2000/05/15: 
+nco-1.1.48 fixes a bug introduced in nco-1.1.15 (November 1998) with
+<tt>ncdiff</tt> version 1.5.
+That bug could cause incorrect answers when the broadcast feature was
+used and dimensions were defined in a certain order (that appears to
+be favored by oceanographers).
+All NCO users are urged to upgrade NCO in order to avoid the potential 
+<tt>ncdiff</tt> bug as well as to take advantage of the new features
+in <tt>ncra</tt> and <tt>ncrcat</tt>. 
+
+<a name="20000510"></a>
+<p>2000/05/10: 
+nco-1.1.47 adds capability of <tt>ncra</tt>, and <tt>ncrcat</tt> to handle
+superfluous initial files. These multifile operators used to require
+that hyperslabs along the record dimension contain valid points in the
+first input file, although superfluous trailing files were allowed.
+Now superfluous files are also allowed anywhere in the file argument
+list for coordinate value hyperslabs (e.g., <tt>-d time,2.0,3.0</tt>),
+and at the beginning and end of the file argument list for dimension
+index hyperslabs (e.g., <tt>-d time,2,3</tt>).
+This can dramatically simplify analysis of file collections when the
+location of certain record coordinates or indices is not known a
+priori, or is tedious to compute. 
+Users may now operate on specific segments of a timeseries 
+(e.g., February values) without knowing which files contain February. 
+Simply input the entire timeseries of files to the operators 
+and they will automagically find and operate on only the February
+values.
+For example, 
+<p><tt>ncra -O -d time,2.0,3.0 -n 1000,4,1 h0001.nc feb.nc</tt></p>
+<p><tt>ncrcat -O -F -d time,2,,12 -n 1000,4,1 h0037.nc feb.nc</tt></p>
+
+<p>Sylvia Murphy of the NCAR 
+<a href="http://www.cgd.ucar.edu/csm/cmps/cmps_home.html">Community 
+Climate System Model Support Network</a> organized a workshop in
+February, 2000 which devoted some time to NCO. 
+Here are links to the very useful 
+<a href="http://www.cgd.ucar.edu/csm/support/Document/pdf/nco.pdf">pamphlet</a>
+and
+<a href="http://www.cgd.ucar.edu/csm/support/Document/shows/nco/nco_files/v3_document.htm">slide presentation</a> 
+she developed to introduce and to summarize the NCO operators. 
+The pamphlet is an excellent primer on NCO's capabilities, though not
+as definitive as the <a href="./nco.html">User's Guide</a>.
+
+<a name="20000305"></a>
+<p>2000/03/05: 
+Source and prebuilt binary executable <a href="http://www.rpm.org">RPM</a>s for NCO are now available for  <a href="#Download">download</a>. 
+
+<a name="20000126"></a>
+<p>2000/01/26: 
+Fixed longstanding NCO bug which caused infrequent but unpredictable
+core dumps on machines with PIDs longer than 6 digits, e.g., all
+recent SGI machines.
+A core dump could occur on these machines when the PID was seven
+digits long and the filename length was one less than a multiple of
+eight. 
+Kudos to Juliana Rew and Brian Eaton for identifying this bug.
+It is recommended that all users upgrade to the the new version.
+NCO is now distributed under the terms of the GNU General Public
+License (GPL).
+
+<a name="19991226"></a> 
+<p>1999/12/26: 
+Added support for printing character arrays as strings in <tt>ncks</tt>.
+Added documentation and examples of stride capability to <tt>ncks</tt>,
+<tt>ncra</tt>, and <tt>ncrcat</tt> portions of User's Guide.
+
+<a name="19991214"></a> 
+<p>1999/12/14: 
+Added feature to <tt>ncatted</tt> so that C-language escape sequences
+may be used in editing character attributes. 
+Text formatting of attributes now supports <tt>\n</tt>, <tt>\t</tt>,
+and most other <tt>printf</tt>-style sequences.
+See the <a href="./nco.html">User's Guide</a> for details. 
+
+<a name="19991206"></a> 
+<p>1999/12/06: 
+Fixed bug in <tt>ncatted</tt> so that character-valued attributes
+(strings) may contain commas, and be of zero length.
+Formerly <tt>ncatted</tt> would drop all text after the first comma.
+
+<a name="19991004"></a> 
+<p>1999/10/04: 
+The build configuration has been simplified and made more robust.
+Now typing <tt>make test</tt> will invoke a self-test where NCO
+attempts to download a small (~65 kb) file on which to perform a
+battery of NCO tests. 
+If the equations output by the <tt>make test</tt> command are
+numerically accurate, then you can have high confidence that NCO is
+installed and working correctly. 
+
+<a name="19990831"></a> 
+<p>1999/08/31: 
+A bug involving <tt>ncwa</tt>, weights, and missing values has been
+identified and fixed.
+When <tt>ncwa</tt> was used to average variables with user-specified
+weights (i.e., <IT>-w wgt</IT> was used) and <IT>every</IT> value in a
+target hyperslab was the missing value (i.e., <IT>missing_value</IT>),
+then <tt>ncwa</tt> would erroneously set the average value of the
+target hyperslab to 0.0 rather than to <IT>missing_value</IT>. 
+Thus some values which should have been <IT>missing_value</IT> in the
+output file were, instead, set to 0.0. 
+No operators besides <tt>ncwa</tt> were affected by this bug.
+This bug is fixed in nco-1.1.38.
+
+A new feature has been implemented in <tt>ncwa</tt>.
+<tt>ncwa</tt> used to exit with an error whenever it was called
+without any user-specified dimensions to average, i.e., when the
+<tt>-a</tt> was not invoked. 
+Now when <tt>ncwa</tt> is invoked without any user-specified
+dimensions, it averages over all dimensions.
+Thus the behavior of <tt>-a</tt> is now analogous to that of
+<tt>-d</tt> and of <tt>-v</tt>.
+See the <a href="./nco.html">User's Guide</a> for details.
+
+<a name="19990829"></a> 
+<P>1999/08/29: 
+NCO now builds completely with pure C source files by default.
+In the past, NCO used Fortran routines to perform floating point
+arithmetic and pure C builds could be manually enabled by specifying
+-DC_ONLY in the build environment. 
+The interface between Fortran and C, however, was very difficult to
+maintain on the wide variety of platforms supported by NCO.
+Now pure C builds are the default and Fortran arithmetic must be
+manually enabled by specifying -DUSE_FORTRAN_ARITHMETIC in the build
+environment. 
+See the <A HREF="http://www.cgd.ucar.edu/cms/nco/nco.html">User's Guide</A> for details.
+The Fortran code is no longer supported and will probably be
+deprecated in future releases.
+
+<a name="19990805"></a> 
+<P>1999/08/05: 
+NCAR users will be pleased to know that NCO now takes advantage
+of the local <TT>msrcp</TT> command, if it exists in a standard
+location on the local network.
+This allows all operators to retrieve files from the NCAR mass storage
+unit when <TT>msrcp</TT> is available on the local system.
+This change is transparent to the user, so that commands should still
+specify the paths to the files on the mass store with, e.g.,
+<TT>ncks -O -R -l ./ /ZENDER/nc/in.nc foo.nc</TT>.
+See the <A HREF="http://www.cgd.ucar.edu/cms/nco/nco.html">User's Guide</A> for more details.
+
+<a name="19990703"></a> 
+<P>1999/07/03: 
+<TT>ncatted</TT> now replaces missing values of variables whose
+<IT>missing_value</IT> attribute is changed.
+When the internal floating point representation of a missing value, 
+e.g., 1.0e36, differs between machines then netCDF files produced
+on those machines will have incompatible missing values.
+<TT>ncatted</TT> now changes the <IT>missing_value</IT> attribute
+and the missing data self-consistently.
+This allows the user to change the missing values in files from
+different machines to a single value so that the files may then be 
+concatenated together, e.g., by <TT>ncrcat</TT>, without losing
+any information.  
+
+<a name="19990509"></a> 
+<P>1999/05/09: 
+<TT>ncks</TT> now alphabetizes output by default.
+To turn off alphabetization and return to the previous behavior
+(variables reported in the order they were written to disk) simply
+specify <TT>`-a'</TT> on the command line. 
+Yes, that means the behavior of <TT>`-a'</TT> has been toggled.
+
+<P>
+<TT>ncrcat</TT> and <TT>ncra</TT> now support a <IT>stride</IT> in the
+record dimension (and only the record dimension!), e.g., 
+<TT>ncra -d time,1,100,12 in1.nc in2.nc ... out.nc</TT>
+should now work correctly. 
+Strides in any dimension remain available with <TT>ncks</TT>, of
+course. 
+
+<P>
+<TT>ncrcat</TT> and <TT>ncra</TT> now support index-based
+hyperslabbing in the record dimension across files, e.g.,  
+<TT>ncra -d time,1,100 in1.nc in2.nc ... out.nc</TT>
+The <A HREF="http://www.cgd.ucar.edu/cms/nco/nco.html">User's Guide</A> claimed this feature had already been implemented,
+but, due to an oversight, that was not true.
+Attempting to use this new feature in older versions of NCO resulted
+in an "index out of range" error.
+Thanks to John Truesdale <jet@ncar.ucar.edu> for pointing this out. 
+
+<a name="19990420"></a> 
+<P>1999/04/20: 
+Fixed bug where <TT>ncrcat</TT> and <TT>ncra</TT> omitted the last slice of the
+record dimension when <TT>`-F'</TT> (Fortran indexing) was user-specified AND
+user-specified hyperslab information was provided for some
+dimensions BUT not for the record dimension. This bug only
+affected <TT>ncrcat</TT> and <TT>ncra</TT> and only under these conditions. Thanks
+to John Sheldon <jps@server1.gfdl.gov> for pointing this out. 
+	
+<a name="19990404"></a>
+<P>1999/04/04: 
+By default, extracted variables appear in the same order
+in which they were written to the source netCDF file.
+However, this order is often essentially random, making it hard to
+locate a particular variable in a dump of many variables.
+To help address this, <TT>ncks</TT> will now alphabetize variables.
+Simply specify <TT>`-a'</TT> on the command line.
+
+<a name="19990121"></a> 
+<P>1999/01/21: 
+An optional token has been added to NCO which eliminates
+all netCDF 3.x calls and thus restores compatibility of NCO with HDF
+files. 
+
+<a name="19981202"></a> 
+<P>1998/12/02: 
+<TT>ncwa</TT> has been updated again since a user
+discovered a bug which occurred when a weight (<TT>`-w'</TT>) and a
+mask (<TT>`-m'</TT>) were both given to <TT>ncwa</TT>. Unfortunately, 
+<TT>ncwa</TT> sometimes produced incorrect answers in this scenario so
+if you ever used weights and masks at the same time you are strongly
+urged to upgrade your NCO and rerun the commands. This bug only
+affected variables averaged with both the weight and mask options
+enabled at the same time, no other variables would have been affected. 
+
+<P>The <TT>`-n'</TT> and <TT>`-W'</TT> normalization options to
+<TT>ncwa</TT> have been removed, possibly permanently, but at least
+until their implementation is simplified and redesigned. The
+<TT>`-N'</TT> option to <TT>ncwa</TT> remains the same. All the new
+behavior is fully documented in the rewritten and expanded
+<TT>ncwa</TT> section in the 
+<A HREF="http://www.cgd.ucar.edu/cms/nco/nco.html">NCO User's
+Guide</A>.
+
+<a name="19981104"></a> 
+<P>1998/11/24: 
+Choose whether to weight your coordinates in <TT>ncwa</TT>
+A <TT>`-I'</TT> switch has been added to <TT>ncwa</TT>.
+Henforth, by default, <TT>ncwa</TT> applies weights or masks to
+coordinate variables just like any other variable.
+Previously, <TT>ncwa</TT> did not weight coordinate variables at all,
+and always produced simple arithmetic averages of coordinate
+variables.  
+Use <TT>`ncwa -I'</TT> to recover the old behavior (i.e., arithmetic
+rather than masked, weighted averages of coordinate variables).
+A problem where <TT>ncwa</TT> would refuse to average variables which
+did not contain any of the averaged dimensions has also been fixed.
+
+<a name="19980707"></a> 
+<P>1998/07/07: 
+Reduce bloating!     
+The <TT>`-h'</TT> switch has been enabled on all operators.
+Using this switch suppresses the automatic history feature in NCO.
+Now you can decide whether each change to a file warrants an
+additional line in the history attribute. 
+The functionality of the old <TT>`ncks -h'</TT> switch is now
+invoked with <TT>`ncks -m'</TT> (the mnemonic is `metadata'). 
+<HR></P>
+
+</BODY>
+</HTML>

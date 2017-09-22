@@ -1,0 +1,94 @@
+// $Header$ -*-C-*-
+
+// Purpose: ncap script for particle size distributions
+// Produces Table~\ref{tbl:lgn_stt_anl} in http://dust.ess.uci.edu/facts/psd/psd.pdf
+
+/* Usage:
+   ncap2 -v -O -D 1 -S ${HOME}/nco/data/psd.nco ${HOME}/nco/data/in.nc ~/foo.nc
+   ncks -C -H -u -v dmt_nwa,dmt_saa,dmt_vaa ~/foo.nc
+   ncks -C -H -u -v SSA_cgs,nbr_vts,dmt_vts_mm ~/foo.nc */
+
+pi=3.1415926535897932384626433832795029L; // (3.1415926535897932384626433832795029L) [frc] 3
+pi@long_name="Pi";
+pi@units="fraction";
+
+defdim("dmt",13); // [nbr] Diameter dimension
+dmt_nma[dmt]={0.1,0.1861,0.2366,0.3009,0.3825,0.4864,0.5915,0.6185,0.7864,0.8281,1.0,1.183,2.366}; // [um] Number median diameter analytic
+
+// Find dmt_nma for which dmt_saa=1.0: 
+// ncap -v -O -s "gsd=2.0;dmt_saa=1.0;dmt_nma=dmt_saa*exp(-1.0*(ln(gsd))^2.0);" ${HOME}/nco/data/in.nc ~/foo.nc;ncks -H -C -u ~/foo.nc
+// Find dmt_nma for which dmt_vaa=1.0: 
+// ncap -v -O -s "gsd=2.0;dmt_vaa=1.0;dmt_nma=dmt_vaa*exp(-1.5*(ln(gsd))^2.0);" ${HOME}/nco/data/in.nc ~/foo.nc;ncks -H -C -u ~/foo.nc
+
+// Set coordinate equal to number median diamter for now
+dmt[dmt]=dmt_nma; // [um] Diameter coordinate
+
+// Compute fraction of lognormal distribution that lies between two endpoints
+gsd=2.0; // [frc] Geometric standard deviation
+gsd@long_name="Geometric standard deviation";
+gsd@units="fraction";
+
+dmt_naa=dmt_nma*exp(0.5*(ln(gsd))^2.0); // [um] Number mean diameter analytic
+dmt_nwa=dmt_nma*exp(0.5*(ln(gsd))^2.0); // [um] Number weighted mean diameter analytic
+dmt_saa=dmt_nma*exp(1.0*(ln(gsd))^2.0); // [um] Surface area mean diameter analytic
+dmt_vaa=dmt_nma*exp(1.5*(ln(gsd))^2.0); // [um] Volume mean diameter analytic
+dmt_sma=dmt_nma*exp(2.0*(ln(gsd))^2.0); // [um] Surface area median diameter analytic
+dmt_swa=dmt_nma*exp(2.5*(ln(gsd))^2.0); // [um] Surface area weighted mean diameter analytic
+dmt_vma=dmt_nma*exp(3.0*(ln(gsd))^2.0); // [um] Volume median diameter analytic
+dmt_vwa=dmt_nma*exp(3.5*(ln(gsd))^2.0); // [um] Volume weighted mean diameter analytic
+
+dmt_naa@long_name="Number mean diameter analytic";
+dmt_naa@units="micron";
+dmt_nma@long_name="Number median diameter analytic";
+dmt_nma@units="micron";
+dmt_nwa@long_name="Number weighted mean diameter analytic";
+dmt_nwa@units="micron";
+dmt_saa@long_name="Surface area mean diameter analytic";
+dmt_saa@units="micron";
+dmt_sma@long_name="Surface area median diameter analytic";
+dmt_sma@units="micron";
+dmt_swa@long_name="Surface area weighted mean diameter analytic";
+dmt_swa@units="micron";
+dmt_vaa@long_name="Volume mean diameter analytic";
+dmt_vaa@units="micron";
+dmt_vma@long_name="Volume median diameter analytic";
+dmt_vma@units="micron";
+dmt_vwa@long_name="Volume weighted mean diameter analytic";
+dmt_vwa@units="micron";
+
+dmt_min[dmt]=5.0; // [um] Minimum diameter
+dmt_min@long_name="Minimum diameter";
+dmt_min@units="micron";
+
+dmt_max[dmt]=10.0; // [um] Maximum diameter
+dmt_max@long_name="Maximum diameter";
+dmt_max@units="micron";
+
+// ncap2 -v -O -s "gsd=2.0;dmt_vma=2.5;dmt_min=5.0;dmt_max=10.0;ovr_frc=0.5*(erf(log(dmt_max/dmt_vma)/(sqrt(2.0)*log(gsd)))-erf(log(dmt_min/dmt_vma)/(sqrt(2.0)*log(gsd))))));" ${HOME}/nco/data/in.nc ~/foo.nc;ncks -H -C -u ~/foo.nc
+ovr_frc=0.5*(erf(log(dmt_max/dmt_vma)/(sqrt(2.0)*log(gsd)))-erf(log(dmt_min/dmt_vma)/(sqrt(2.0)*log(gsd)))); // [frc] Fraction of lognormal distribution between endpoints
+ovr_frc@long_name="Fraction of lognormal distribution between endpoints";
+ovr_frc@units="fraction";
+
+// Compute equal-V/S approximation for TDS07 depth hoar crystal Figure 1:
+dns=917.0; // [kg m-3] Density
+hgt=130.0e-6; // [m] Thickness of hoar crystal wall
+dmt_xsx=2.41e-3; // [m] Diameter of sphere with same cross-sectional area as hoar crystal
+xsx=0.25*pi*dmt_xsx^2; // [m2] Cross-sectional area of hoar crystal
+sfc_prt=4*xsx; // [m2] Surface area of hoar crystal (assumes convex shape)
+sfc_sht=2*xsx; // [m2] Surface area of infinite sheet (explanation in TDS07)
+vlm_sht=xsx*hgt; // [m3] Volume
+mss_sht=vlm_sht*dns; // [kg] Mass
+SSA=sfc_sht/mss_sht; // [m2 kg-1] Specific surface area
+SSA_cgs=SSA*10.0; // [cm2 g-1] Specific surface area
+rds_vts=3.0*vlm_sht/sfc_sht; // [m] Radius of sphere with equal V/S ratio
+dmt_vts=2.0*rds_vts; // [m] Diameter of sphere with equal V/S ratio
+dmt_vts_mm=1000.0*dmt_vts; // [mm] Diameter of sphere with equal V/S ratio
+sfc_vts=4*pi*rds_vts^2; // [m3] Volume of equal V/S spheres
+vlm_vts=(4.0/3.0)*pi*rds_vts^3; // [m3] Volume of equal V/S spheres
+nbr_vts=sfc_prt/sfc_vts; // [#] Number of equal V/S spheres
+
+/*
+foo=; // 
+foo@long_name="";
+foo@units="";
+*/

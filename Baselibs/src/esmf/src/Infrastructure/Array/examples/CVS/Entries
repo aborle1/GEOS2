@@ -1,0 +1,13 @@
+/ESMF_ArrayArbHaloEx.F90/1.1.1.1/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayCommNBEx.F90/1.1.1.1/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayEx.F90/1.1.1.8/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayFarrayEx.F90/1.1.1.8/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayFarrayHaloEx.F90/1.1.1.8/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayHaloEx.F90/1.1.1.1/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayLarrayEx.F90/1.1.1.8/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayRedistEx.F90/1.1.1.6/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayScatterGatherArbEx.F90/1.1.1.2/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArrayScatterGatherEx.F90/1.1.1.6/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/ESMF_ArraySparseMatMulEx.F90/1.1.1.6/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+/makefile/1.1.1.4/Fri Nov  1 18:29:20 2013/-kk/TGMAO-Baselibs-4_0_8
+D

@@ -1,0 +1,242 @@
+.\" $Header$ -*-nroff-*-
+.\" Purpose: ROFF man page for ncrcat
+.\" Usage:
+.\" nroff -man ~/nco/man/ncrcat.1 | less
+.TH NCRCAT 1
+.SH NAME
+ncrcat \- netCDF Record Concatenator
+.SH SYNTAX
+ncrcat [\-3] [\-4] [\-6] [\-7] [\-A] [\-\-bfr
+.IR sz_byt ] [\-C] [\-c] [\-\-cnk_byt
+.IR sz_byt ] [\-\-cnk_dmn 
+.IR nm,sz_lmn ]
+[\-\-cnk_map 
+.IR map ]
+[\-\-cnk_min
+.IR sz_byt ]
+[\-\-cnk_plc 
+.IR plc ]
+[\-\-cnk_scl 
+.IR sz_lmn ] [\-D
+.IR dbg_lvl ]
+[\-d 
+.IR dim ,[
+.IR min ][,[
+.IR max ]][,[
+.IR stride [[,[
+.IR subcycle ]]]]]
+[\-F] [\-G
+.IR gpe_dsc ]
+[\-g  
+.IR grp [,...]]
+[\-\-glb
+.IR att_name=
+.IR att_val ]]
+[\-h] [\-\-hdr_pad
+.IR sz_byt ]
+[\-L 
+.IR dfl_lvl ] 
+[\-l 
+.IR path ]
+[\-\-mro] [\-\-msa] [\-n
+.IR loop]
+[\-\-no_tmp_fl] [\-O] [\-p
+.IR path ]
+[\-\-ppc 
+.IR var1 [,
+.IR var2 [,...]]=
+.IR prc ]]
+[\-R] [\-r] [\-\-ram_all] [\-\-rec_apn] [\-t
+.IR thr_nbr ]
+[\--unn] [\-v 
+.IR var [,...]]
+[\-X 
+.IR box ] 
+[\-x] 
+.I input-files
+.I output-file
+.SH DESCRIPTION
+.PP
+.B ncrcat
+concatenates record variables across an arbitrary number
+of input files.
+The final record dimension is by default the sum of the lengths of the
+record dimensions in the input files.
+.PP
+Input files may vary in size, but each must have a record dimension.
+The record coordinate, if any, should be monotonic (or else non-fatal
+warnings may be generated).
+Hyperslabs of the record dimension which include more than one file are
+handled correctly.
+.B ncra
+supports the 
+.I stride
+argument to the 
+.B \-d
+hyperslab option for the record dimension only, 
+.I stride
+is not
+supported for non-record dimensions.
+.PP
+.B ncrcat
+applies special rules to ARM convention time fields (e.g.,
+.BR time_offset ).
+.SH EXAMPLES
+.PP
+Concatenate files 
+.BR 85.nc ,
+.BR 86.nc ,
+\ .\|.\|.\ 
+.B 89.nc
+along the record dimension, and store the results in 
+.BR 8589.nc :
+.RS
+ncrcat 85.nc 86.nc 87.nc 88.nc 89.nc 8589.nc
+.br
+ncrcat 8[56789].nc 8589.nc
+.br
+ncrcat \-n 5,2,1 85.nc 8589.nc
+.RE
+These three methods produce identical answers.
+.PP
+Assume the files 
+.BR 85.nc ,
+.BR 86.nc ,
+\ .\|.\|.\ 
+.B 89.nc
+each
+contain a record coordinate 
+.I time
+of length 12 defined such that
+the third record in 
+.B 86.nc
+contains data from March 1986, etc.
+NCO knows how to hyperslab the record dimension across files.
+Thus, to concatenate data from December, 1985--February, 1986:
+.RS
+ncrcat \-d time,11,13 85.nc 86.nc 87.nc 8512_8602.nc
+.br
+ncrcat \-F \-d time,12,14 85.nc 86.nc 87.nc 8512_8602.nc
+.RE
+The file 
+.B 87.nc
+is superfluous, but does not cause an error.
+The 
+.B \-F
+turns on the Fortran (1-based) indexing convention.
+.PP
+The following uses the 
+.I stride
+option to concatenate all the March
+temperature data from multiple input files into a single output file
+.RS
+ncrcat \-F \-d time,3,,12 \-v temperature 85.nc 86.nc 87.nc 858687_03.nc
+.RE
+.PP
+Assume the 
+.I time
+coordinate is incrementally numbered such that
+January, 1985 = 1 and December, 1989 = 60.
+Assuming 
+.B ??
+only expands to the five desired files, the following
+concatenates June, 1985--June, 1989: 
+.RS
+ncrcat \-d time,6.,54. ??.nc 8506_8906.nc
+.RE
+
+.SH CAVEAT
+
+.B ncrcat
+does not re-scale packed data (i.e., data stored using the
+.B scale_factor
+and
+.B add_offset 
+attributes recommended by the Unidat and CF conventions.
+.B ncrcat
+just copies the data directly from the input files.
+It copies the relevant metadata (i.e., 
+.B scale_factor 
+and 
+.B add_offset
+attributes) from the first file. 
+Concatenating multiple datasets packed with different scales is beyond
+its capabilities (concatenating data packed with the same scales in
+multiple files works fine). 
+The workaround for cases where the scales change among files is to
+first unpack the data in all the file using 
+.B ncpdq,
+then to concatenate the unpacked data using
+.B ncrcat,
+and finally to repack the result using
+.B ncpdq.
+
+.\" NB: Append man_end.txt here
+.\" $Header$ -*-nroff-*-
+.\" Purpose: Trailer file for common ending to NCO man pages
+.\" Usage: 
+.\" Append this file to end of NCO man pages immediately after marker
+.\" that says "Append man_end.txt here"
+.SH AUTHOR
+.B NCO
+manual pages written by Charlie Zender and originally formatted by Brian Mays.
+
+.SH "REPORTING BUGS"
+Report bugs to <http://sf.net/bugs/?group_id=3331>.
+
+.SH COPYRIGHT
+Copyright \(co 1995-2016 Charlie Zender
+.br
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+.SH "SEE ALSO"
+The full documentation for
+.B NCO
+is maintained as a Texinfo manual called the 
+.B NCO User's Guide.
+Because 
+.B NCO
+is mathematical in nature, the documentation includes TeX-intensive
+portions not viewable on character-based displays. 
+Hence the only complete and authoritative versions of the 
+.B NCO User's Guide 
+are the PDF (recommended), DVI, and Postscript versions at
+<http://nco.sf.net/nco.pdf>, <http://nco.sf.net/nco.dvi>,
+and <http://nco.sf.net/nco.ps>, respectively.
+HTML and XML versions
+are available at <http://nco.sf.net/nco.html> and
+<http://nco.sf.net/nco.xml>, respectively.
+
+If the
+.B info
+and
+.B NCO
+programs are properly installed at your site, the command
+.IP
+.B info nco
+.PP
+should give you access to the complete manual, except for the
+TeX-intensive portions.
+
+.BR ncap (1), 
+.BR ncap2 (1), 
+.BR ncatted (1), 
+.BR ncbo (1), 
+.BR ncclimo (1), 
+.BR nces (1), 
+.BR ncecat (1), 
+.BR ncflint (1), 
+.BR ncks (1), 
+.BR nco (1), 
+.BR ncpdq (1), 
+.BR ncra (1), 
+.BR ncrcat (1), 
+.BR ncremap (1), 
+.BR ncrename (1), 
+.BR ncwa (1) 
+
+.SH HOMEPAGE
+The 
+.B NCO
+homepage at <http://nco.sf.net> contains more information.

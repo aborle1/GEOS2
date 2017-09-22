@@ -1,0 +1,21 @@
+/ARIESg3_GridCompMod.F90/1.19/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/FVdycore_arch.mk/1.1.36.1.96.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/GNUmakefile/1.4/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/dynamics_vars.F90/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/fft99.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_dycore.F/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_dynamics_lattice_module.F/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_dynamics_state_module.F/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_fft.F/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_gcmutil.F/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_grids.F/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_mpi_util.F/1.2/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_mymalloc.F/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_mymalloc_interface/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/g3_wrapper.F/1.6/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/gmap.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/par_xsum.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/pft_module.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/remap.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+/shr_kind_mod.F90/1.1/Thu May 11 12:01:57 2017/-kk/TIcarus-1_0_p1
+D

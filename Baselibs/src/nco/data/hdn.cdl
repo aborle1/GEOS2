@@ -1,0 +1,100 @@
+// -*-C++-*-
+
+// Purpose: Test hidden attributes
+
+// Generate netCDF file with:
+// ncgen -k netCDF-4 -b -o ~/nco/data/hdn.nc ~/nco/data/hdn.cdl
+
+netcdf hdn {
+
+ dimensions:
+  lat=2;
+  // ncgen in netCDF 4.3.2+ assigns unlimited dimensions a default chunksize of 4 MB (1 million 4-byte integers)
+  // This increases filesize of hdn.nc from 25 kB to 42 MB!
+  //  time=2;
+  time=UNLIMITED;
+  
+ variables:
+
+  int time(time);
+
+ data:
+
+  time=1,2;
+
+ group: g13 { // Level 1
+    // Purpose: Test hidden attributes
+    // NB: Hidden attributes not supported by ncgen at least through netCDF 4.1.1 (201111)
+    // Having this group in in_grp.cdl breaks building of in_grp.nc with netCDF 4.1.1- (201111)
+    // This breaks many NCO regression tests
+    // ncks -C -v var_cmp.? -m ~/nco/data/in_grp.nc
+  variables:
+
+    int one(lat);
+  one:_DeflateLevel=1;
+  one:_Shuffle=1;
+  one:_Fletcher32=1;
+  one:_NOFILL=1;
+
+    int two(lat);
+
+    int three(lat);
+  three:_ChunkSizes=1;
+  three:_Endianness="big";
+
+    int four(lat);
+  four:_ChunkSizes=2;
+
+    int var_chk(lat);
+  var_chk:purpose="Variable with checksumming. Original _Fletcher32 = 1";
+  var_chk:_Fletcher32=1;
+
+    int var_cmp(lat);
+  var_cmp:purpose="Variable with compression. Original _DeflateLevel = 1";
+  var_cmp:_DeflateLevel = 1;
+
+    int var_cmp_0(lat);
+  var_cmp_0:purpose="Variable with compression. Original _DeflateLevel = 0";
+  var_cmp_0:_DeflateLevel = 0;
+    
+    int var_cmp_1(lat);
+  var_cmp_1:purpose="Variable with compression. Original _DeflateLevel = 1";
+  var_cmp_1:_DeflateLevel = 1;
+
+    int var_cmp_9(lat);
+  var_cmp_9:purpose="Variable with compression. Original _DeflateLevel = 9";
+  var_cmp_9:_DeflateLevel = 9;
+
+    int var_cnk_1(lat);
+  var_chk:purpose="Variable with chunking. Original _ChunkSizes = 1";
+  var_chk:_ChunkSizes=1;
+
+    int var_cnk_2(lat);
+  var_chk:purpose="Variable with chunking. Original _ChunkSizes = 2";
+  var_chk:_ChunkSizes=2;
+
+    int var_shf(lat);
+  var_shf:purpose="Variable with shuffling. Original _Shuffle = 1";
+  var_shf:_Shuffle=1;
+
+    int var_nofill(lat);
+  var_nofill:purpose="Variable with _NOFILL. Original _NOFILL = 1";
+  var_nofill:_NOFILL=1;
+
+  data:
+    one=1,1;
+    two=2,2;
+    three=3,3;
+    four=4,4;
+    var_cmp=1,1;
+    var_cmp_0=1,1;
+    var_cmp_1=1,1;
+    var_cmp_9=1,1;
+    var_cnk_1=1,1;
+    var_cnk_2=1,1;
+    var_chk=1,1;
+    var_shf=1,1;
+    var_nofill=1,1;
+  } // end g13
+
+} // end root group

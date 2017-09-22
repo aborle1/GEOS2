@@ -1,0 +1,5 @@
+.\" $Header$ -*-nroff-*-
+.\" Purpose: Header file for NCO man pages
+.\" Pre-pend this file to top of each NCO man page
+.\" Usage: 
+.\" nroff -man ~/nco/man/ncra.1 | less

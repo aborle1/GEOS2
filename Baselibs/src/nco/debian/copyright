@@ -1,0 +1,76 @@
+This is the Debian GNU/Linux prepackaged version of the netCDF Operators
+(NCO).
+
+This package was originally assembled by Brian Mays <brian@debian.org>
+from software obtained from ftp://ftp.cgd.ucar.edu/pub/zender/nco
+
+NCO package modifications for Debian GNU/Linux made from 1999--2002
+are Copyright (C) Brian Mays and were released under the GPL 
+(on Debian systems see "/usr/share/common-licenses/GPL").
+
+Beginning March, 2003, Charlie Zender and Rorik Peterson took over 
+NCO Debian package maintenance and merged the code back upstream.
+More information at package homepage http://nco.sourceforge.net
+
+On June 15, 2003, Charlie Zender changed the NCO license, except where  
+explicitly noted otherwise, from GPL to GPL version 2 (not any later version).
+Also at this time the explicit exceptions to the GPL for compatibility with
+the HDF, netCDF, OPeNDAP, and UDUnits licenses were formally introduced.
+
+On July 22, 2007, Charlie Zender changed the NCO licenses, except where 
+explicitly noted otherwise, from GPL2 to GPL3 (for code) and from 
+FDL 1.1 (or any later version) to FDL 1.2 (or any later version) for 
+documentation. 
+
+On January 20, 2009, Charlie Zender changed the NCO license for documentation,  
+except where explicitly noted otherwise, from FDL 1.2 (or any later version) 
+to FDL 1.3 (or any later version).
+
+On July 15, 2009, Charlie Zender added Benjamin Sittler and John Burkhardt
+to this copyright file to reflect their copyrights. Both retain copyright
+to their work which is licensed BSD-style (freely redistributable so long 
+as copyright notices are maintained). 
+
+On July 15, 2009, Charlie Zender received copyright assignments from 
+Henry Butowsky and Karen Schuchardt. Their names were removed from the
+copyright statements in the files where they had been listed:
+nco_msa.c, nco_msa.h, and nco_aux.c.
+
+On January 26, 2010, Charlie Zender removed John Burkhardt from this 
+copyright file after removing his gamma function code (nco_gmm.c)
+from the source. 
+
+NCO is copyright (C) 1995--2011 Charlie Zender
+Portions of the following NCO files are copyright by others:
+nco_getopt.c: Copyright 1997, 2000, 2001, 2002, Benjamin Sittler
+nco_getopt.h: Copyright 1997, 2000, 2001, 2002, Benjamin Sittler
+
+   License: GNU General Public License (GPL) Version 3
+   The full license text is at http://www.gnu.org/copyleft/gpl.html 
+   and in the file nco/doc/LICENSE in the NCO source distribution.
+   
+   As a special exception to the terms of the GPL, you are permitted 
+   to link the NCO source code with the HDF, netCDF, OPeNDAP, and UDUnits
+   libraries and to distribute the resulting executables under the terms 
+   of the GPL, but in addition obeying the extra stipulations of the 
+   HDF, netCDF, OPeNDAP, and UDUnits licenses.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301, USA.
+
+   The original author of this software, Charlie Zender, seeks to improve
+   it with your suggestions, contributions, bug-reports, and patches.
+   Please contact the NCO project at http://nco.sf.net or write to
+   Charlie Zender
+   Department of Earth System Science
+   University of California, Irvine
+   Irvine, CA 92697-3100
+
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in "/usr/share/common-licenses/GPL".

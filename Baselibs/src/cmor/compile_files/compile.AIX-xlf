@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+FC=xlf90
+NetCDF=/usr/common/usg/netcdf/3.5
+CDMS=/u7/u14201/cdat-3.3
+UDUNITS=/usr/common/usg/udunits/1.11.7
+CMOR=.
+USER_FLAGS='-qsuffix=f=f90'
+
+${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf  ${USER_FLAGS} -o $1
+
+#${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits -L${CDMS}/lib -lcdms ${USER_FLAGS} -o $1
+

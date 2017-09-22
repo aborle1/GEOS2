@@ -1,0 +1,132 @@
+$Header$ -*-text-*-
+
+Installing an MPI Environment for NCO:
+
+Choose an MPI distribution: LAM-MPI (deprecated), MPICH, MPICH2
+(recommended), Open MPI, and PPE (AIX only)
+
+MPI distribution-specific instructions are given below, in
+alphabetical order of distribution for these parallel environments:
+LAM, MPICH, MPICH2, Open MPI, and PPE (AIX only).
+Support for Open MPI is new.
+No other MPI environments are supported.
+
+Test NCO once one of these environments is installed. 
+
+************************************************************************
+Determining the Parallel Environment
+************************************************************************
+Linux in particular has a large number of available MPI environments.
+Determining which environment is active may be necessary.
+The active MPI environment provides a C-compiler wrapper (usually
+called mpicc) which simplifies building C programs like NCO. 
+
+mpicc --version # LAM, MPICH, MPICH2: C  Compiler/version
+mpicxx --version # MPICH2 (only): C++ Compiler/version
+mpiCC --version # LAM-MPI, Open MPI: C++ Compiler/version
+mpic++ --version # LAM-MPI, Open MPI: C++ Compiler/version
+mpicc --showme # LAM-MPI, Open MPI: C   compilation switches
+mpiCC --showme # LAM-MPI, Open MPI: C++ compilation switches
+mpic++ --showme # LAM-MPI, Open MPI: C++ compilation switches
+mpcc -v # PPE (only): C   compilation switches
+mpCC -v # PPE (only): C++ compilation switches
+
+************************************************************************
+Testing NCO in a parallel environment
+************************************************************************
+1. Start any required process management daemon
+Typically, these are lamd (LAM), mpd (MPICH/MPICH2), and pmd (PPE).
+If regression test results are unpredictable and/or terrible, try
+re-starting the process management daemon.
+   
+2. Run NCO regression tests in parallel mode
+These two commands are equivalent (Makefile translates the first): 
+
+   make MPI_PRC=3 tst
+   ~/nco/bm/nco_bm.pl --dbg=0 --mpi=3 --regress --udp
+
+************************************************************************
+MPI Distribution-specific Instructions
+************************************************************************
+LAM Instructions:
+Up-to-date versions of LAM-MPI are distributed in RPM and Deb formats.
+(LAM features are included in Open MPI)
+
+0. Remove LAM-MPI packages
+   sudo aptitude remove lam4c2 lam4-dev lam-mpidoc lam-runtime
+   sudo rpm -e lam
+   sudo yum remove lam
+
+1. Install LAM-MPI packages
+   sudo aptitude install lam4c2 lam4-dev lam-mpidoc lam-runtime
+   sudo rpm -i lam-7.0.6-3.i386.rpm
+
+2. Start lamd if not already running:
+   lamboot -v # Start lamd in verbose mode 
+
+3. End lamd
+   lamwipe # Kill lamd
+
+************************************************************************
+MPICH (version 1, http://www-unix.mcs.anl.gov/mpi/mpich) Instructions:
+1. Install MPICH packages
+   sudo aptitude install mpich mpich-common
+   sudo rpm -i mpich mpich-doc
+   sudo yum install mpich mpich-doc
+   sudo rpm -i mpich-1.2.5.2-1mdk.i586.rpm
+
+2. Test mpich version:
+   mpichversion # Report MPICH1 version and device (ch_p4 indicates GB Ethernet)
+
+************************************************************************
+MPICH2 (i.e., MPICH version 2, http://www-unix.mcs.anl.gov/mpi/mpich2) Instructions:
+0. Remove MPICH2 packages
+
+   sudo aptitude remove libmpich2-1.0 mpich2-doc mpich2 mpich2-mpd mpich2-dev
+
+1. Install MPICH2 (requires python 2.3 or 2.4)
+   wget http://torvalds.cs.mtsu.edu/~zach/debian/1.0.2p1/libmpich2-1.0_1.0.2p1-2_i386.deb
+   wget http://torvalds.cs.mtsu.edu/~zach/debian/1.0.2p1/mpich2-doc_1.0.2p1-2_i386.deb
+   wget http://torvalds.cs.mtsu.edu/~zach/debian/1.0.2p1/mpich2_1.0.2p1-2_i386.deb
+   wget http://torvalds.cs.mtsu.edu/~zach/debian/1.0.2p1/mpich2-mpd_1.0.2p1-2_i386.deb
+   wget http://torvalds.cs.mtsu.edu/~zach/debian/1.0.2p1/mpich2-dev_1.0.2p1-2_i386.deb
+
+   sudo aptitude install python2.3 python2.3-xml
+
+   cd ${DATA}/tmp
+   sudo dpkg --install \
+   libmpich2-1.0_1.0.2p1-2_i386.deb \
+   mpich2-doc_1.0.2p1-2_i386.deb \
+   mpich2_1.0.2p1-2_i386.deb \
+   mpich2-mpd_1.0.2p1-2_i386.deb \
+   mpich2-dev_1.0.2p1-2_i386.deb
+   cd -
+
+2. Install .mpd.conf in ${HOME} or set START="yes" in /etc/default/mpd
+
+3. Start mpd if not already running:
+   mpd & # Start MPD
+   mpdtrace # Test MPD
+   mpdallexit # Exit MPD
+   mpich2version # Report MPICH2 version
+
+************************************************************************
+Open MPI Instructions:
+Up-to-date versions of LAM-MPI are distributed in RPM and Deb formats.
+
+0. Remove Open MPI packages
+   sudo aptitude remove openmpi_bin
+
+1. Install Open MPI packages
+   sudo aptitude install openmpi-bin openmpi-doc openmpi-dev
+
+************************************************************************
+Parallel Programming Environment (PPE) (AIX only):
+1. poe requires a hostfile. hostfile defaults to ./host.list.
+   Create host.list with, e.g.,
+
+   echo ${HOST} > ./host.list
+
+2. 
+
+   poe -hostfile=~/nco/bld/host.list -node=1 -tasks_per_node=3 $MY_BIN_DIR/mpncwa -O -D 3 -p ${HOME}/nco/data in.nc ~/foo.nc

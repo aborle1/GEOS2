@@ -1,0 +1,2 @@
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Config_C.o : /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Base.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_Config.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_UtilTypes.o 
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMC_Config.o : ESMC_Config.h

@@ -1,0 +1,57 @@
+// $Header$ -*-C++-*-
+
+// Purpose: Sample input script for netCDF4-enabled ncap2
+// Stress-test netCDF4 atomic types and features
+
+/* URL: 
+   http://dust.ess.uci.edu/nco/netcdf4.nc */
+
+/* Usage: 
+   ncap2 -4 -O -v -S ~/nco/data/netcdf4.nco ~/nco/data/in.nc ~/nco/data/netcdf4.nc
+   ncks ~/nco/data/netcdf4.nc | /bin/more
+   scp ~/nco/data/netcdf4.nc dust.ess.uci.edu:/var/www/html/nco */
+
+global@Conventions_NC_CHAR = "CF-1.0"; // NC_CHAR
+global@Conventions_NC_STRING = "CF-1.0"s; // NC_STRING
+var_foo=1.0; 
+var_foo@units="meters"s; // NC_STRING
+var_foo@units2="meters"; // NC_CHAR
+
+// Make sure netCDF3 commands work 
+var_double=1.0;
+var_float=1.0f;
+var_int=1;
+var_int_max=2147483647;
+var_short=1s;
+var_byte=1b;
+var_char[char_dmn_lng04]="Hell"; // Array of NC_CHAR
+// Following lines _require_ netCDF4:
+var_ubyte=1ub;
+var_ushort=1us;
+var_uint=1u;
+var_int64=1ll;
+var_uint64=1ull;
+var_string="Hell"s; // Single NC_STRING
+var_string_arr1[char_dmn_lng04]="one"s; // Array of NC_STRING
+var_string_arr2[char_dmn_lng04]={"one"s,"two"s,"three"s,"four"s}; // Array of NC_STRING
+var_string_arr[char_dmn_lng04]={"Hello, World!"s,"Same to you.\nPunctuation may be in strings"s,"Ça va bien?\nForeign characters, too."s,"Oui, c'est trés bien\nEven their lengths may differ"s}; // Array of NC_STRING
+// Test arithmetic ranges
+var_short_max=32767s;
+var_short_ttl=var_short+var_short;
+var_short_ttl_max=var_short_max+var_short_max; // 20090504: -2 overflow OK
+var_int64_ttl=var_int64+var_int64;
+var_int64_max=9223372036854775807ll;
+var_int64_ttl_max=var_int64_max+var_int64_max; // 20090504: -2 overflow OK
+var_uint_max=4294967295u;
+var_uint_ttl=var_uint+var_uint;
+var_uint_ttl_max=var_uint_max+var_uint_max;
+var_uint64_max=18446744073709551615ull;
+var_uint64_ttl=0ull+var_int64+var_int64;
+var_uint64_ttl_max=var_uint64_max+var_uint64_max; // 20090504: 18446744073709551614ull overflow OK?
+var_uint64_prd=2*9223372036854775807ull;
+var_uint64_dff=var_uint64_max-1;
+var_ushort_ngt=-var_ushort; // 20080512: = 65535 overflow OK
+var_ushort_ngt_2=-1us; // 20080512: = 65535 overflow OK
+var_ushort_max=65535us;
+var_ushort_ttl=var_ushort+var_ushort;
+var_ushort_ttl_max=var_ushort_max+var_ushort_max; // 20090504: 65534 overflow OK

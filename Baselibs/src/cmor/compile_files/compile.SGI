@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+FC=f90
+NetCDF=/usr/local
+#CDMS=/lgm/cdat/latest
+UDUNITS=/usr/local
+CMOR=.
+#USER_FLAGS='-L/usr/local/lib -ldrs'
+
+# ${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits ${USER_FLAGS} -o $1
+
+
+${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits -L${CDMS}/lib -lcdms ${USER_FLAGS} -o $1
+
+

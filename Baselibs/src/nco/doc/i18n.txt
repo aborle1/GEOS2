@@ -1,0 +1,24 @@
+# $Header$
+
+# Purpose: NCO Internationalization (i18n)
+
+# Instructions/examples at
+# Linux Journal 200211 p. 57--59
+# http://www.linuxjournal.com/article/6176
+# http://www.debian.org/doc/manuals/intro-i18n/ch-library.en.html
+
+# Generate *.po file for all NCO operators:
+cd ~/nco/src/nco
+xgettext --default-domain=nco --extract-all --output=nco.po nc*.c
+
+# Search source for translatable strings:
+cd ~/nco/src/nco
+etags *.[chly]
+
+# Open .po file in Emacs
+# Hit `,' (po-tags-search) to start searching through candidates
+# `M-,' Marks last string with _()
+# `M-.' Marks last string with preferred keyword, e.g., gettext()
+
+# Compile PO (portable object) file to MO (message object or machine object) file:
+msgfmt --output-file=${HOME}/share/locale/es/LC_MESSAGES/nco.mo --statistics ${HOME}/nco/src/nco/nco.po

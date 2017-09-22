@@ -1,0 +1,3 @@
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_ArraySpec_C.o : /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_ArraySpec.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_LogErr.o /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMF_UtilTypes.o 
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMCI_ArraySpec.o : ESMCI_ArraySpec.h
+  /home/aborle1/Baselibs/src/esmf/obj/objO/Linux.gfortran.32.openmpi.default/ESMC_ArraySpec.o : ESMCI_ArraySpec.h ESMC_ArraySpec.h

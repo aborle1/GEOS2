@@ -1,0 +1,18 @@
+D/examples////
+/ESMF_CFIOBaseMod.f/1.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOEosMod.F90/1.3.228.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOFileMod.F90/1.6.80.2.58.2.60.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOGrADSMod.F90/1.3/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOGridMod.F90/1.6/Thu May 11 12:02:37 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOMod.F90/1.30.104.3.22.3.2.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOSdfMod.F90/1.31.10.1.56.2.8.19.30.1.2.5/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOUtilMod.F90/1.27.20.17.30.5/Thu May 11 12:02:37 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOVarInfoMod.F90/1.7.80.1.74.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOrGrADSMod.F90/1.1.2.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ESMF_CFIOwGrADSMod.F90/1.4/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/GNUmakefile/1.33/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/GNUmakefile_r4r8/1.25.10.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ShaveMantissa.c/1.16.74.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/ShaveMantissa.h/1.4/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/netcdf_stub.F90/1.1/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1
+/utDownBit.F90/1.2/Thu May 11 12:02:00 2017/-kk/TIcarus-1_0_p1

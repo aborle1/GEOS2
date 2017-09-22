@@ -1,0 +1,22 @@
+PrimaryExports%%
+# -------------|-------|-------|--------|----------------------|--------|--------|-------------|----------|
+#  Import      |       |       | Regrid |        Refresh       | OffSet | Scale  | Variable On |   File   |
+#  Name        | Units | Clim  | Method |     Time Template    | Factor | Factor |     File    | Template |
+# -------------|-------|-------|--------|----------------------|--------|--------|-------------|----------|
+DU_SRC NA  N Y - none none du_src ExtData/PIESA/sfc/gocart.dust_source.v5a.x1152_y721.nc
+
+DU_regionMask NA  N V - none none REGION_MASK ExtData/PIESA/sfc/ARCTAS.region_mask.x540_y361.2008.nc
+%%
+
+
+DerivedExports%%
+# ---------|---------|--------------------------------------------|
+#  Export  | Primary |_________________ Mask _____________________|
+#  Name    |  Name   |    Name    |           Expression          |    
+# ---------|---------|------------|-------------------------------|
+# ---------|---------|------------|-------------------------------|
+DU_SRCafr regionmask(DU_SRC,DU_regionMask;5)   %y4-%m2-%d2t12:00:00
+DU_SRCsas regionmask(DU_SRC,DU_regionMask;4)   %y4-%m2-%d2t12:00:00
+DU_SRCaus regionmask(DU_SRC,DU_regionMask;7)   %y4-%m2-%d2t12:00:00
+%%
+

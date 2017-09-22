@@ -1,0 +1,1 @@
+CREATE /g1/g1.1/dset1.1.1 newattrI32BE {H5T_STD_I32BE ( 1, 2, 3) DATA {11, 12, 21, 22, 31,32}}; CREATE /g1/g1.1/dset1.1.1 newattrF64LE {H5T_IEEE_F64LE (2, 2, 2 ) DATA {0.1E1, 0.2E1, -1.1e2, -1.2e2, 2.1E-3, 2.2E-3, -3.1E-3, -3.2E-2}};

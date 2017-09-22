@@ -1,0 +1,87 @@
+prefix.lo: prefix.c /usr/include/stdc-predef.h /usr/include/ctype.h \
+ /usr/include/features.h /usr/include/powerpc64le-linux-gnu/sys/cdefs.h \
+ /usr/include/powerpc64le-linux-gnu/bits/wordsize.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs.h \
+ /usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h \
+ /usr/include/powerpc64le-linux-gnu/bits/types.h \
+ /usr/include/powerpc64le-linux-gnu/bits/typesizes.h \
+ /usr/include/endian.h /usr/include/powerpc64le-linux-gnu/bits/endian.h \
+ /usr/include/errno.h /usr/include/powerpc64le-linux-gnu/bits/errno.h \
+ /usr/include/linux/errno.h \
+ /usr/include/powerpc64le-linux-gnu/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/search.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h \
+ /usr/include/stdlib.h \
+ /usr/include/powerpc64le-linux-gnu/bits/waitflags.h \
+ /usr/include/powerpc64le-linux-gnu/bits/waitstatus.h \
+ /usr/include/powerpc64le-linux-gnu/sys/types.h /usr/include/time.h \
+ /usr/include/powerpc64le-linux-gnu/bits/pthreadtypes.h \
+ /usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h \
+ /usr/include/string.h prefix.h udunits2.h \
+ /usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h converter.h \
+ systemMap.h
+
+/usr/include/stdc-predef.h:
+
+/usr/include/ctype.h:
+
+/usr/include/features.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/cdefs.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/wordsize.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs.h:
+
+/usr/include/powerpc64le-linux-gnu/gnu/stubs-64-v2.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/types.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/typesizes.h:
+
+/usr/include/endian.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/endian.h:
+
+/usr/include/errno.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/powerpc64le-linux-gnu/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/search.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stddef.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/waitflags.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/waitstatus.h:
+
+/usr/include/powerpc64le-linux-gnu/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/powerpc64le-linux-gnu/bits/stdlib-float.h:
+
+/usr/include/string.h:
+
+prefix.h:
+
+udunits2.h:
+
+/usr/lib/gcc/powerpc64le-linux-gnu/5/include/stdarg.h:
+
+converter.h:
+
+systemMap.h:

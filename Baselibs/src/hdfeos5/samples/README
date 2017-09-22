@@ -1,0 +1,395 @@
+**********************************************************************
+*    This directory provides sample programs for the user to run to  *
+*    check if the HDFEOS_5 library installed correctly. Below is a   *
+*     description of what routines are available and the order in    *
+*                which the routines should be run.                   *
+*    Updated: 06/20/01  A.M.                                         *
+*             Aug 02    S.Z                                          *
+**********************************************************************
+
+
+                   Swath Demonstration Programs
+                   ----------------------------
+
+A. C - programs
+~~~~~~~~~~~~~~~   
+   	he5_sw_setup        --- creates HDFEOS_5 swath file "Swath.h5"; 
+                            sets a single swath structure "Swath1"; 
+                            defines dimensions and the geolocation 
+                            relations between them.
+	
+	he5_sw_definefields	--- defines a number of fields within the swath.
+	
+	he5_sw_writedata    --- writes data to the "Longitude", "Latitude", 
+                            and "Spectra" fields; sets up global, group, 
+			                and local attributes.
+
+	he5_sw_readdata     --- reads data from the "Longitude" field; reads 
+                            global, group, and local attributes.
+
+	he5_sw_info         --- retrieves and displays information on the 
+                            swath dimensions, geolocation relations, 
+                            swath fields, and (global/group/local) 
+                            attributes.
+
+    he5_sw_datainfo     --- retrieves data type information for a 
+                            specified object (field, attribute).
+
+	he5_sw_subset       --- demonstrates subsetting on the "Spectra" field.
+
+
+    he5_sw_defunlimfld  --- same as 'he5_sw_definefields' but defines 
+                            "Spectra" field as having unlimited dimension.
+
+    he5_sw_wrunlimfld   --- same as 'he5_sw_writedata' but writes data to 
+                            the "Spectra" field twice.
+
+    he5_sw_wrextendrd   --- demonstrates usage of unlimited dimension for 
+                            appendible field "Count".
+
+
+    Sequence of calls:
+                     
+          1. he5_sw_setup
+             he5_sw_definefields
+             he5_sw_writedata 
+             he5_sw_readdata 
+             he5_sw_info 
+             he5_sw_datainfo 
+             he5_sw_subset   
+
+          2. he5_sw_setup
+             he5_sw_defunlimfld
+             he5_sw_wrunlimfld
+             he5_sw_subset
+
+          3. he5_sw_setup
+             he5_sw_definefields
+             he5_sw_wrextendrd
+
+
+	Example of working with external data files
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	he5_sw_setup               ---   creates HDFEOS_5 swath file "Swath.h5"; 
+                                     sets a single swath structure "Swath1"; 
+                                     defines dimensions (including dimension 
+                                     of external data set) and the geolocation 
+                                     relations between them.
+    he5_sw_defexternalfld      ---   defines external field (data set)
+    he5_sw_rdexternaldata      ---   reads data from external data file(s) to 
+                                     the external field
+    he5_sw_wrexternaldata      ---   writes data to external field/data file(s)  
+
+
+
+B. FORTRAN-77 programs
+~~~~~~~~~~~~~~~~~~~~~~
+	he5_sw_setupF_64          ---  see 'he5_sw_setup', creates "swath.h5" file.
+	(he5_sw_setupF_32)
+  
+    he5_sw_definefieldsF_64   ---  see  'he5_sw_definefields'
+    (he5_sw_definefieldsF_32)
+
+    he5_sw_writedataF_64      ---  see  'he5_sw_writedata'
+    (he5_sw_writedataF_32)
+
+    he5_sw_readdataF_64       ---  see  'he5_sw_readdata'
+    (he5_sw_readdataF_32)
+
+    he5_sw_infoF_64           ---  see  'he5_sw_info'
+    (he5_sw_infoF_32)
+
+    he5_sw_subsetF_64         ---  see  'he5_sw_subset'
+    (he5_sw_subsetF_32)
+  
+
+	Sequence of calls:
+
+	      he5_sw_setupF_64         (...F_32)
+          he5_sw_definefieldsF_64  (...F_32)
+          he5_sw_writedataF_64     (...F_32)
+          he5_sw_readdataF_64      (...F_32)
+          he5_sw_infoF_64          (...F_32)
+          he5_sw_subsetF_64        (...F_32)
+
+
+
+
+===========================================================================
+
+                   Grid Demonstration Programs
+                   ---------------------------
+
+A. C - programs
+~~~~~~~~~~~~~~~   
+   	he5_gd_setup        --- creates HDFEOS_5 grid file "Grid.h5"; 
+                            sets two grid structures. 
+	
+	he5_gd_definefields	--- defines fields within the two grids.
+	
+	he5_gd_writedata    --- writes data to the fields within the two 
+                            grids; sets up global, group, and local 
+                            attributes. 
+
+	he5_gd_readdata     --- reads data from the fields; reads 
+                            global, group, and local attributes.
+
+	he5_gd_info         --- retrieves and displays information on the 
+                            grid dimensions, projections, grid fields, 
+                            and (global/group/local) attributes.
+
+    he5_gd_datainfo     --- retrieves data type information for a 
+                            specified object (field, attribute).
+
+	he5_gd_subset       --- demonstrates subsetting on the "Temperature" 
+                            field in the "PolarGrid" grid.
+
+
+    he5_gd_defunlimfld  --- defines "Vegetation" field having unlimited 
+                            dimension.
+
+    he5_gd_wrunlimfld   --- sequentially writes data buffers of different 
+                            size to the "Vegetation" field.
+
+    Sequence of calls:
+                     
+          1. he5_gd_setup
+             he5_gd_definefields
+             he5_gd_writedata 
+             he5_gd_readdata 
+             he5_gd_info 
+             he5_gd_datainfo 
+             he5_gd_subset   
+
+          2. he5_gd_setup
+             he5_gd_defunlimfld
+             he5_gd_wrunlimfld
+
+
+	Example of working with external data files
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	he5_gd_setup               ---   creates HDFEOS_5 grid file "Grid.h5"; 
+                                     sets two grid structures; defines 
+                                     dimensions (including dimension of 
+                                     external data set).
+    he5_gd_defexternalfld      ---   defines external field (data set)
+    he5_gd_rdexternaldata      ---   reads data from external data file(s) to 
+                                     the external field
+    he5_gd_wrexternaldata      ---   writes data to external field/data file(s)  
+
+
+B. FORTRAN-77 programs
+~~~~~~~~~~~~~~~~~~~~~~
+	he5_gd_setupF_64          ---  see 'he5_gd_setup'; creates "grid.h5" file.
+	(he5_gd_setupF_32)
+  
+    he5_gd_definefieldsF_64   ---  see  'he5_gd_definefields'
+    (he5_gd_definefieldsF_32)
+
+    he5_gd_writedataF_64      ---  see  'he5_gd_writedata'
+    (he5_gd_writedataF_32)
+
+    he5_gd_readdataF_64       ---  see  'he5_gd_readdata'
+    (he5_gd_readdataF_32)
+
+    he5_gd_infoF_64           ---  see  'he5_gd_info'
+    (he5_gd_infoF_32)
+
+    he5_gd_subsetF_64         ---  see  'he5_gd_subset'
+    (he5_gd_subsetF_32)
+  
+
+	Sequence of calls:
+
+	      he5_gd_setupF_64            (...F_32)
+          he5_gd_definefieldsF_64     (...F_32)
+          he5_gd_writedataF_64        (...F_32)
+          he5_gd_readdataF_64         (...F_32)
+          he5_gd_infoF_64             (...F_32)
+          he5_gd_subsetF_64           (...F_32)
+
+===========================================================================
+
+
+                   Point Demonstration Programs
+                   ----------------------------
+
+The sample codes described below use the following input data files 
+(make sure these files are in the same directory with the sample codes) :
+
+	fixedBuoy0.txt
+	fixedBuoy1s.txt
+	floatBuoy1.txt
+	fixedBuoy1.txt
+	floatBuoy0.txt
+	simple.txt
+
+
+A. C - programs
+~~~~~~~~~~~~~~~   
+   	he5_pt_setup        --- creates HDFEOS_5 point file "Point.h5"; 
+	
+	he5_pt_definelevels	--- defines levels within the point.
+	
+	he5_pt_writedata    --- writes data to the specified levels.
+
+	he5_pt_writeattrs   --- writes attributes.
+
+	he5_pt_readdata     --- reads data from a level.
+
+	he5_pt_readattrs    --- reads attributes.
+
+	he5_pt_updatelevels --- updates level data.
+
+    he5_pt_datainfo     --- retrieves data type information for a 
+                            specified object within point.
+
+    Sequence of calls:
+                     
+             he5_pt_setup
+             he5_pt_definelevels
+             he5_pt_writedata 
+               he5_pt_writeattrs 
+             he5_pt_readdata 
+               he5_pt_readattrs 
+             he5_pt_updatelevels
+             he5_pt_datainfo 
+
+
+B. FORTRAN-77 programs
+~~~~~~~~~~~~~~~~~~~~~~
+	he5_pt_setupF_64          ---  see 'he5_pt_setup'; creates "point.h5" file.
+	(he5_pt_setupF_32)
+  
+    he5_pt_definelevelsF_64   ---  see  'he5_pt_definelevels'
+    (he5_pt_definelevelsF_32)
+
+    he5_pt_writedataF_64      ---  see  'he5_pt_writedata'
+    (he5_pt_writedataF_32)
+
+		he5_pt_writeattrsF_64      ---  see  'he5_pt_writeattrs'
+		(he5_pt_writeattrsF_32)
+
+    he5_pt_readdataF_64       ---  see  'he5_pt_readdata'
+    (he5_pt_readdataF_32)
+
+		he5_pt_readattrsF_64       ---  see  'he5_pt_readattrs'
+		(he5_pt_readattrsF_32)
+
+    he5_pt_updatelevelsF_64   ---  see  'he5_pt_updatelevels'
+    (he5_pt_updatelevelsF_32)
+
+    he5_pt_datainfoF_64       ---  see  'he5_pt_datainfo'
+    (he5_pt_datainfoF_32)
+  
+
+	Sequence of calls:
+
+	      he5_pt_setupF_64            (...F_32)
+          he5_pt_definelevelsF_64     (...F_32)
+          he5_pt_writedataF_64        (...F_32)
+          he5_pt_writeattrsF_64       (...F_32)
+          he5_pt_readdataF_64         (...F_32)
+          he5_pt_readattrsF_64        (...F_32)
+          he5_pt_updatelevelsF_64     (...F_32)
+          he5_pt_datainfoF_64         (...F_32)
+
+
+         
+=====================================================================
+
+
+                   ZA Demonstration Programs
+                   -------------------------
+ 
+A. C - programs
+~~~~~~~~~~~~~~
+        he5_za_setup        --- creates HDFEOS_5 za file "ZA.h5";
+                            sets a single za structure "ZA1";
+                            defines dimensions.
+ 
+        he5_za_definefields --- defines a number of fields within the za.
+ 
+        he5_za_writedata    --- writes data to the "Spectra" field;
+                            sets up global, group, and local attributes.
+ 
+        he5_za_readdata     --- reads data from the "Spectra" field; reads
+                            global, group, and local attributes.
+ 
+        he5_za_info         --- retrieves and displays information on the
+                            za dimensions, and (global/group/local)
+                            attributes.
+ 
+        he5_za_datainfo     --- retrieves data type information for a
+                            specified object (field, attribute).
+ 
+ 
+    Sequence of calls:
+ 
+        he5_za_setup
+        he5_za_definefields
+        he5_za_writedata
+        he5_za_readdata
+        he5_za_info
+        he5_za_datainfo
+ 
+
+    Example of working with external data files
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    he5_za_setup               ---   creates HDFEOS_5 za file "ZA.h5";
+                                     sets a single za structure "ZA1";
+                                     defines dimensions (including dimension
+                                     of external data set). 
+    he5_za_defexternalfld      ---   defines external field (data set)
+    he5_za_rdexternaldata      ---   reads data from external data file(s) to
+                                     the external field
+    he5_za_wrexternaldata      ---   writes data to external field/data file(s)
+ 
+
+ 
+B. FORTRAN-77 programs
+~~~~~~~~~~~~~~~~~~~~~
+    he5_za_setupF_64          ---  see 'he5_za_setup', creates "za.he5" file.
+    (he5_za_setupF_32)
+ 
+    he5_za_definefieldsF_64   ---  see  'he5_za_definefields'
+    (he5_za_definefieldsF_32)
+ 
+    he5_za_writedataF_64      ---  see  'he5_za_writedata'
+    (he5_za_writedataF_32)
+ 
+    he5_za_readdataF_64       ---  see  'he5_za_readdata'
+    (he5_za_readdataF_32)
+ 
+    he5_za_infoF_64           ---  see  'he5_za_info'
+    (he5_za_infoF_32)
+ 
+ 
+ 
+        Sequence of calls:
+ 
+          he5_za_setupF_64         (...F_32)
+          he5_za_definefieldsF_64  (...F_32)
+          he5_za_writedataF_64     (...F_32)
+          he5_za_readdataF_64      (...F_32)
+          he5_za_infoF_64          (...F_32)
+ 
+
+======================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

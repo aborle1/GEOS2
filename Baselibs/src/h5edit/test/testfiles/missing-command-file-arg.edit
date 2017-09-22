@@ -1,0 +1,27 @@
+h5edit: --command-file argument missing
+usage:
+h5edit [-h | --help] h5file
+h5edit [OPTIONS] h5file
+OPTIONS
+   -h, --help
+       Print a usage message and exit
+   --atomic level:
+       Specifies the atomic level:
+       yes: This is the default. It means the changes must be done as all or
+            nothing. The original data file is restored in case of any command
+            failures.
+       no:  No atomicity is desired. Do as much changes as possible.
+       inc: Atomicity of changes at individual command level is desired, not
+            the entire execution.
+   -c command, --command command:
+       Specify an H5edit command to apply to the file h5file.
+   --command-file commfile
+       Specify a command file, commfile, that contains H5edit commands written
+       in the H5edit Command Language, to apply to the file h5file.
+   --dryrun
+       (To be supported in future implementation)
+       Just check the syntax of the H5edit commands against the HDF5 file
+       without making the actual changes to the HDF5 file.
+   --version
+       Print the version information of h5edit.
+

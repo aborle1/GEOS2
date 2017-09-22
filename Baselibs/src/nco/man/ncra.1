@@ -1,0 +1,225 @@
+.\" $Header$ -*-nroff-*-
+.\" Purpose: ROFF man page for ncra
+.\" Usage:
+.\" nroff -man ~/nco/man/ncra.1 | less
+.TH NCRA 1
+.SH NAME
+ncra \- netCDF Record Averager
+.SH SYNTAX
+ncra [\-3] [\-4] [\-6] [\-7] [\-A] [\-\-bfr
+.IR sz_byt ] [\-C] [\-c] [\-\-cnk_byt
+.IR sz_byt ] [\-\-cnk_dmn 
+.IR nm,sz_lmn ]
+[\-\-cnk_map 
+.IR map ]
+[\-\-cnk_min
+.IR sz_byt ]
+[\-\-cnk_plc 
+.IR plc ]
+[\-\-cnk_scl 
+.IR sz_lmn ] [\-D 
+.IR dbg_lvl ]
+[\-d 
+.IR dim ,[
+.IR min ][,[
+.IR max ]][,
+.IR stride [[,[
+.IR subcycle ]]]]]
+[\-\-dbl|flt] [\-F] [\-G
+.IR gpe_dsc ]
+[\-g  
+.IR grp [,...]]
+[\-\-glb
+.IR att_name=
+.IR att_val ]]
+[\-h] [\-\-hdf] [\-\-hdr_pad
+.IR sz_byt ]
+[\-L 
+.IR dfl_lvl ] 
+[\-l 
+.IR path ]
+[\-\-mro] [\-\-msa] [\-N] [\-n 
+.IR loop ]
+[\-\-no_cll_mth] [\-\-no_tmp_fl] [\-O] [\-p 
+.IR path ]
+[\-\-ppc 
+.IR var1 [,
+.IR var2 [,...]]=
+.IR prc ]]
+[\-R] [\-r] [\-\-ram_all] [\-\-rec_apn] [\-t
+.IR thr_nbr ]
+[\--unn] [\-v 
+.IR var [,...]]
+[\-w 
+.IR wgt ]
+[\-X 
+.IR box ] 
+[\-x] [\-y 
+.IR op_typ ]
+.I input-files
+.I output-file
+.SH DESCRIPTION
+.PP
+.B ncra
+averages record variables across an arbitrary number of
+input files.
+The record dimension is retained as a degenerate (size 1) dimension in
+the output variables.
+.PP
+Input files may vary in size, but each must have a record dimension.
+The record coordinate, if any, should be monotonic for (or else non-fatal
+warnings may be generated).
+Hyperslabs of the record dimension which include more than one file are
+handled correctly.
+.B ncra
+supports the 
+.I stride
+argument to the 
+.B \-d
+hyperslab option for the record dimension only, 
+.I stride
+is not
+supported for non-record dimensions.
+.PP
+.B ncra
+weights each record (e.g., time slice) in the
+.I input-files
+equally.
+.B ncra
+does not attempt to see if, say, the 
+.B time
+coordinate
+is irregularly spaced and thus would require a weighted average in order
+to be a true time average.
+.SH EXAMPLES
+.PP
+Average files 
+.BR 85.nc ,
+.BR 86.nc ,
+\ .\|.\|.\ 
+.B 89.nc
+along the record dimension, and store the results in 
+.BR 8589.nc :
+.RS
+ncra 85.nc 86.nc 87.nc 88.nc 89.nc 8589.nc
+.br
+ncra 8[56789].nc 8589.nc
+.br
+ncra \-n 5,2,1 85.nc 8589.nc
+.RE
+These three methods produce identical answers.
+.PP
+Assume the files 
+.BR 85.nc ,
+.BR 86.nc ,
+\ .\|.\|.\ 
+.B 89.nc
+each
+contain a record coordinate 
+.I time
+of length 12 defined such that
+the third record in 
+.B 86.nc
+contains data from March 1986, etc.
+NCO knows how to hyperslab the record dimension across files.
+Thus, to average data from December, 1985 through February, 1986:
+.RS
+ncra \-d time,11,13 85.nc 86.nc 87.nc 8512_8602.nc
+.br
+ncra \-F \-d time,12,14 85.nc 86.nc 87.nc 8512_8602.nc
+.RE
+The file 
+.B 87.nc
+is superfluous, but does not cause an error.
+The 
+.B \-F
+turns on the Fortran (1-based) indexing convention.
+The following uses the 
+.I stride
+option to average all the March
+temperature data from multiple input files into a single output file
+.RS
+ncra \-F \-d time,3,,12 \-v temperature 85.nc 86.nc 87.nc 858687_03.nc
+.RE
+.PP
+Assume the 
+.I time
+coordinate is incrementally numbered such that
+January, 1985 = 1 and December, 1989 = 60.
+Assuming 
+.B ??
+only expands to the five desired files, the following
+averages June, 1985--June, 1989: 
+.RS
+ncra \-d time,6.,54. ??.nc 8506_8906.nc
+.RE
+
+.\" NB: Append man_end.txt here
+.\" $Header$ -*-nroff-*-
+.\" Purpose: Trailer file for common ending to NCO man pages
+.\" Usage: 
+.\" Append this file to end of NCO man pages immediately after marker
+.\" that says "Append man_end.txt here"
+.SH AUTHOR
+.B NCO
+manual pages written by Charlie Zender and originally formatted by Brian Mays.
+
+.SH "REPORTING BUGS"
+Report bugs to <http://sf.net/bugs/?group_id=3331>.
+
+.SH COPYRIGHT
+Copyright \(co 1995-2016 Charlie Zender
+.br
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+.SH "SEE ALSO"
+The full documentation for
+.B NCO
+is maintained as a Texinfo manual called the 
+.B NCO User's Guide.
+Because 
+.B NCO
+is mathematical in nature, the documentation includes TeX-intensive
+portions not viewable on character-based displays. 
+Hence the only complete and authoritative versions of the 
+.B NCO User's Guide 
+are the PDF (recommended), DVI, and Postscript versions at
+<http://nco.sf.net/nco.pdf>, <http://nco.sf.net/nco.dvi>,
+and <http://nco.sf.net/nco.ps>, respectively.
+HTML and XML versions
+are available at <http://nco.sf.net/nco.html> and
+<http://nco.sf.net/nco.xml>, respectively.
+
+If the
+.B info
+and
+.B NCO
+programs are properly installed at your site, the command
+.IP
+.B info nco
+.PP
+should give you access to the complete manual, except for the
+TeX-intensive portions.
+
+.BR ncap (1), 
+.BR ncap2 (1), 
+.BR ncatted (1), 
+.BR ncbo (1), 
+.BR ncclimo (1), 
+.BR nces (1), 
+.BR ncecat (1), 
+.BR ncflint (1), 
+.BR ncks (1), 
+.BR nco (1), 
+.BR ncpdq (1), 
+.BR ncra (1), 
+.BR ncrcat (1), 
+.BR ncremap (1), 
+.BR ncrename (1), 
+.BR ncwa (1) 
+
+.SH HOMEPAGE
+The 
+.B NCO
+homepage at <http://nco.sf.net> contains more information.

@@ -1,0 +1,37 @@
+/CHANGES/1.1.1.13/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeLists.txt/1.1.1.9/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/COPYING/1.1.1.7/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/MacOSX-Framework/1.1.1.6/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile/1.1.1.7/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.11/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.13/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/README/1.1.1.4/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/RELEASE-NOTES/1.1.1.13/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/acinclude.m4/1.1.1.10/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/aclocal.m4/1.1.1.8/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/buildconf/1.1.1.5/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/buildconf.bat/1.1.1.1/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/compile/1.1.1.4/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/config.guess/1.1.1.6/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/config.sub/1.1.1.7/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/configure/1.1.1.13/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/configure.ac/1.1.1.13/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/curl-config.in/1.1.1.8/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/depcomp/1.1.1.4/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/install-sh/1.1.1.5/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/libcurl.pc.in/1.1.1.5/Tue Mar  8 17:19:57 2016/-kk/TGMAO-Baselibs-4_0_8
+/ltmain.sh/1.1.1.9/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/maketgz/1.1.1.8/Mon Aug  8 13:44:41 2016/-kk/TGMAO-Baselibs-4_0_8
+/missing/1.1.1.2/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+/test-driver/1.1.1.2/Thu Feb  4 19:37:06 2016/-kk/TGMAO-Baselibs-4_0_8
+D/CMake////
+D/docs////
+D/include////
+D/lib////
+D/m4////
+D/packages////
+D/projects////
+D/scripts////
+D/src////
+D/tests////
+D/winbuild////

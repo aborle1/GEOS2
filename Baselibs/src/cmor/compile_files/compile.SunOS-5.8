@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+FC=f90
+NetCDF='/pcmdi/doutriau/Sol_libs/NetCDF'
+CDMS='cdms-location-here'
+UDUNITS='/pcmdi/doutriau/Sol_libs/Unidata'
+CMOR=.
+USER_FLAGS=''
+
+${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -M${NetCDF}/include -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf  ${USER_FLAGS} -o $1
+
+#${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -M${NetCDF}/include -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits -L${CDMS}/lib -lcdms ${USER_FLAGS} -o $1
+

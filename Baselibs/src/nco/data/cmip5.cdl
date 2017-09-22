@@ -1,0 +1,44 @@
+// ncgen -k netCDF-4 -b -o ~/nco/data/cmip5.nc ~/nco/data/cmip5.cdl
+
+netcdf cmip5 {
+  :Conventions = "CF-1.5";
+  :history = "yada yada yada";
+  :Scenario = "RCP 8.5";
+
+  group: cesm { 
+  dimensions:
+  time=unlimited;
+  variables:
+  float tas1(time);
+  double time(time);
+  :Model = "CESM";
+  data:
+  tas1=272,272,272,272;
+  time=1.,2.,3.,4.;
+  } // end cesm
+  
+  group: ecmwf { 
+  dimensions:
+  time=unlimited;
+  variables:
+  float tas1(time);
+  double time(time);
+  :Model = "ECMWF";
+  data:
+  tas1=273,273,273,273;
+  time=1.,2.,3.,4.;
+  } // end ecmwf
+  
+  group: giss { 
+  dimensions:
+  time=unlimited;
+  variables:
+  float tas1(time);
+  double time(time);
+  :Model = "GISS";
+  data:
+  tas1=274,274,274,274;
+  time=1.,2.,3.,4.;
+  } // end gfdl
+
+} // end root group

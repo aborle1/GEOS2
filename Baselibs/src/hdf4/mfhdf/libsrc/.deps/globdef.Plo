@@ -1,0 +1,17 @@
+globdef.lo: globdef.c /usr/include/stdc-predef.h ../../hdf/src/h4config.h \
+ ../../hdf/src/H4api_adpt.h ../../hdf/src/h4config.h hdf4_netcdf.h \
+ ../../hdf/src/hlimits.h hdf2netcdf.h
+
+/usr/include/stdc-predef.h:
+
+../../hdf/src/h4config.h:
+
+../../hdf/src/H4api_adpt.h:
+
+../../hdf/src/h4config.h:
+
+hdf4_netcdf.h:
+
+../../hdf/src/hlimits.h:
+
+hdf2netcdf.h:

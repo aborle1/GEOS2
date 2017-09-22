@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+FC=pgf90
+NetCDF=/home/ktaylor/netcdf/
+CDMS=/usr/local/cdat/experimental 
+UDUNITS=/pcmdi/charles_work/pcmdi/UDUNITS/
+CMOR=.
+#USER_FLAGS=
+# for example, uncomment following line for user-specific compiler options
+USER_FLAGS='-L/pcmdi/charles_work/cdat-R/HDF/lib -lmfhdf -ldf -ljpeg -lz -L/usr/local/lib -ldrs'
+
+${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -L${CDMS}/lib -lcdms -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits  ${USER_FLAGS} -o $1

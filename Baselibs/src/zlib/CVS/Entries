@@ -1,0 +1,56 @@
+/CMakeLists.txt/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/ChangeLog/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/FAQ/1.1.1.3/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/INDEX/1.1.1.3/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/Makefile/1.1.1.3/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/README/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/adler32.c/1.1.1.3/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/compress.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/configure/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/crc32.c/1.1.1.3/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/crc32.h/1.1.1.2/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/deflate.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/deflate.h/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/gzclose.c/1.1.1.1/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/gzguts.h/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/gzlib.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/gzread.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/gzwrite.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/infback.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/inffast.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/inffast.h/1.1.1.2/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/inffixed.h/1.1.1.2/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/inflate.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/inflate.h/1.1.1.2/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/inftrees.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/inftrees.h/1.1.1.2/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/make_vms.com/1.1.1.2/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/treebuild.xml/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/trees.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/trees.h/1.1.1.2/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/uncompr.c/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zconf.h/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zconf.h.cmakein/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zconf.h.in/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zlib.3/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zlib.3.pdf/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zlib.h/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zlib.map/1.1.1.3/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zlib.pc.cmakein/1.1.1.1/Thu Sep 27 16:50:39 2012/-kk/TGMAO-Baselibs-4_0_8
+/zlib.pc.in/1.1.1.1/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/zlib2ansi/1.1.1.1/Tue May 11 20:27:44 2010/-kk/TGMAO-Baselibs-4_0_8
+/zutil.c/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+/zutil.h/1.1.1.4/Tue May 28 14:39:15 2013/-kk/TGMAO-Baselibs-4_0_8
+D/amiga////
+D/as400////
+D/contrib////
+D/doc////
+D/examples////
+D/msdos////
+D/nintendods////
+D/old////
+D/qnx////
+D/test////
+D/watcom////
+D/win32////

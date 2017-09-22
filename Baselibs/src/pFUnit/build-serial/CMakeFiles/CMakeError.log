@@ -1,0 +1,48 @@
+Determining if the Fortran compiler supports OpenMP failed with the following output:
+Change Dir: /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a90e3/fast"
+make[2]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_a90e3.dir/build.make CMakeFiles/cmTC_a90e3.dir/build
+make[3]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+Building Fortran object CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+/usr/bin/gfortran     -c /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+Linking Fortran executable cmTC_a90e3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a90e3.dir/link.txt --verbose=1
+/usr/bin/gfortran       CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o  -o cmTC_a90e3  
+make[3]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+make[2]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+
+
+Determining if the Fortran compiler supports OpenMP failed with the following output:
+Change Dir: /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a90e3/fast"
+make[2]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_a90e3.dir/build.make CMakeFiles/cmTC_a90e3.dir/build
+make[3]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+Building Fortran object CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+/usr/bin/gfortran     -c /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+Linking Fortran executable cmTC_a90e3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a90e3.dir/link.txt --verbose=1
+/usr/bin/gfortran       CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o  -o cmTC_a90e3  
+make[3]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+make[2]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+
+
+Determining if the Fortran compiler supports OpenMP failed with the following output:
+Change Dir: /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a90e3/fast"
+make[2]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTC_a90e3.dir/build.make CMakeFiles/cmTC_a90e3.dir/build
+make[3]: Entering directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+Building Fortran object CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+/usr/bin/gfortran     -c /home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o
+Linking Fortran executable cmTC_a90e3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a90e3.dir/link.txt --verbose=1
+/usr/bin/gfortran       CMakeFiles/cmTC_a90e3.dir/testFortranCompilerF90.f90.o  -o cmTC_a90e3  
+make[3]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+make[2]: Leaving directory '/home/aborle1/Baselibs/src/pFUnit/build-serial/CMakeFiles/CMakeTmp'
+
+

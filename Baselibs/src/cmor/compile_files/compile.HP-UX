@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+FC=f90
+NetCDF=/l/deanwill/NetCDF
+CDMS=/l/deanwill/ASD_work/cdat
+UDUNITS=/l/deanwill/Unidata
+CMOR=.
+USER_FLAGS=''
+
+${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf  ${USER_FLAGS} -o $1
+
+#${FC} $1.f90 -g -I${CMOR}/include -L${CMOR}/lib -lcmor -I${NetCDF}/include -L${NetCDF}/lib -lnetcdf -I${UDUNITS}/include -L${UDUNITS}/lib -ludunits -L${CDMS}/lib -lcdms ${USER_FLAGS} -o $1
+

@@ -1,0 +1,136 @@
+.\" $Header$ -*-nroff-*-
+.\" Purpose: ROFF man page for ncremap
+.\" Usage:
+.\" nroff -man ~/nco/man/ncremap.1 | less
+.TH NCREMAP 1
+.SH NAME
+ncremap \- netCDF Remapper
+.SH SYNTAX
+ncremap
+[\-a
+.IR alg_typ ]
+[\-D
+.IR dbg_lvl ] 
+[\-d
+.IR dst_fl ] 
+[\-E
+.IR esmf_opt ] 
+[\-G
+.IR grd_sng ] 
+[\-g
+.IR grd_fl ] 
+[\-I
+.IR in_drc ] 
+[\-i
+.IR in_fl ] 
+[\-j
+.IR job_nbr ] 
+[\-M] [\-m
+.IR map_fl ] 
+[\-n
+.IR nco_usr ] 
+[\-O
+.IR out_drc ] 
+[\-o
+.IR output-file ] 
+[\-P
+.IR pdq_typ ] 
+[\-p
+.IR par_typ ] 
+[\-R
+.IR rgr_opt ] 
+[\-s
+.IR grd_src ] 
+[\-T
+.IR tempest_opt ] 
+[\-t
+.IR thr_nbr ] 
+[\-v
+.IR var_lst ] 
+[\-w
+.IR wgt_gnr ] 
+[\-x
+.IR xtn_var ] 
+
+.SH DESCRIPTION
+.PP
+.B ncremap
+remaps the data in the
+.I input-file
+file(s) to the grid specified by (in descending order of precedence)
+.I map_fl ,
+.I dst_fl, 
+.I grd_dst, or
+.I grd_sng,
+and stores the result(s) in the
+.I output-file
+file(s).
+
+.\" NB: Append man_end.txt here
+.\" $Header$ -*-nroff-*-
+.\" Purpose: Trailer file for common ending to NCO man pages
+.\" Usage: 
+.\" Append this file to end of NCO man pages immediately after marker
+.\" that says "Append man_end.txt here"
+.SH AUTHOR
+.B NCO
+manual pages written by Charlie Zender and originally formatted by Brian Mays.
+
+.SH "REPORTING BUGS"
+Report bugs to <http://sf.net/bugs/?group_id=3331>.
+
+.SH COPYRIGHT
+Copyright \(co 1995-2016 Charlie Zender
+.br
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+.SH "SEE ALSO"
+The full documentation for
+.B NCO
+is maintained as a Texinfo manual called the 
+.B NCO User's Guide.
+Because 
+.B NCO
+is mathematical in nature, the documentation includes TeX-intensive
+portions not viewable on character-based displays. 
+Hence the only complete and authoritative versions of the 
+.B NCO User's Guide 
+are the PDF (recommended), DVI, and Postscript versions at
+<http://nco.sf.net/nco.pdf>, <http://nco.sf.net/nco.dvi>,
+and <http://nco.sf.net/nco.ps>, respectively.
+HTML and XML versions
+are available at <http://nco.sf.net/nco.html> and
+<http://nco.sf.net/nco.xml>, respectively.
+
+If the
+.B info
+and
+.B NCO
+programs are properly installed at your site, the command
+.IP
+.B info nco
+.PP
+should give you access to the complete manual, except for the
+TeX-intensive portions.
+
+.BR ncap (1), 
+.BR ncap2 (1), 
+.BR ncatted (1), 
+.BR ncbo (1), 
+.BR nces (1), 
+.BR ncecat (1), 
+.BR ncflint (1), 
+.BR ncks (1), 
+.BR nco (1), 
+.BR ncpdq (1), 
+.BR ncra (1), 
+.BR ncrcat (1), 
+.BR ncremap (1), 
+.BR ncrename (1), 
+.BR ncwa (1) 
+
+.SH HOMEPAGE
+The 
+.B NCO
+homepage at <http://nco.sf.net> contains more information.

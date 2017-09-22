@@ -1,0 +1,26 @@
+/CMakeLists.txt/1.1.1.4/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/CMakeTests.cmake/1.1.1.2/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.5/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.7/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/README/1.1.1.1/Wed Jul 25 13:03:14 2007/-kk/TGMAO-Baselibs-4_0_8
+/close.c/1.1.1.4/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/depend/1.1.1.1/Wed Jul 25 13:03:14 2007/-kk/TGMAO-Baselibs-4_0_8
+/escapes.c/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/generate.c/1.1.1.3/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/generic.h/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/genlib.c/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/genlib.h/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/getfill.c/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/init.c/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/load.c/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/main.c/1.1.1.5/Mon Mar 30 16:49:21 2015/-kk/TGMAO-Baselibs-4_0_8
+/ncgen.1/1.1.1.2/Fri Sep 12 15:59:19 2008/-kk/TGMAO-Baselibs-4_0_8
+/ncgen.h/1.1.1.5/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/ncgen.l/1.1.1.4/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/ncgen.y/1.1.1.2/Fri Sep 12 15:59:20 2008/-kk/TGMAO-Baselibs-4_0_8
+/ncgentab.c/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/ncgentab.h/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/ncgenyy.c/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/test0.cdl/1.1.1.1/Wed Jul 25 13:03:16 2007/-kk/TGMAO-Baselibs-4_0_8
+/testncgen.sh.in/1.1.1.1/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+D

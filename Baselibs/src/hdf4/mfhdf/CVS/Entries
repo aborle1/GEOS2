@@ -1,0 +1,21 @@
+/CMakeLists.txt/1.1.1.4/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/COPYRIGHT/1.1.1.2/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+/FAQ/1.1.1.1/Wed Jul 25 13:02:24 2007/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.am/1.1.1.3/Thu Apr  3 18:06:43 2014/-kk/TGMAO-Baselibs-4_0_8
+/Makefile.in/1.1.1.7/Mon Aug  8 13:21:15 2016/-kk/TGMAO-Baselibs-4_0_8
+/README/1.1.1.2/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+/THANKS/1.1.1.2/Wed Dec 15 17:31:16 2010/-kk/TGMAO-Baselibs-4_0_8
+/build.bat/1.1.1.1/Wed Jul 25 13:02:24 2007/-kk/TGMAO-Baselibs-4_0_8
+D/dumper////
+D/examples////
+D/fortran////
+D/hdfimport////
+D/hdiff////
+D/hrepack////
+D/libsrc////
+D/ncdump////
+D/ncgen////
+D/nctest////
+D/test////
+D/util////
+D/xdr////

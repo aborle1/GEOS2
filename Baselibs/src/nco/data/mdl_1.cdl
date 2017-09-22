@@ -1,0 +1,113 @@
+// -*-C++-*-
+// Generate netCDF file with:
+// ncgen -k netCDF-4 -b -o ~/nco/data/mdl_1.nc ~/nco/data/mdl_1.cdl
+
+netcdf mdl_1 {
+
+ :Conventions = "CF-1.5";
+
+ group: cesm {
+
+  group: cesm_01 {
+      :Conventions = "CF-1.5";
+      :history = "yada yada yada";
+      :Scenario = "Historical";
+      :Model = "CESM";
+      :Realization = "1";
+
+    dimensions:
+      time=unlimited;
+    variables:
+      float tas1(time);
+    tas1:long_name = "surface air temperature";
+      float tas2(time);
+      double time(time);
+    time:long_name = "time";
+    time:units = "days since 1964-03-12 12:09:00 -9:00"; 
+      float gw(time); //test CF fixed variables (using time as dimension, usually dimension is lat)
+    data:
+      tas1=272.1,272.1,272.1,272.1;
+      tas2=272.1,272.1,272.1,272.1;
+      time=1.,2.,3.,4.;
+      gw=1.,1.,1.,1.;
+ 
+    } // cesm_01
+
+  group: cesm_02 {
+      :Conventions = "CF-1.5";
+      :history = "yada yada yada";
+      :Scenario = "Historical";
+      :Model = "CESM";
+      :Realization = "2";
+      
+    dimensions:
+      time=unlimited;
+    variables:
+      float tas1(time);
+    tas1:long_name = "surface air temperature";
+      float tas2(time);
+      double time(time);
+    time:long_name = "time";
+    time:units = "days since 1964-03-12 12:09:00 -9:00"; 
+      float gw(time);
+    data:
+      tas1=272.2,272.2,272.2,272.2;
+      tas2=272.2,272.2,272.2,272.2;
+      time=1.,2.,3.,4.;
+      gw=2.,2.,2.,2.;
+      
+    } // cesm_02
+    
+  } // cesm
+  
+ group: ecmwf {
+    
+  group: ecmwf_01 {
+      :Conventions = "CF-1.5";
+      :history = "yada yada yada";
+      :Scenario = "Historical";
+      :Model = "ECMWF";
+      :Realization = "1";
+      
+    dimensions:
+      time=unlimited;
+    variables:
+      float tas1(time);
+    tas1:long_name = "surface air temperature";
+      float tas2(time);
+      double time(time);
+    time:long_name = "time";
+    time:units = "days since 1964-03-12 12:09:00 -9:00"; 
+    data:
+      tas1=273.1,273.1,273.1,273.1;
+      tas2=273.1,273.1,273.1,273.1;
+      time=1.,2.,3.,4.;
+      
+    } // ecmwf_01
+    
+  group: ecmwf_02 {
+      :Conventions = "CF-1.5";
+      :history = "yada yada yada";
+      :Scenario = "Historical";
+      :Model = "ECMWF";
+      :Realization = "2";
+      
+    dimensions:
+      time=unlimited;
+    variables:
+      float tas1(time);
+    tas1:long_name = "surface air temperature";
+      float tas2(time);
+      double time(time);
+    time:long_name = "time";
+    time:units = "days since 1964-03-12 12:09:00 -9:00"; 
+    data:
+      tas1=273.2,273.2,273.2,273.2;
+      tas2=273.2,273.2,273.2,273.2;
+      time=1.,2.,3.,4.;
+      
+    } // ecmwf_02
+
+  } // ecmwf
+
+} // root group
