@@ -1,0 +1,23 @@
+
+20151215 AFE: New driving data file created directly from data obtained from Minghua Zhang
+
+Files retrieved from
+
+ftp://atmgcm.msrc.sunysb.edu/pub/trmm/kwjx/surface_kwjx.dat
+ftp://atmgcm.msrc.sunysb.edu/pub/trmm/kwjx/layer_kwjx.dat
+
+via
+
+http://atmgcm.msrc.sunysb.edu/iops.html
+
+on 
+
+2015 10 21
+
+Used converter.arm_kwjx.py to create arm_kwjx.dat.20151215
+
+
+Original driving data is in arm_kwjx.dat.original
+
+
+

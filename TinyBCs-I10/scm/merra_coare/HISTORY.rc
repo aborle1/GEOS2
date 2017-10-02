@@ -1,0 +1,71 @@
+
+EXPID:  armtwp_ice
+EXPDSC: armtwp_ice
+CoresPerNode: 1
+
+COLLECTIONS:
+              'geosscm_surf'
+              'geosscm_multi'
+             ::
+
+  geosscm_surf.template:  '%y4%m2%d2%h2.nc4',
+  geosscm_surf.archive:   '%c/Y%y4/M%m2',
+  geosscm_surf.format:    'CFIO',
+  geosscm_surf.format:    'flat',
+  geosscm_surf.mode:      'time-averaged',
+  geosscm_surf.frequency:  010000,
+  geosscm_surf.duration:   000000,
+  geosscm_surf.ref_time:   000000,
+  geosscm_surf.fields:    'CLDTT'    , 'SOLAR'         , 'CLDTOT',
+                          'CLDLO'    , 'SOLAR'         , 'CLDLOW',
+                          'LWP'      , 'MOIST'         , 'TGLWP',
+                          'TPW'      , 'MOIST'         , 'PRECW',
+                          'THAT'     , 'SURFACE'       , 'TSAIR',
+                          'PS'       , 'DYN'           , 'PS',
+                          'PCU'      , 'MOIST'         , 'PRECC',
+                          'PLS'      , 'MOIST'         , 'PRECL',
+                          'TPREC'    , 'MOIST'         , 'PRECT',
+                          'LHFX'     , 'SURFACE'       , 'LH',
+                          'SH'       , 'SURFACE'       , 
+                          'ZPBL'     , 'TURBULENCE'    , 'PBL',
+                          'RSC'      , 'SOLAR'         , 'FSNTC',
+                          'RSR'      , 'SOLAR'         , 'FSNT',
+                          'OLC'      , 'IRRAD'         , 'FLNTC',
+                          'OLR'      , 'IRRAD'         , 'FLNT',
+                          'RSCS'     , 'SOLAR'         , 'FSNSC',
+                          'RSRS'     , 'SOLAR'         , 'FSNS',
+                          'FLNSC'    , 'IRRAD'         ,
+                          'FLNSA'    , 'IRRAD'         ,
+                          'FLNS'     , 'IRRAD'         ,
+                          ::
+
+  geosscm_multi.template:  '%y4%m2%d2%h2.nc4',
+  geosscm_multi.archive:   '%c/Y%y4/M%m2',
+  geosscm_multi.format:    'CFIO',
+  geosscm_multi.mode:      'time-averaged',
+  geosscm_multi.frequency:  003000,
+  geosscm_multi.duration:   000000,
+  geosscm_multi.ref_time:   233000,
+  geosscm_multi.vscale:      100.0,
+  geosscm_multi.vunit:     'hPa',
+  geosscm_multi.vvars:     'log(PLE)' , 'DYN'          ,
+  geosscm_multi.levels:     1000 975 950 925 900 875 850 825 800 775 750 725 700 650 600 550 500 450 400 350 300 250 200 150 100 70 50,
+  geosscm_multi.fields:   'PL'      , 'DYN'         ,
+                          'T'       , 'DYN'         ,
+                          'TOBS'    , 'DYN'         ,
+                          'QOBS'    , 'DYN'         ,
+                          'Q'       , 'MOIST'       , 'QV',
+                          'QL'      , 'MOIST'       ,
+                          'FCLD'    , 'MOIST'       , 'CLOUD',
+                          'CNV_MFC' , 'MOIST'       , 'MU' ,
+                          'TIT'     , 'PHYSICS'     , 'TDT_TURB',
+                          'TIM'     , 'PHYSICS'     , 'TDT_MOIST',
+                          'RADLW'   , 'RADIATION'   , 'TDT_LW',
+                          'RADSW'   , 'RADIATION'   , 'TDT_SW',
+                          'DTDTDYN' , 'DYN'         , 'TDT_LS',
+                          'QVIT'    , 'PHYSICS'     , 'QDT_TURB',
+                          'DQDT'    , 'MOIST'       , 'QDT_MOIST',
+                          'DQVDTDYN', 'DYN'         , 'QDT_LS',
+                          'DQLDT'   , 'MOIST'       , 'WDT_MOIST',
+                          ::
+

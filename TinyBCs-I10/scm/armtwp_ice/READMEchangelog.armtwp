@@ -1,0 +1,18 @@
+20151215 AFE: driving data file rederived from data files from ARM site
+
+Driving data files 
+
+twp180iopsndglayervarana_v2.1_C3.c1.20060117.000000.dat
+twp180iopsndgsurfcevarana_v2.1_C3.c1.20060117.000000.dat
+
+retrieved in Nov 2015 from
+
+http://iop.archive.arm.gov/arm-iop/0eval-data/xie/scm-forcing/iop_at_twp/TWP-ICE
+
+converter.armtwp_ice.dat used to convert the above into armtwp_ice.dat.20151215
+
+Top level T is much hotter in original, new one is more plausible
+Tskin from surface values used (most likely in original)
+
+armtwp_ice.dat.original was original driving data file
+

@@ -1,0 +1,23 @@
+
+20151215 AFE: rederived driving data from files from Mingua Zhang's site 
+
+Data files processed by converter:
+
+ftp://atmgcm.msrc.sunysb.edu/pub/coare/coare/layer_coare.dat
+ftp://atmgcm.msrc.sunysb.edu/pub/coare/coare/surface_coare.dat
+
+Obtained via
+http://atmgcm.msrc.sunysb.edu/iops.html
+
+on 2015-10-21
+
+Used converter.COARE.py to make TOGA_COARE.dat.20151215
+
+Original driving data in TOGA_COARE.dat.original
+
+23 March 2015
+
+Switched VERTICAL_ADVECTION on in AGCM.rc to deal with unterrestrial temps arising, pending re-examination of driving data
+
+
+
