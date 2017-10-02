@@ -273,7 +273,7 @@ FFLAGS    = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER
 F90FLAGS  = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS)
 
 FPP = /lib/cpp 
-FPPFLAGS = -P $(DC)sys$(ARCH) $(FDEFS) $(FINCS) $(foreach dir,$(INC_MPI), $(I)$(dir))
+FPPFLAGS = -P $(DC)sys$(ARCH) $(FDEFS) $(FINCS) -std=c99 $(foreach dir,$(INC_MPI), $(I)$(dir))
 
 LD = $(FC)
 LDPATH  = -L$(BASELIB) -L$(ESMALIB)

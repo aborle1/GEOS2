@@ -3,7 +3,7 @@
 #
 
 # Make sure ESMADIR is defined
-# -----------------------------
+# ----------------------------
 ifndef ESMADIR
        ESMADIR := $(PWD)/..
 endif

@@ -69,7 +69,7 @@ local_esma_doc local_doc:
 	$(PROTEX) $(PROTEX_FLAGS) *GridComp*.[fF]* > $(ESMADOC)/$(THIS).tex
 
 CPP        := /usr/bin/cpp
-CPPFLAGS   := -P -traditional
+CPPFLAGS   := -P -traditional -std=c99
 CPPDEFS    := -DLINUX
 # if add -Dcoupled, cice will use true sea level tilt;
 # otherwise, tilt terms are computed based on surface currents

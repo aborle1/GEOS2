@@ -473,7 +473,7 @@ ifeq ($(ARCH),Linux)
          #FOPT = $(FOPT3)
          #FOPT = $(FOPT3)  -funroll-loops
          #FOPT = $(FOPT3)  -funroll-loops -ffast-math
-         FOPT = $(FOPT3)  -mtune=powerpc64le -funroll-loops
+         FOPT = $(FOPT3)   -funroll-loops
       endif
       endif
 
@@ -511,7 +511,7 @@ ifeq ($(ARCH),Linux)
       endif
       endif
     
-      LIB_SYS = -ldl -lc -lpthread -lrt -lstdc++
+      LIB_SYS = -ldl -lc -lpthread -lrt -lstdc++ -lblas -llapack
 
   endif
 
@@ -926,7 +926,7 @@ ifeq ($(ARCH),Darwin)
          #FOPT = $(FOPT3)
          #FOPT = $(FOPT3)  -funroll-loops
          #FOPT = $(FOPT3)  -funroll-loops -ffast-math
-         FOPT = $(FOPT3)  -mtune=powerpc64le -funroll-loops
+         FOPT = $(FOPT3)   -funroll-loops
       endif
       endif
 
@@ -984,7 +984,7 @@ ifeq ($(ARCH),Darwin)
          #FOPT = $(FOPT3)
          #FOPT = $(FOPT3)  -funroll-loops
          #FOPT = $(FOPT3)  -funroll-loops -ffast-math
-         FOPT = $(FOPT3)  -mtune=powerpc64le -funroll-loops
+         FOPT = $(FOPT3)   -funroll-loops
       endif
       endif
 
