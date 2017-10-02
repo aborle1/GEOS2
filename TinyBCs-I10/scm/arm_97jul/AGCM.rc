@@ -1,0 +1,201 @@
+
+# Model Resolution and Timestep Parameters
+# ----------------------------------------
+NX: 1
+NY: 1
+
+AGCM_GRIDNAME: XY1x1-C_34N_100W_38N_95W
+OGCM_GRIDNAME: XY1x1-C_34N_100W_38N_95W
+
+AGCM_IM: 1
+AGCM_JM: 1
+AGCM_LM: 72
+
+OGCM_IM: 1
+OGCM_JM: 1
+OGCM_LM: 34
+
+SOLAR_DT: 3600
+IRRAD_DT: 3600
+
+SOLARAvrg: 0
+IRRADAvrg: 0
+
+# AGCM Model Restart Files
+# ------------------------
+DYN_INTERNAL_RESTART_FILE:              datmodyn_internal_rst
+DYN_INTERNAL_RESTART_TYPE:              binary
+DYN_INTERNAL_CHECKPOINT_FILE:           datmodyn_internal_checkpoint
+DYN_INTERNAL_CHECKPOINT_TYPE:           binary
+
+
+#LAKE_INTERNAL_RESTART_FILE:             lake_internal_rst
+#LAKE_INTERNAL_RESTART_TYPE:             binary
+LAKE_INTERNAL_CHECKPOINT_FILE:          lake_internal_checkpoint
+LAKE_INTERNAL_CHECKPOINT_TYPE:          binary
+
+#LANDICE_INTERNAL_RESTART_FILE:          landice_internal_rst
+#LANDICE_INTERNAL_RESTART_TYPE:          binary
+LANDICE_INTERNAL_CHECKPOINT_FILE:       landice_internal_checkpoint
+LANDICE_INTERNAL_CHECKPOINT_TYPE:       binary
+
+CATCH_INTERNAL_RESTART_FILE:            catch_internal_rst
+CATCH_INTERNAL_RESTART_TYPE:            binary
+CATCH_INTERNAL_CHECKPOINT_FILE:         catch_internal_checkpoint
+CATCH_INTERNAL_CHECKPOINT_TYPE:         binary
+
+MOIST_INTERNAL_RESTART_FILE:            moist_internal_rst
+MOIST_INTERNAL_RESTART_TYPE:            binary
+MOIST_INTERNAL_CHECKPOINT_FILE:         moist_internal_checkpoint
+MOIST_INTERNAL_CHECKPOINT_TYPE:         binary
+
+#MOIST_IMPORT_RESTART_FILE:              moist_import_rst
+#MOIST_IMPORT_RESTART_TYPE:              binary
+MOIST_IMPORT_CHECKPOINT_FILE:           moist_import_checkpoint
+MOIST_IMPORT_CHECKPOINT_TYPE:           binary
+
+#SURFACE_IMPORT_RESTART_FILE:            surf_import_rst
+#SURFACE_IMPORT_RESTART_TYPE:            binary
+SURFACE_IMPORT_CHECKPOINT_FILE:         surf_import_checkpoint
+SURFACE_IMPORT_CHECKPOINT_TYPE:         binary
+
+#SOLAR_INTERNAL_RESTART_FILE:            solar_internal_rst
+#SOLAR_INTERNAL_RESTART_TYPE:            binary
+SOLAR_INTERNAL_CHECKPOINT_FILE:         solar_internal_checkpoint
+SOLAR_INTERNAL_CHECKPOINT_TYPE:         binary
+
+#IRRAD_INTERNAL_RESTART_FILE:            irrad_internal_rst
+#IRRAD_INTERNAL_RESTART_TYPE:            binary
+IRRAD_INTERNAL_CHECKPOINT_FILE:         irrad_internal_checkpoint
+IRRAD_INTERNAL_CHECKPOINT_TYPE:         binary
+
+#TURBULENCE_INTERNAL_RESTART_FILE:       turb_internal_rst
+#TURBULENCE_INTERNAL_RESTART_TYPE:       binary
+TURBULENCE_INTERNAL_CHECKPOINT_FILE:    turb_internal_checkpoint
+TURBULENCE_INTERNAL_CHECKPOINT_TYPE:    binary
+
+#TURBULENCE_IMPORT_RESTART_FILE:         turb_import_rst
+#TURBULENCE_IMPORT_RESTART_TYPE:         binary
+TURBULENCE_IMPORT_CHECKPOINT_FILE:      turb_import_checkpoint
+TURBULENCE_IMPORT_CHECKPOINT_TYPE:      binary
+
+#PCHEM_INTERNAL_RESTART_FILE:            pchem_internal_rst
+#PCHEM_INTERNAL_RESTART_TYPE:            binary
+PCHEM_INTERNAL_CHECKPOINT_FILE:         pchem_internal_checkpoint
+PCHEM_INTERNAL_CHECKPOINT_TYPE:         binary
+
+#GOCART_INTERNAL_RESTART_FILE:           gocart_internal_rst
+#GOCART_INTERNAL_RESTART_TYPE:           binary
+#GOCART_INTERNAL_CHECKPOINT_FILE:        gocart_internal_checkpoint
+#GOCART_INTERNAL_CHECKPOINT_TYPE:        binary
+
+#STRATCHEM_INTERNAL_RESTART_FILE:        stratchem_internal_rst
+#STRATCHEM_INTERNAL_RESTART_TYPE:        binary
+#STRATCHEM_INTERNAL_CHECKPOINT_FILE:     stratchem_internal_checkpoint
+#STRATCHEM_INTERNAL_CHECKPOINT_TYPE:     binary
+
+#GMICHEM_INTERNAL_RESTART_FILE:          gmi_internal_rst
+#GMICHEM_INTERNAL_RESTART_TYPE:          binary
+#GMICHEM_INTERNAL_CHECKPOINT_FILE:       gmi_internal_checkpoint
+#GMICHEM_INTERNAL_CHECKPOINT_TYPE:       binary
+
+#SALTWATER_IMPORT_RESTART_FILE:          saltwater_import_rst
+#SALTWATER_IMPORT_RESTART_TYPE:          binary
+SALTWATER_IMPORT_CHECKPOINT_FILE:       saltwater_import_checkpoint
+SALTWATER_IMPORT_CHECKPOINT_TYPE:       binary
+
+#SALTWATER_INTERNAL_RESTART_FILE:        saltwater_internal_rst
+#SALTWATER_INTERNAL_RESTART_TYPE:        binary
+SALTWATER_INTERNAL_CHECKPOINT_FILE:     saltwater_internal_checkpoint
+SALTWATER_INTERNAL_CHECKPOINT_TYPE:     binary
+
+
+# Boundary Datasets
+# -----------------
+TOPO_MEAN_FILE:     topo_dynave.data
+TOPO_GWDVAR_FILE:   topo_gwdvar.data
+TOPO_TRBVAR_FILE:   topo_trbvar.data
+
+LAIGRN_FILE:             laigrn.data
+TILING_FILE:               tile.data
+VISDF_FILE:                visdf.dat
+NIRDF_FILE:                nirdf.dat
+
+VEGDYN_INTERNAL_RESTART_FILE:  vegdyn.data
+VEGDYN_INTERNAL_RESTART_TYPE:  binary
+
+# Datmodyn parameters
+# --------------------------------------------------
+RELAX_TO_OBS:  0.0
+DYNAMICS_TYPE: DATA
+#VERTICAL_ADVECTION: 1
+DYCORE: DATMO
+DRIVER_DATA: arm_97jul
+
+# AeroChem Environment
+# --------------------
+    CHEM_METHOD: PCHEM
+   OX_RELAXTIME: 0.001      # Standard Options:  GCM: 0.001,     DAS: 0.000
+  OX_FRIENDLIES: ANALYSIS   # Standard Options:  GCM: ANALYSIS,  DAS: ANALYSIS:DYNAMICS:TURBULENCE:MOIST
+  CH4_RELAXTIME: 0.001
+  N2O_RELAXTIME: 0.001
+CFC11_RELAXTIME: 0.001
+CFC12_RELAXTIME: 0.001
+HCFC22_RELAXTIME: 0.001
+  H2O_RELAXTIME: 259200.
+     pchem_clim: species.data
+
+# Age-of-Air Parameters
+# ---------------------
+#AOA_FRIENDLIES: DYNAMICS:TURBULENCE:MOIST
+
+
+# For Climatological Aerosols (or non-interactive GOCART)
+# -------------------------------------------------------
+AEROCLIM:    ExtData/g5chem/L72/aero_clm/gfedv2.aero.eta.%y4%m2clm.nc
+AEROCLIMDEL: ExtData/g5chem/L72/aero_clm/gfedv2.del_aero.eta.%y4%m2clm.nc
+AEROCLIMYEAR: 2002
+
+DU_OPTICS: ExtData/g5chem/x/opticsBands_DU.v15_3.nc
+SS_OPTICS: ExtData/g5chem/x/opticsBands_SS.v3_3.nc
+SU_OPTICS: ExtData/g5chem/x/opticsBands_SU.v1_3.nc
+OC_OPTICS: ExtData/g5chem/x/opticsBands_OC.v1_3.nc
+BC_OPTICS: ExtData/g5chem/x/opticsBands_BC.v1_3.nc
+NI_OPTICS: ExtData/g5chem/x/opticsBands_NI.v2_5.nc
+NUM_BANDS: 18
+
+       RATS_PROVIDER: PCHEM   # options: PCHEM, GMICHEM, STRATCHEM (Radiatively active tracers)
+        AERO_PROVIDER: GOCART.data   # options: PCHEM, GOCART 
+ANALYSIS_OX_PROVIDER: PCHEM   # options: PCHEM, GMICHEM, STRATCHEM, GOCART
+
+
+# Flag for real-time forecasts (persisted SST) IS_FCST: 1 (AMIP-Style Default: 0)
+# -------------------------------------------------------------------------------
+    IS_FCST: 0
+OGCM_RUN_DT: 3600
+
+DATA_SST_FILE: sst.data
+DATA_FRT_FILE: fraci.data
+
+KPAR_FILE: SEAWIFS_KPAR_mon_clim.data
+
+
+# GCM/DAS Mode for DATAOCEAN (AMIP-Style) Run
+# -------------------------------------------
+MAX_WATER_DEPTH: 1000
+MIN_WATER_DEPTH: 1000
+
+MIN_SEAICE_DEPTH: 0.07
+MAX_SEAICE_DEPTH: 0.07
+TAU_SIT:          86400
+
+
+# Model Tuning Parameters (DO NOT MODIFY!)
+# ----------------------------------------
+SOLAR_CONSTANT: 1365.
+CO2:           -350.e-6
+TANHRHCRIT: 1
+SCM_TIME_LENGTH: 233
+SCM_NLEVEL: 35
+SCM_DATA_DRIVER: .true.
+pchem_clim_years: 228

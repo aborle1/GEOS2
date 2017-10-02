@@ -1,0 +1,40 @@
+
+EXPID:  scm_For
+EXPDSC: test_of_scm
+CoresPerNode: 1
+
+COLLECTIONS:
+              'geosgcm_surf'
+              'geosgcm_datmo'
+             ::
+
+  geosgcm_surf.template:  '%y4%m2%d2.nc4',
+  geosgcm_surf.archive:   '%c/Y%y4/M%m2',
+  geosgcm_surf.format:    'CFIO',
+  geosgcm_surf.mode:      'time-averaged',
+  geosgcm_surf.frequency:  010000,
+  geosgcm_surf.duration:   000000,
+  geosgcm_surf.ref_time:   233000,
+  geosgcm_surf.fields:    'PHIS'     , 'AGCM' ,
+                          'CN_PRCP'  , 'MOIST'         ,
+                          'LS_PRCP'  , 'MOIST'         ,
+                          'AN_PRCP'  , 'MOIST'         ,
+                          'PCPOBS'   , 'DYN'           ,
+                          'SLRTP'    , 'SOLAR'        , 
+                          'TS'       , 'SURFACE'       ,
+                          ::
+
+
+  geosgcm_datmo.template:  '%y4%m2%d2.nc4',
+  geosgcm_datmo.archive:   '%c/Y%y4/M%m2',
+  geosgcm_datmo.format:    'CFIO',
+  geosgcm_datmo.mode:      'time-averaged',
+  geosgcm_datmo.frequency:  003000,
+  geosgcm_datmo.duration:   000000,
+  geosgcm_datmo.ref_time:   233000,
+  geosgcm_datmo.fields:   'PL'      , 'DYN' ,
+                          'QOBS'    , 'DYN'         ,
+                          'TOBS'    , 'DYN'         ,
+                          'Q'       , 'MOIST'       ,
+                          'T'       , 'DYN'         ,
+                          ::

@@ -1,0 +1,18 @@
+
+/discover/nobackup/aeichman/scm/scminfiles/h3.0/arm_97jul
+
+
+
+20151215 AFE: reconverted driving data from files obtained directly from ARM 
+
+Data files surface_9706.dat and layer_9706.dat obtained in Nov 2015 from 
+
+http://iop.archive.arm.gov/arm-iop-file/1997/sgp/scm-summer/cederwall-scm/scm-forcing/surface_9706.dat
+http://iop.archive.arm.gov/arm-iop-file/1997/sgp/scm-summer/cederwall-scm/scm-forcing/layer_9706.dat
+
+arm_97jul.dat.20151215 is the new driving data file derived from the above using converter.arm97.py
+
+arm_97jul.dat.original is the driving data file used until 20151215
+
+20150613 AFE: - changed driving data Ts (skin temp) from C to K, old version in arm_97jul.dat_Ts_in_C
+
