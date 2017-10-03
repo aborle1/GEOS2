@@ -429,13 +429,13 @@ else
 
    if [[ $ARCH == Darwin ]]
    then
-      COLORDIFF=/Users/mathomp4/macports/bin/colordiff
-      UTIL_DIR=/Users/mathomp4/ModelData
-      PBZIP2=/Users/mathomp4/macports/bin/pbzip2
+      COLORDIFF=/usr/bin
+      UTIL_DIR=$UTIL_DIR/TinyBCs-I10
+      PBZIP2=/usr/bin
    else
-      COLORDIFF=/ford1/share/gmao_SIteam/Utilities/bin/colordiff
-      UTIL_DIR=/ford1/share/gmao_SIteam/ModelData
-      PBZIP2=/ford1/share/gmao_SIteam/Utilities/bin/pbzip2
+      COLORDIFF=/usr/bin
+      UTIL_DIR=$UTIL_DIR/TinyBCs-I10
+      PBZIP2=/usr/bin
    fi
 
 fi
