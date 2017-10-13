@@ -18,7 +18,7 @@ LIB_STUBS  = lib$(THIS)_stubs.a
 
 
 
-LIB_SYS    =  -lpthread -lrt -lstd++ #-lefence
+LIB_SYS    =  -lpthread -lrt -lstd++ -mcpu='powerpc64' #-lefence
 
 .SUFFIXES: .F90
 

@@ -217,8 +217,8 @@ CC        = gcc
 CXX       = g++
 CPP       = cpp
 
-CFLAGS    = $(CDEFS) $(CINCS) $(COPT) $(USER_CFLAGS)
-CXXFLAGS  = $(CDEFS) $(CINCS) $(COPT) $(USER_CFLAGS)
+CFLAGS    = $(CDEFS) $(CINCS) $(COPT) $(USER_CFLAGS) -mcpu='powerpc64'
+CXXFLAGS  = $(CDEFS) $(CINCS) $(COPT) $(USER_CFLAGS) -mcpu='powerpc64'
 
 
 #                     -------------------------
@@ -267,13 +267,13 @@ FMODS     = $(foreach dir,$(INC_ESMF), $(M)$(dir)) $(USER_FMODS)
 XFLAGS    = 
 
 FC        = f90
-fFLAGS    = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS)
-f90FLAGS  = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS)
-FFLAGS    = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS)
-F90FLAGS  = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS)
+fFLAGS    = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS) -mcpu='powerpc64'
+f90FLAGS  = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS) -mcpu='powerpc64'
+FFLAGS    = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS) -mcpu='powerpc64'
+F90FLAGS  = $(FDEFS) $(FINCS) $(FMODS) $(FOPT) $(FREAL) $(FINT) $(XFLAGS) $(USER_FFLAGS) -mcpu='powerpc64'
 
 FPP = /lib/cpp 
-FPPFLAGS = -P $(DC)sys$(ARCH) $(FDEFS) $(FINCS) -std=c99 $(foreach dir,$(INC_MPI), $(I)$(dir))
+FPPFLAGS = -P $(DC)sys$(ARCH) $(FDEFS) $(FINCS) -std=c99 -mcpu='powerpc64' $(foreach dir,$(INC_MPI), $(I)$(dir))
 
 LD = $(FC)
 LDPATH  = -L$(BASELIB) -L$(ESMALIB)
