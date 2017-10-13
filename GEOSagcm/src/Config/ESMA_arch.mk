@@ -511,7 +511,7 @@ ifeq ($(ARCH),Linux)
       endif
       endif
     
-      LIB_SYS = -ldl -lc -lpthread -lrt -lstdc++ -lblas -llapack
+      LIB_SYS = -ldl -lc -lpthread -lrt -lstdc++ -lblas -llapack -mcpu='powerpc64'
 
   endif
 
